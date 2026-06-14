@@ -1,0 +1,439 @@
+curated_id,orb_id,Type,Prompt Text,Intensity_curated,Stage_curated,Tier_manual,focus_type,target_style,target_method,interaction_level,energy_type,cooldown_group,target_gender,min_players,max_players,escalation_weight
+CPL0001,ORB0019,truth,What was your first impression of your partner?,2.0,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0002,ORB0020,truth,What’s something your partner does that you appreciate?,2.0,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0003,ORB0021,truth,What’s a small moment with your partner you still remember?,2.0,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0004,ORB0022,truth,What’s one thing your partner does better than you?,2.0,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0005,ORB0027,dare,Give your partner a warm 10-second hug.,2.0,playful,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0006,ORB0028,dare,Look into your partner’s eyes for 8 seconds.,2.0,playful,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0007,ORB0029,dare,Say one thing you appreciate about your partner.,2.0,playful,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0008,ORB0023,truth,What’s something about your partner’s personality you admire?,2.1,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0009,ORB0024,truth,What’s something that always makes you smile about them?,2.1,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0010,ORB0025,truth,What’s something fun you’d like to do together soon?,2.1,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0011,ORB0026,truth,What’s a quality you hope never changes in your partner?,2.1,playful,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0012,ORB0032,dare,Give your partner a playful compliment.,2.1,playful,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0013,ORB1445,truth,What's one thing your partner does that always makes you smile?,2.6,playful,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0014,ORB1446,dare,Describe your partner using only dessert names.,2.6,playful,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0015,ORB1447,dare,Share your favorite memory with your partner.,2.6,playful,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0016,ORB1450,dare,Tell your partner one thing you love about them every minute for the next 5 minutes.,2.6,playful,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0017,ORB1592,dare,Give your partner a compliment you’ve never said before.,2.6,playful,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0018,ORB1603,dare,Record a voice message singing a love song and send it to your partner.,2.6,playful,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0019,ORB0191,truth,What’s your favorite part of your partner’s body?,3.0,playful,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0020,ORB0358,dare,Try role-playing as your favorite characters.,3.0,playful,explore,single,relative,player_choice,2,playful,dare,any,2,99,2
+CPL0021,ORB0712,dare,Role-play your favorite fantasy with your partner.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0022,ORB0726,dare,Share your favorite sex scene from a movie with your partner.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0023,ORB0749,dare,Share your favorite sexual memory with your partner.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0024,ORB0754,dare,Take a picture of your favorite body part and send it to your partner.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0025,ORB0761,dare,Share your favorite sexy song and listen to it together.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0026,ORB0771,dare,Act out your favorite sexual fantasy.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0027,ORB0774,dare,Share your favorite sexual memory.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0028,ORB0806,dare,Reenact your favorite intimate scene from a movie.,3.0,playful,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0029,ORB2008,dare,Share your favorite sexy dream.,3.0,playful,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0030,ORB2048,dare,Dance together to your favorite sexy song.,3.0,playful,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0031,ORB2065,dare,Dance provocatively to your favorite romantic song.,3.0,playful,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0032,ORB1119,truth,Would you lie to your partner to make them feel better?,3.1,personal,soft,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0033,ORB1835,truth,Do you enjoy being teased or do you prefer teasing your partner?,3.5,personal,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0034,ORB0082,truth,"If someone offered you $1,000,000 to break up with your partner, would you take the money or stay together?",4.2,personal,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0035,ORB0299,truth,What cartoon character most reminds you of your partner?,4.2,personal,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0036,ORB1479,truth,"If someone offered you $10 million to break up with your partner, would you do it?",4.2,personal,explore,single,none,none,0,cognitive,truth,any,2,99,1
+CPL0037,ORB1448,dare,Ask your partner what their ideal date would be.,4.5,flirty,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0038,ORB1439,dare,Send a loving text to your partner or crush.,4.5,flirty,soft,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0039,ORB0349,dare,Choose to be a character from a movie and act out a scene.,4.5,personal,explore,single,relative,player_choice,2,playful,dare,any,2,99,2
+CPL0040,ORB1449,dare,Reenact your first date with your partner.,4.5,flirty,explore,single,relative,player_choice,2,playful,dare,any,2,99,2
+CPL0041,ORB0416,dare,Kiss your favorite part of your partner’s body.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0042,ORB2032,dare,Give your partner a passionate kiss with their favorite flavor chapstick.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0043,ORB1909,truth,What's the best way to flirt with your partner?,5.5,flirty,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0044,ORB1963,dare,Compliment each part of your partner’s body.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0045,ORB0348,dare,Send a flirty audio message to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0046,ORB1971,dare,Sit on your partner's lap without touching them.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0047,ORB1982,dare,Send a flirty video to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0048,ORB2001,dare,Send a flirtatious video to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0049,ORB2006,dare,Send a flirty voice message to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0050,ORB2013,dare,Send a flirty text to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0051,ORB2034,dare,Send your partner a flirty postcard while they’re away.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0052,ORB2044,dare,Kiss your partner’s hands seductively.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0053,ORB2047,dare,Send a flirty text to your partner while they are at work.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0054,ORB2054,dare,Send a flirty video message to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0055,ORB2058,dare,"Record a playful, flirty video for your partner.",5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0056,ORB1933,dare,Give your partner a lap dance.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0057,ORB1951,dare,Suck on your partner's fingers seductively.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0058,ORB1953,dare,Plan a surprise sexy date night.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0059,ORB1966,dare,Send your partner a sexy photo while they're away.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0060,ORB1998,dare,Send your partner a sexy message while they are at work.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0061,ORB2005,dare,Send your partner a sexy video message.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0062,ORB2020,dare,Send a sexy picture to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0063,ORB2021,dare,Perform a lap dance for your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0064,ORB2045,dare,Send a sexy love letter to your partner.,5.5,flirty,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0065,ORB0665,dare,Send a sexy message to your partner in public.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0066,ORB0674,dare,Send a sexy video to your partner.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0067,ORB0684,dare,Play a sexy version of hide and seek.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0068,ORB0686,dare,Give your partner a sexy nickname.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0069,ORB0718,dare,Send your partner a sexy text while they are in the same room as you.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0070,ORB0723,dare,Dance with your partner in the nude.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0071,ORB0725,dare,Lip-sync to a sexy song while performing a striptease.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0072,ORB0737,dare,Play a sexy scavenger hunt around the house.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0073,ORB0741,dare,Make eye contact while passionately making out.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0074,ORB0781,dare,Role-play a sexy scenario with your partner.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0075,ORB0811,dare,Give your partner a seductive massage with warm oils.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0076,ORB0823,dare,Slow dance naked with your partner.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0077,ORB0871,dare,Record a sexy voice message for your partner.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0078,ORB0872,dare,Share a sexy memory from your past.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0079,ORB0685,dare,Whisper sexy compliments to your partner.,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0080,ORB0814,dare,Dress up in sexy lingerie,5.5,flirty,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0081,ORB0030,dare,Hold hands until the next round begins.,6.5,intimate,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0082,ORB0033,dare,Rest your head on your partner’s shoulder for a moment.,6.5,intimate,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0083,ORB0031,dare,Whisper something kind to your partner.,6.5,intimate,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0084,ORB0034,dare,Give your partner a quick cheek kiss.,6.5,intimate,explore,single,relative,player_choice,2,playful,dare,any,2,99,1
+CPL0085,ORB1957,dare,Write a dirty message on your partner's mirror with lipstick.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0086,ORB2014,dare,Share your naughtiest dream with your partner.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0087,ORB2018,dare,Share an intimate fantasy.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0088,ORB2038,dare,Write a dirty message and leave it in your partner’s wallet or bag.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0089,ORB2040,dare,Seduce your partner with a sultry look.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0090,ORB2060,dare,Write an erotic fantasy and share it with your partner.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0091,ORB1999,dare,Make out passionately like it’s your first time together.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0092,ORB2003,dare,Spend the day without wearing underwear.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0093,ORB2004,dare,Spend the night in just your underwear.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0094,ORB2022,dare,Surprise your partner with breakfast in bed while wearing lingerie.,6.5,suggestive,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0095,ORB0353,dare,Go skinny dipping.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0096,ORB0646,dare,Make out with your partner for five minutes straight.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0097,ORB0683,dare,Perform a sensual dance while wearing nothing but lingerie.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0098,ORB0731,dare,Walk around the house in just your underwear.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0099,ORB0748,dare,Whisper your naughtiest thoughts to your partner.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0100,ORB0767,dare,Spend a day without wearing underwear.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0101,ORB0768,dare,Make out for five full minutes.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0102,ORB0783,dare,Make out passionately for ten minutes.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0103,ORB0827,dare,Share your most intimate fantasy and make it come true.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0104,ORB0837,dare,Spend an even exploring your partner’s erogenous zones.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0105,ORB0874,dare,Act out a role-play scenario involving a forbidden fantasy.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0106,ORB0643,dare,Share a sexual fantasy with your partner and show one person of the group.,6.5,suggestive,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0107,ORB0218,truth,Do you enjoy getting massages from your partner?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0108,ORB0314,truth,"On a scale of one to ten, how would you rate your partner's kissing skills?",7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0109,ORB0330,dare,Send a naughty text to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0110,ORB0331,dare,Send a sensual voice note to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0111,ORB0332,dare,Write a naughty note and slip it into your partner's pocket.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0112,ORB0337,dare,Nibble on your partner's ear.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0113,ORB0339,dare,Write an erotic poem for your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0114,ORB0340,dare,Create a sensual playlist and listen to it together.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0115,ORB0341,dare,Try a role-play scenario where you are strangers meeting for the first time.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0116,ORB0342,dare,Let your partner choose your outfit for the evening.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0117,ORB0347,dare,Let your partner take control for the entire night.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0118,ORB0356,dare,Try a role-playing scenario you’ve never done before.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0119,ORB0359,dare,Take a sensual bath with your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0120,ORB1127,dare,Try role-playing with your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0121,ORB1131,dare,Try using a feather to tickle and tease your partner’s body.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0122,ORB1189,truth,What body part of your partner do you like the most?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0123,ORB1550,dare,Eat a grape from your wife's mouth.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0124,ORB1569,dare,Give an erotic message to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0125,ORB1570,dare,Guess which part of your partner’s body you are touching while being blindfolded.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0126,ORB1574,dare,Touch your partner’s waist slowly.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0127,ORB1726,truth,Do you ever watch porn together with your partner?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0128,ORB1812,truth,Do you enjoy swapping fantasies with your partner?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0129,ORB1870,truth,Do you enjoy sharing intimate moments with your partner in public?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0130,ORB1877,truth,Do you enjoy exploring each other's bodies with your partner?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0131,ORB1890,truth,Do you enjoy being intimately close with your partner in public?,7.0,intimate,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0132,ORB1938,dare,Flash your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0133,ORB1939,dare,Send a risque photo to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0134,ORB1945,dare,Write a dirty story about your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0135,ORB1946,dare,Spend the night without touching each other.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0136,ORB1949,dare,Let your partner pick out an outfit for you.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0137,ORB1954,dare,Use a feather to tease your partner's body.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0138,ORB1955,dare,Suck on your partner’s earlobe.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0139,ORB1956,dare,Tie your partner’s hands behind their back and tease them.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0140,ORB1959,dare,Caress your partner’s inner thighs.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0141,ORB1961,dare,Act out an intimate scene from a movie.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0142,ORB1962,dare,Use a silk scarf to tie your partner’s hands.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0143,ORB1965,dare,Send a dirty text to your partner while they are at work.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0144,ORB1968,dare,Record a sensual voice message for your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0145,ORB1969,dare,Write an erotic love letter to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0146,ORB1970,dare,Send a suggestive message using only emojis.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0147,ORB1972,dare,Try role-playing a teacher/student scenario.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0148,ORB1973,dare,Make a list of things you want to try in bed and discuss them with your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0149,ORB1978,dare,Touch yourself while your partner watches.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0150,ORB1979,dare,Spend the next hour only communicating through sensual touching.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0151,ORB1980,dare,Tease each other with a feather.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0152,ORB1981,dare,Make your partner a sensual breakfast and eat it in bed.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0153,ORB1987,dare,Use a silk scarf to blindfold your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0154,ORB1988,dare,Tease your partner until they beg for more.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0155,ORB1989,dare,Spend the next hour only using your mouths to touch each other.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0156,ORB1992,dare,Have a ‘clothing optional’ day in the house.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0157,ORB1996,dare,Put on a blindfold and let your partner touch you wherever they want.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0158,ORB2002,dare,Write down three dirty secrets and share them with your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0159,ORB2007,dare,Spend the day without wearing anything under your clothes.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0160,ORB2009,dare,Make a list of things you want to try in the bedroom.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0161,ORB2016,dare,Send a dirty text to your partner while they’re at work.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0162,ORB2019,dare,Use a feather to tease your partner’s body.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0163,ORB2023,dare,Reinvent an intimate scene from a movie.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0164,ORB2024,dare,Share a dirty secret with your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0165,ORB2027,dare,Write a sensual poem for your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0166,ORB2028,dare,Exchange erotic stories.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0167,ORB2030,dare,Play a sensual game of hide and seek.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0168,ORB2031,dare,Spend the day wearing nothing under your clothes.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0169,ORB2035,dare,Touch each other while watching a romantic movie.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0170,ORB2036,dare,Send a provocative text to your partner while they are out with friends.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0171,ORB2037,dare,Create a sensual bucket list and start checking things off.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0172,ORB2039,dare,Swap dirty stories while lying in bed.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0173,ORB2041,dare,Engage in intimate conversation in public without anyone suspecting.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0174,ORB2042,dare,Tease your partner with light touches while watching TV.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0175,ORB2046,dare,Try a new role-playing scenario.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0176,ORB2050,dare,Write your erotic fantasies and read them to each other.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0177,ORB2051,dare,Create a sensual playlist and listen to it while touching each other.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0178,ORB2052,dare,Send a dirty selfie to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0179,ORB2056,dare,Write a dirty limerick about your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0180,ORB2057,dare,Share your most intimate secret.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0181,ORB2061,dare,Use a soft brush to trace patterns on your partner’s skin.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0182,ORB2063,dare,Spend an evening experimenting with edging techniques.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0183,ORB2064,dare,Write down three new things you want to try in the bedroom.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0184,ORB2067,dare,Send a steamy text to your partner while they are in the same room.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0185,ORB2069,dare,Spend an hour exploring your partner’s body with light touches.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0186,ORB2071,dare,Make a list of new things you want to try in the bedroom and share it with each other.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0187,ORB2072,dare,"Engage in a slow, sensual make-out session.",7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0188,ORB2073,dare,Send a suggestive emoji to the person on your left,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0189,ORB2074,dare,Write a steamy letter to your partner.,7.0,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0190,ORB0333,dare,Kiss every part of your partner's body.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0191,ORB0345,dare,Kiss various parts of your partner’s body without using your hands.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0192,ORB0357,dare,Whisper dirty talk into your partner’s ear in public.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0193,ORB0418,dare,Remove your boyfriend’s shirt only using your teeth.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0194,ORB0419,dare,Kiss your partner’s thighs.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0195,ORB0424,dare,Give your partner a forehead kiss.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0196,ORB0425,dare,Whisper something romantic in your partner’s ear.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0197,ORB1935,dare,Whisper something dirty into your partner's ear.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0198,ORB1950,dare,Whisper something dirty to a player,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0199,ORB1958,dare,Kiss your partner passionately as if it's the last time you'll kiss them.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0200,ORB1960,dare,Kiss your partner’s neck softly.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0201,ORB1967,dare,Kiss your partner's from toes to their lips.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0202,ORB1974,dare,Kiss your partner’s stomach.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0203,ORB1976,dare,Kiss your partner's body without using your hands.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0204,ORB1983,dare,Kiss your partner with ice in your mouth.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0205,ORB1984,dare,Give your partner a passionate kiss and tell them what you want to do to them.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0206,ORB1985,dare,Spend the night kissing and touching without going all the way.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0207,ORB1986,dare,Whisper naughty things in your partner's ear in public.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0208,ORB1990,dare,Kiss your partner passionately for ten minutes.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0209,ORB1991,dare,Kiss your partner's neck softly.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0210,ORB1995,dare,Give your partner a neck massage that turns sensual.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0211,ORB1997,dare,Kiss your partner from head to toe.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0212,ORB2000,dare,Give your partner an intimate body massage.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0213,ORB2011,dare,Take turns giving each other sensual massages.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0214,ORB2012,dare,Kiss every inch of your partner's body.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0215,ORB2017,dare,Give your partner a neck massage.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0216,ORB2026,dare,Kiss your partner’s stomach softly.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0217,ORB2033,dare,Whisper something dirty in your partner's ear while in public.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0218,ORB2043,dare,Give each other sensual wrist massages.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0219,ORB2049,dare,Kiss your partner while they’re blindfolded.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0220,ORB2059,dare,Kiss your partner's neck and whisper dirty words.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0221,ORB2062,dare,"Kiss your partner to music, syncing your movements.",7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0222,ORB2066,dare,Spend an evening whispering your fantasies to each other.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0223,ORB2070,dare,Whisper your wildest fantasies in your partner's ear.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0224,ORB2075,dare,Kiss your partner while standing in a new location.,7.2,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0225,ORB0336,dare,Make your partner moan your name.,7.5,erotic,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0226,ORB1130,dare,Record yourself moaning your partner’s name.,7.5,erotic,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0227,ORB0703,dare,Dance naked to your favorite song.,7.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0228,ORB2015,dare,Whisper your most intimate desires.,7.5,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0229,ORB2055,dare,Whisper your secret desires while at a public event.,7.5,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0230,ORB2068,dare,Try whispering dirty secrets to each other.,7.5,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0231,ORB2076,dare,Spend the evening whispering your most intimate desires to each other.,7.5,intimate,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0232,ORB0360,dare,Spend the night touching each other softly without going all the way.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0233,ORB0672,dare,Blindfold your partner and lead them through an erotic experience.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0234,ORB0678,dare,Whisper your most intimate desires to your partner.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0235,ORB0697,dare,Use a blindfold and let your partner do whatever they want.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0236,ORB0698,dare,Kiss your partner’s entire body while they are blindfolded.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0237,ORB0700,dare,Use a scarf to blindfold your partner and take control.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0238,ORB0715,dare,Try a new erotic massage technique.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0239,ORB0716,dare,Blindfold your partner and surprise them with a new experience.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0240,ORB0738,dare,Whisper your most intimate fantasies to your partner.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0241,ORB0744,dare,Use a silk scarf to tie your partner’s hands behind their back.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0242,ORB0746,dare,Give your partner a sensual massage with scented oils.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0243,ORB0750,dare,Use your tongue to trace patterns on your partner's skin.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0244,ORB0753,dare,Blindfold your partner and surprise them with different sensations.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0245,ORB0762,dare,Use a blindfold and let your partner surprise you.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0246,ORB0777,dare,Caress the person on your right softly all over their body,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0247,ORB0789,dare,Use a voracious tongue to trace patterns on your partner's skin.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0248,ORB0792,dare,Role-play a forbidden scenario.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0249,ORB0798,dare,Use blindfolds and let your partner tease you.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0250,ORB0805,dare,Introduce role play into your sex life.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0251,ORB0809,dare,Use a scarf to blindfold your partner and surprise them.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0252,ORB0832,dare,Take turns giving each other sensual neck kisses.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0253,ORB0834,dare,Trace your partner’s body with your fingertips.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0254,ORB0836,dare,Use hot massage oils for an intimate massage.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0255,ORB0838,dare,Tie each other’s hands behind your back and tease each other.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0256,ORB0839,dare,Use a feather to trace patterns on your partner’s skin.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0257,ORB0840,dare,Kiss your partner’s ears and whisper naughty thoughts.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0258,ORB0841,dare,Take turns blindfolding each other and enjoying the sensations.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0259,ORB0849,dare,Use silk scarves to blindfold your partner during sex.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0260,ORB0853,dare,Try role-playing one of your partner’s fantasies.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0261,ORB0862,dare,"Use massage oils to give each other a relaxing, sensual massage.",7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0262,ORB0865,dare,Use ice to lightly touch and tease your partner's body.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0263,ORB0866,dare,Try a new form of intimate touch you’ve never done before.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0264,ORB0867,dare,Spend the evening exploring each other’s bodies with a blindfold on.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0265,ORB0868,dare,Use your tongue to trace letters or words on your partner's skin.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0266,ORB0870,dare,Let your partner tease you while you’re blindfolded.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0267,ORB0878,dare,Spend an evening experimenting with different types of touches.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0268,ORB0884,dare,Try role-playing as strangers meeting for the first time.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0269,ORB1964,dare,Use your tongue to trace letters on your partner's skin.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0270,ORB1993,dare,Kiss your partner's entire body while they are blindfolded.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0271,ORB0664,dare,Whisper your sexual fantasies to your partner.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0272,ORB0714,dare,Whisper sexual commands to your partner.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0273,ORB0845,dare,Whisper sexual fantasies into your partner’s ear while in public.,7.5,intimate,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0274,ORB1855,truth,Do you enjoy trying new sexual positions with your partner?,7.7,erotic,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0275,ORB1879,truth,Do you enjoy teasing your partner sexually?,7.7,erotic,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0276,ORB2025,dare,Share your sexiest daydream.,8.0,erotic,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0277,ORB2053,dare,Write down your sexual bucket list and share it with each other.,8.0,erotic,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0278,ORB2157,dare,Lick off a chocolate from your partner’s body without using your hands.,8.0,erotic,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0279,ORB1778,truth,Do you like watching your partner undress?,8.4,erotic,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0280,ORB1804,truth,Do you enjoy being undressed by your partner?,8.4,erotic,spicy,single,none,none,0,cognitive,truth,any,2,99,3
+CPL0281,ORB2010,dare,Let your partner handcuff you to the bed.,8.5,taboo,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0282,ORB1977,dare,Experiment with a light spanking.,8.5,taboo,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0283,ORB1994,dare,Lick whipped cream off your partner.,8.5,taboo,spicy,single,relative,player_choice,2,playful,dare,any,2,99,3
+CPL0284,ORB0555,truth,Do you enjoy moaning or hearing your partner moan?,8.5,erotic,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0285,ORB0645,dare,Give your partner a striptease.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0286,ORB0654,dare,Perform oral sex on your partner.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0287,ORB0689,dare,Use whipped cream in your foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0288,ORB0691,dare,Make your partner climax using only your mouth.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0289,ORB0694,dare,Search for and choose a new sex toy together.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0290,ORB0695,dare,Play a game of naked Twister.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0291,ORB0702,dare,Make your partner climax without having sex.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0292,ORB0704,dare,Have a naked pillow fight.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0293,ORB0706,dare,Play a round of naked yoga.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0294,ORB0710,dare,Use honey or syrup during foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0295,ORB0719,dare,Make your partner climax with just your fingers.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0296,ORB0721,dare,Try strip poker.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0297,ORB0730,dare,Perform a strip dance for your partner.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0298,ORB0733,dare,Spend a whole day naked in the house.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0299,ORB0734,dare,Send a naked selfie to your partner while they are away.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0300,ORB0736,dare,Try incorporating sex toys into your foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0301,ORB0747,dare,Try incorporating a new toy into your foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0302,ORB0758,dare,Use whipped cream and chocolate sauce in your foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0303,ORB0773,dare,Take a naked selfie for your partner.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0304,ORB0778,dare,Use whipped cream and chocolate sauce during foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0305,ORB0780,dare,Try a new sex position together.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0306,ORB0818,dare,Perform oral sex in a new and exciting way.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0307,ORB0820,dare,Use honey during foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0308,ORB0825,dare,Try incorporating chocolate syrup during foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0309,ORB0829,dare,Tease each other with remote-controlled sex toys.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0310,ORB0835,dare,Experiment with different temperatures during foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0311,ORB0847,dare,Try new oral techniques on each other.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0312,ORB0851,dare,Use a silk sheet during foreplay to tease your partner’s body.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0313,ORB0857,dare,Use strawberries and chocolate during foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0314,ORB0860,dare,Try a new sex toy together.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0315,ORB0873,dare,Spend the evening playing strip poker.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0316,ORB1948,dare,Try incorporating mutual hand jobs into foreplay.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0317,ORB0682,dare,Moan loudly during sex to turn your partner on.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0318,ORB0688,dare,Let your partner undress you slowly.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0319,ORB0705,dare,"Take turns undressing each other, one item at a time.",8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0320,ORB0735,dare,Use a vibrator during sex.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0321,ORB0760,dare,Undress each other slowly.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0322,ORB0791,dare,Perform an erotic dance while undressing.,8.5,erotic,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0323,ORB2029,dare,Kiss without it leading to sex.,8.6,taboo,spicy,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0324,ORB0350,dare,Make your partner come without using your hands.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0325,ORB0352,dare,Engage in mutual masturbation with your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0326,ORB0354,dare,Have a hot make-out session in the car.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0327,ORB0355,dare,Kiss every part of your partner’s body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0328,ORB0361,dare,Take turns tying each other up and teasing.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0329,ORB0362,dare,Write a dirty poem about your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0330,ORB0484,truth,Do you like watching your partner pleasure themselves?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0331,ORB0507,truth,Have you ever had sex with your partner in front of a mirror?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0332,ORB0583,truth,Do you enjoy surprising your partner with sexual activities?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0333,ORB0587,truth,Do you enjoy exploring new sexual territories with your partner?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0334,ORB0604,truth,Do you enjoy exploring new sexual avenues with your partner?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0335,ORB0610,truth,Do you enjoy sharing your sexual fantasies with your partner?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0336,ORB0617,truth,Do you enjoy exploring your partner’s fantasies during sex?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0337,ORB0625,truth,How would you describe how I taste?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0338,ORB0658,dare,Have sex in a different room of the house.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0339,ORB0659,dare,Use a toy on your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0340,ORB0660,dare,Talk dirty to your partner during sex.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0341,ORB0661,dare,Try mutual masturbation.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0342,ORB0663,dare,Experience a temperature play with ice or hot wax.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0343,ORB0673,dare,Let your partner watch you pleasure yourself.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0344,ORB0675,dare,Have shower sex.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0345,ORB0679,dare,Let your partner be in control for the entire night.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0346,ORB0680,dare,Perform an erotic dance for your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0347,ORB0681,dare,Try having sex in front of a mirror.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0348,ORB0687,dare,Try a new bedroom activity you've never done before.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0349,ORB0690,dare,Have sex in front of an open window.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0350,ORB0693,dare,Pretend you have sex in front of a mirror,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0351,ORB0696,dare,Let your partner paint your body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0352,ORB0699,dare,Let your partner record you while you pleasure yourself.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0353,ORB0701,dare,Have a make-out session right now,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0354,ORB0707,dare,Let your partner sit on your face.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0355,ORB0708,dare,Try a 69 position.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0356,ORB0709,dare,Write down your sexual fantasies and share them out loud.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0357,ORB0711,dare,Kiss your partner's feet.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0358,ORB0713,dare,Have sex in the kitchen.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0359,ORB0717,dare,Spend an evening exploring each other’s bodies.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0360,ORB0720,dare,Have sex outdoors.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0361,ORB0722,dare,Let your partner shave part of your body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0362,ORB0724,dare,Try having sex on the dining table,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0363,ORB0727,dare,Have sex standing up.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0364,ORB0728,dare,Share your sexiest daydream with your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0365,ORB0729,dare,Write down three of your sexual fantasies and share them with your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0366,ORB0732,dare,Use handcuffs during sex.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0367,ORB0739,dare,Make a naughty movie together.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0368,ORB0740,dare,Use whipped cream in unexpected ways on your partner's body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0369,ORB0745,dare,Tease your partner with your mouth until they can’t take it anymore.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0370,ORB0751,dare,Shower with your partner and make it a sensual experience.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0371,ORB0755,dare,Spend the evening exploring each other's bodies.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0372,ORB0756,dare,Try talking dirty to your partner during sex.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0373,ORB0757,dare,Make love in a different room every hour.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0374,ORB0759,dare,Have a make-out session against a wall.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0375,ORB0763,dare,Tease your partner until they can’t take it anymore.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0376,ORB0764,dare,Let your partner surprise you with different sensations.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0377,ORB0765,dare,Draw a heart on your partner’s body with your tongue.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0378,ORB0766,dare,Spend an hour exploring your partner’s body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0379,ORB0769,dare,Use your mouth to pleasure your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0380,ORB0770,dare,Try a new toy in the bedroom.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0381,ORB0772,dare,Have sex in an unusual place.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0382,ORB0775,dare,Use a feather to tease and tickle your partner’s body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0383,ORB0776,dare,Spend the night handcuffed together.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0384,ORB0779,dare,Kiss from head to toe.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0385,ORB0782,dare,Have sex in a new location.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0386,ORB0786,dare,Make love in front of a mirror.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0387,ORB0787,dare,Shower with your partner and make it sensual.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0388,ORB0788,dare,Kiss all over your partner's body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0389,ORB0790,dare,Tease your partner with ice cubes.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0390,ORB0793,dare,Try a new bedroom activity.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0391,ORB0794,dare,Send an intimate video to your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0392,ORB0797,dare,Introduce a new toy into your sex life.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0393,ORB0799,dare,Kiss your partner’s feet.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0394,ORB0800,dare,Make a naughty phone call to your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0395,ORB0801,dare,Allow your partner to control your pleasure.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0396,ORB0802,dare,Tempt your partner until they can’t resist.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0397,ORB0803,dare,Use whipped cream and lick it off each other.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0398,ORB0807,dare,Dance provocatively in front of your partner.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0399,ORB0813,dare,Try mutual masturbation in front of each other.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0400,ORB0815,dare,Let your partner tie you up with silk scarves.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0401,ORB0816,dare,Use whipped cream on each other’s bodies.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0402,ORB0817,dare,Share an erotic story and act it out together.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0403,ORB0819,dare,Have a make-out session with your clothes on.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0404,ORB0821,dare,Try a new intimate position.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0405,ORB0822,dare,Spend an evening trying new kinks or fetishes together.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0406,ORB0826,dare,Tie each other up using soft ropes.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0407,ORB0828,dare,Use feathers to playfully tickle your partner’s body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0408,ORB0830,dare,Kiss your partner all over without using your hands.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0409,ORB0831,dare,Play a game of ‘never have I ever’ with a sexual twist.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0410,ORB0833,dare,Use body paint to decorate each other’s bodies.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0411,ORB0842,dare,Use ice cubes to tease your partner’s sensitive spots.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0412,ORB0843,dare,Play with wax to create gentle heat sensations.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0413,ORB0844,dare,Use flavored lube to enhance your intimate activities.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0414,ORB0848,dare,Kiss each other passionately in front of a mirror.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0415,ORB0850,dare,Try a new position you've never done before.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0416,ORB0852,dare,Spend the evening taking naughty pictures of each other.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0417,ORB0854,dare,Use provocative language during sex.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0418,ORB0855,dare,Take a shower together and wash each other’s bodies.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0419,ORB0856,dare,Spend an evening exploring your partner’s body with your tongue.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0420,ORB0858,dare,Let your partner watch as you pleasure yourself.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0421,ORB0859,dare,Spend an evening experimenting with different kinds of kisses.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0422,ORB0861,dare,Engage in a lengthy make-out session,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0423,ORB0864,dare,Engage in a mutual make-out session without using your hands.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0424,ORB0869,dare,Engage in a passionate make-out session under the covers.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0425,ORB0875,dare,Use whipped cream to create patterns on your partner’s body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0426,ORB0876,dare,Explore each other’s bodies with ice cubes.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0427,ORB0877,dare,Kiss your partner while holding ice cubes in your mouth.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0428,ORB0879,dare,Use flavored lube for a fun and intimate experience.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0429,ORB0880,dare,Let your partner paint your body with chocolate syrup.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0430,ORB0881,dare,Spend an evening experimenting with new ways to use your hands.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0431,ORB0882,dare,Let your partner introduce you to their favorite kink.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0432,ORB0883,dare,Use your mouth to explore your partner’s body.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0433,ORB1843,truth,Do you enjoy sharing fantasies with your partner?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0434,ORB1888,truth,Do you enjoy trying new ways to pleasure your partner?,9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0435,ORB1943,dare,Let your partner tie you up.,9.0,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0436,ORB2098,truth,"What's more important - getting off, or getting your partner off?",9.0,taboo,extreme,single,none,none,0,cognitive,truth,any,2,99,4
+CPL0437,ORB0846,dare,Spend the evening kissing passionately without having sex.,9.6,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4
+CPL0438,ORB0863,dare,Let your partner lick or kiss whipped cream off your body.,9.6,taboo,extreme,single,relative,player_choice,2,playful,dare,any,2,99,4

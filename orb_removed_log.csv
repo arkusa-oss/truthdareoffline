@@ -1,0 +1,40 @@
+orb_id,Prompt Text,stage_v2,reason
+ORB0100,Do a cartwheel.,flirty,silly/immersion-breaking
+ORB0113,Do your best impersonation of a pirate.,flirty,silly/immersion-breaking
+ORB0116,Lick a bar of soap.,suggestive,silly/immersion-breaking
+ORB0121,Do a magic trick.,flirty,silly/immersion-breaking
+ORB0148,Do 30 pushups.,flirty,silly/immersion-breaking
+ORB0150,Act like a baby.,flirty,silly/immersion-breaking
+ORB0160,Eat a spoonful of a condiment of your choice.,flirty,silly/immersion-breaking
+ORB0165,Try to drink a glass of water without using your hands.,flirty,silly/immersion-breaking
+ORB0166,Burp the alphabet.,flirty,silly/immersion-breaking
+ORB0977,Act like a dog for the next round.,playful,silly/immersion-breaking
+ORB0993,Do you believe in aliens?,playful,silly/immersion-breaking
+ORB1060,Eat part of a banana peel.,playful,silly/immersion-breaking
+ORB1068,Act like a chicken until your next turn.,playful,silly/immersion-breaking
+ORB1342,Talk like a robot until your next turn.,playful,silly/immersion-breaking
+ORB1343,Do your best dinosaur impression.,playful,silly/immersion-breaking
+ORB1346,Do your best chicken dance in the middle of the room.,playful,silly/immersion-breaking
+ORB1369,Walk like a penguin until your next turn.,playful,silly/immersion-breaking
+ORB1374,Act like a zombie for the next 5 minutes.,playful,silly/immersion-breaking
+ORB1380,Talk in a robot voice for the next three rounds. Let someone draw on your face with a washable marker.,playful,silly/immersion-breaking
+ORB1419,Pretend to be a superhero for one round.,playful,silly/immersion-breaking
+ORB1632,Chug a carbonated beverage and burp as loudly as possible.,playful,silly/immersion-breaking
+ORB1639,Talk like a pirate for the rest of the game.,playful,silly/immersion-breaking
+ORB1651,"Quack like an angry duck anytime anyone says the word ""you"" or ""your.""",playful,silly/immersion-breaking
+ORB1653,"Call the fourth person on your contact list, make a farting sound, and then hang up.",playful,silly/immersion-breaking
+ORB1678,Talk like a robot for the rest of the game.,playful,silly/immersion-breaking
+ORB0102,Tell a joke.,flirty,too short (<15 chars)
+ORB1050,Eat a leaf.,playful,too short (<15 chars)
+ORB1952,Go commando,intimate,too short (<15 chars)
+ORB0204,Have you ever been to a nude beach?,intimate,generic filler at high intensity
+ORB0206,Have you ever been to a gay bar?,intimate,generic filler at high intensity
+ORB0257,Have you ever been to a sex museum or exhibition?,erotic,generic filler at high intensity
+ORB0264,Have you ever been to a risqué performance or show?,intimate,generic filler at high intensity
+ORB0265,Have you ever been to a nudist colony or event?,intimate,generic filler at high intensity
+ORB0482,Have you ever been to a swingers' party?,taboo,generic filler at high intensity
+ORB1093,Have you ever been to a nude beach or resort?,intimate,generic filler at high intensity
+ORB1718,Have you ever been to a strip club?,intimate,generic filler at high intensity
+ORB1776,Have you ever been to a swinger’s club?,taboo,generic filler at high intensity
+ORB1836,Have you ever been to a risqué party or gathering?,intimate,generic filler at high intensity
+ORB1920,"Have you ever been to a strip club? If not, would you like to?",intimate,generic filler at high intensity

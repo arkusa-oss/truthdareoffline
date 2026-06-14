@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Backups and prewrite snapshots
+*.backup-*.js
+*.prewrite-*
+_archive/
+_rewrite/
+
+# Zips / binaries
+*.zip
+*.xlsx
+*.docx
+*.app/
+
+# Wrangler / Cloudflare
+.wrangler/
+
+# Logs
+/tmp/
+*.log
+
+# Misc
+ziQgutCp
+sim_report.md
+test_report.md
+TEST_SUMMARY.txt

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lyra's Orb</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css?v=17" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+<body class="stage-personal">
+  <div class="app-shell">
+    <div class="ambient-bg"></div>
+
+    <!-- Player cards — rendered in the four corners during gameplay -->
+    <div id="playerCards" class="player-cards" aria-hidden="true"></div>
+
+    <!-- Stage/Heat hidden from players — internal tracking only -->
+    <header class="top-bar" style="display: none;">
+      <div class="status-chip">
+        <span class="status-label">Stage</span>
+        <span id="stageLabel" class="status-value">playful</span>
+      </div>
+
+      <div class="status-chip">
+        <span class="status-label">Heat</span>
+        <span id="heatLabel" class="status-value">10</span>
+      </div>
+    </header>
+
+    <main class="center-stage">
+      <!-- INTRO PAGE 1 — the pitch -->
+      <div id="introOverlay" class="rules-overlay intro-overlay">
+        <div class="rules-card intro-card">
+          <div class="rules-kicker">Lyra&#8217;s Orb</div>
+          <h2 class="rules-title">An adult Truth or Dare game for brave friends, curious couples, and anyone who wants tonight to matter.</h2>
+
+          <p class="rules-intro">
+            Lyra&#8217;s Orb isn&#8217;t a stack of cards. It&#8217;s a game that <em>learns</em> you.
+            An orb from a far-away place has come to study the most fascinating thing about humans &#8212; desire.
+            She asks questions. She sets dares. She remembers what you tell her. And the more you play,
+            the more she threads your answers back into the night as personal, escalating challenges.
+          </p>
+
+          <div class="intro-section">
+            <div class="intro-section-title">Two ways to play</div>
+            <p class="intro-section-body">
+              <strong>Group Mode</strong> &#8212; 3 or more players. Lyra rotates the spotlight, pairs people up,
+              and builds tension across the room. Best with 3&#8211;6 friends who already like each other.<br><br>
+              <strong>Couple Mode</strong> &#8212; just the two of you. Lyra guides you through self-discovery,
+              humor, and new ways to be intimate &#8212; things you haven&#8217;t tried, conversations you haven&#8217;t had,
+              touch you haven&#8217;t explored. Not a recap of your relationship &#8212; a deepening of it.
+              Add exactly two players and Lyra switches to Couple Mode automatically.
+            </p>
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">How a night unfolds</div>
+            <p class="intro-section-body">
+              The game moves through <strong>seven stages</strong>, from personal to playful to flirty,
+              then suggestive, intimate, erotic, and finally taboo. Each stage deepens the intensity &#8212;
+              you pick a music vibe that matches your crowd, the lights should dim,
+              and Lyra becomes more daring. You choose how far you go.
+            </p>
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">Who it&#8217;s for</div>
+            <p class="intro-section-body">
+              Adults (18+) who are comfortable with grown-up content.
+              A group of 3&#8211;6 friends who already like each other and are ready to push some boundaries.
+              Or a couple who want to discover new sides of themselves and each other &#8212;
+              not rehash what they already know, but explore what they haven&#8217;t tried.
+              The game is at its best with people willing to be honest and a little brave.
+            </p>
+          </div>
+
+          <button id="introContinueBtn" type="button" class="rules-enter-btn">Continue</button>
+        </div>
+      </div>
+
+      <!-- INTRO PAGE 2 — the prep checklist -->
+      <div id="introOverlay2" class="rules-overlay intro-overlay is-hidden">
+        <div class="rules-card intro-card">
+          <div class="rules-kicker">Before you play</div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">What the host needs ready</div>
+            <div class="intro-checklist">
+              <div class="intro-check">A comfortable, private space &#8212; couches, cushions, low light, no interruptions.</div>
+              <div class="intro-check">Drinks for everyone. Lyra loves a toast, and refusals sometimes cost a shot.</div>
+              <div class="intro-check">A speaker or phone for music. You pick a vibe &#8212; Latin, R&amp;B, Pop, or Lo-fi &#8212; and Lyra handles the rest.</div>
+              <div class="intro-check">A blindfold (a scarf works), ice cubes, and something sweet to share &#8212; optional but rewarding.</div>
+              <div class="intro-check">A phone or tablet running Lyra&#8217;s Orb on a visible surface so the orb becomes the fourth player at the table.</div>
+              <div class="intro-check">Agreement, before pressing Play, that <strong>stop always means stop</strong>. Bravery, never cruelty.</div>
+            </div>
+          </div>
+
+          <div class="intro-section">
+            <div class="intro-section-title">The music matters</div>
+            <p class="intro-section-body">
+              Every stage has its own soundtrack that matches the mood &#8212; upbeat and social at the start,
+              slow and intimate by the end. Before you press Start, you pick a <strong>music vibe</strong>:
+              Latin (merengue to bolero to soul), R&amp;B (party jams to quiet storm),
+              Pop/Indie (dance pop to trip hop), or Lo-fi (chill beats to dark ambient).
+              The game crossfades between playlists automatically as the night deepens.
+              Just make sure a speaker is nearby &#8212; Lyra handles the rest.
+            </p>
+          </div>
+
+          <div class="intro-section intro-safety">
+            <div class="intro-section-title">Before you begin</div>
+            <p class="intro-section-body">
+              Everyone at the table is an adult (18+) and everyone is here by choice. Any player can
+              <strong>pass</strong>, <strong>refuse</strong>, or tap out of any prompt without being questioned.
+              Lyra rewards courage, not pressure. What happens in the room stays in the room.
+            </p>
+          </div>
+
+          <button id="introContinueBtn2" type="button" class="rules-enter-btn">Show me the rules</button>
+        </div>
+      </div>
+
+      <!-- RULES OVERLAY — full-page, independent layout -->
+      <div id="rulesOverlay" class="rules-overlay is-hidden">
+        <div class="rules-card">
+          <div class="rules-kicker">Welcome</div>
+          <h2 class="rules-title">I am Lyra. I have traveled far to understand the most fascinating thing about your species — desire.</h2>
+          <p class="rules-intro">Tonight, I will guide you through a journey. It starts light — laughs, confessions, small dares. But as the night unfolds, I will push your boundaries. Slowly. Deliberately. The more you give in... the more I understand.</p>
+          <div class="rules-list">
+            <div class="rules-item"><span class="rules-num">1</span><span>When I call your name, the spotlight is on you. Truth or dare — I decide.</span></div>
+            <div class="rules-item"><span class="rules-num">2</span><span>You can <strong>pass</strong> or <strong>refuse</strong> — but Lyra remembers. And there may be... consequences.</span></div>
+            <div class="rules-item"><span class="rules-num">3</span><span>A shot of courage, a spin of fate — refusal has its price.</span></div>
+            <div class="rules-item"><span class="rules-num">4</span><span>When I say <strong>toast</strong> — everyone raises their glass. No exceptions.</span></div>
+            <div class="rules-item"><span class="rules-num">5</span><span>The game escalates through <strong>7 stages</strong>. How far you go... depends on how brave you are.</span></div>
+            <div class="rules-item"><span class="rules-num">6</span><span>Respect each other. If someone says stop — it stops. Lyra demands courage, not cruelty.</span></div>
+          </div>
+          <p class="rules-closing">Will you let me in?</p>
+          <button id="rulesAcceptBtn" type="button" class="rules-enter-btn">Enter Lyra's Game</button>
+        </div>
+      </div>
+
+      <!-- TOAST OVERLAY — shown at game start and during gameplay -->
+      <!-- TOAST — full-screen Lyra speaks -->
+      <div id="toastOverlay" class="toast-overlay is-hidden">
+        <div class="toast-orb-pulse"></div>
+        <div class="toast-content">
+          <div class="toast-kicker">Lyra speaks</div>
+          <h2 class="toast-title" id="toastTitle">Raise your glasses.</h2>
+          <p class="toast-message" id="toastMessage">Look at the people around you. One of them will surprise you tonight. Drink to three promises: be honest, be brave, be a good sport. Hold back, and I will know. Whatever happens here... stays here.</p>
+          <button id="toastDismissBtn" type="button" class="toast-dismiss-btn">Cheers!</button>
+        </div>
+      </div>
+
+      <!-- COSMIC HYPNOSIS OVERLAY -->
+      <div id="hypnosisOverlay" class="hypnosis-overlay is-hidden">
+        <canvas id="hypnosisCanvas" class="hypnosis-canvas"></canvas>
+        <div id="hypnosisText" class="hypnosis-text"></div>
+      </div>
+
+      <div id="setupOverlay" class="setup-overlay is-hidden">
+        <div class="setup-card">
+          <div class="setup-kicker">LYRA awakens</div>
+          <h2 class="setup-title">Who is playing tonight?</h2>
+
+          <div class="setup-form">
+            <div class="setup-field">
+              <label for="playerNameInput">Name</label>
+              <input
+                id="playerNameInput"
+                type="text"
+                placeholder="Enter player name"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="setup-field">
+              <label for="playerGenderInput">Gender</label>
+              <select id="playerGenderInput">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="setup-field">
+              <label for="playerPartnerInput">Partner (optional)</label>
+              <select id="playerPartnerInput">
+                <option value="">None</option>
+              </select>
+            </div>
+
+            <div class="setup-field">
+              <label for="playerSeducerInput" class="checkbox-label">
+                <input
+                  id="playerSeducerInput"
+                  type="checkbox"
+                  autocomplete="off"
+                />
+                <span>Seducer Role</span>
+              </label>
+            </div>
+
+            <div class="setup-actions">
+              <button id="addPlayerBtn" type="button">+ Add Player</button>
+            </div>
+          </div>
+
+          <div class="setup-mode-indicator" id="setupModeIndicator">
+            <span class="setup-mode-label">Mode:</span>
+            <span class="setup-mode-value" id="setupModeValue">Add players to begin</span>
+          </div>
+
+          <div class="setup-list-wrap">
+            <div class="setup-list-title">Players</div>
+            <div id="setupPlayerList" class="setup-player-list">
+              <div class="setup-player-row">
+                <div class="setup-player-sub">No players added yet.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-field setup-field-wide setup-music-toggle">
+            <label for="musicToggle" class="checkbox-label music-toggle-label">
+              <input id="musicToggle" type="checkbox" checked autocomplete="off" />
+              <span>Enable stage music</span>
+            </label>
+            <div class="setup-music-genre" id="musicGenreWrap">
+              <label for="musicGenreSelect" class="setup-genre-label">Music vibe</label>
+              <div class="setup-genre-options" id="musicGenreOptions">
+                <button type="button" class="genre-chip active" data-theme="latin">
+                  <span class="genre-chip-name">Latin Vibes</span>
+                  <span class="genre-chip-sub">Merengue &rarr; Bolero &rarr; Soul</span>
+                </button>
+                <button type="button" class="genre-chip" data-theme="rnb">
+                  <span class="genre-chip-name">R&B / Soul</span>
+                  <span class="genre-chip-sub">Party R&B &rarr; Slow Jams &rarr; Neo-Soul</span>
+                </button>
+                <button type="button" class="genre-chip" data-theme="pop">
+                  <span class="genre-chip-name">Pop / Indie</span>
+                  <span class="genre-chip-sub">Dance Pop &rarr; Dream Pop &rarr; Trip Hop</span>
+                </button>
+                <button type="button" class="genre-chip" data-theme="lofi">
+                  <span class="genre-chip-name">Lo-fi / Chill</span>
+                  <span class="genre-chip-sub">Chill Beats &rarr; Jazz Hop &rarr; Dark Ambient</span>
+                </button>
+                <!-- Funk & Flow: define playlist data in MUSIC_THEMES before enabling
+                <button type="button" class="genre-chip" data-theme="funkflow">
+                  <span class="genre-chip-name">Funk & Flow</span>
+                  <span class="genre-chip-sub">Funk &rarr; Boom Bap &rarr; Trap Soul</span>
+                </button>
+                -->
+
+              </div>
+            </div>
+            <div class="setup-field-hint">Lyra curates a playlist for each stage. Music plays in the background and crossfades as the game intensifies.</div>
+          </div>
+
+          <div class="setup-footer">
+            <button id="startGameBtn" type="button" class="primary">Start Game</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ornate title -->
+      <div class="orb-title-bar" id="orbTitleBar">
+        <span class="orb-title">Lyra&#8217;s Orb</span>
+      </div>
+
+      <div class="orb-wrap">
+        <div class="orb-stage">
+          <div id="orbNameWheel" class="orb-name-wheel"></div>
+
+          <!-- Stage progress ring — yellow->red arc sweeping as the night deepens -->
+          <div id="orbProgress" class="orb-progress" style="--orb-progress: 0;">
+            <div class="orb-progress-pct" id="orbProgressPct"></div>
+          </div>
+
+          <div id="orbRing" class="orb-ring">
+            <div class="orb-core"></div>
+            <div id="orbInnerGlow" class="orb-inner-glow"></div>
+          </div>
+        </div>
+
+        <div id="playerLabel" class="player-label">Press Next to begin</div>
+      </div>
+
+      <section class="prompt-panel">
+  <div id="promptText" class="prompt-text">Loading prompt database...</div>
+
+  <!-- Dare/Truth card — tag, points, countdown -->
+  <div id="promptCard" class="prompt-card is-hidden">
+    <span class="pcard-tag" id="promptCardTag">Truth</span>
+    <span class="pcard-pts" id="promptCardPts"></span>
+    <span class="pcard-timer is-hidden" id="promptCardTimer">
+      <span class="pcard-timer-ic">&#9201;</span>
+      <span id="promptCardTime">00:30</span>
+    </span>
+  </div>
+
+  <div id="feedbackPanel" class="feedback-panel is-hidden">
+    <button id="yesBtn" type="button" class="feedback-btn">Yes</button>
+    <button id="noBtn" type="button" class="feedback-btn">No</button>
+    <button id="passBtn" type="button" class="feedback-btn">Pass</button>
+  </div>
+
+  <div id="metaText" class="meta-text"></div>
+</section>
+    </main>
+
+    <!-- MUSIC BAR — stage-aware visual indicator + mute toggle -->
+    <div id="musicBar" class="music-bar is-hidden">
+      <span class="music-bar-icon" id="musicBarIcon">&#9835;</span>
+      <span class="music-bar-text">
+        <span class="music-bar-stage" id="musicBarStage">Stage 1 &#183; Merengue</span>
+        <span class="music-bar-sub" id="musicBarSub">Music playing</span>
+      </span>
+      <button id="musicMuteBtn" type="button" class="music-mute-btn" title="Mute/Unmute">&#9834;</button>
+    </div>
+
+    <!-- Hidden YouTube player for background audio -->
+    <div id="ytPlayerWrap" style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;">
+      <div id="ytPlayer"></div>
+    </div>
+
+    <footer class="controls-wrap">
+      <!-- Style selector hidden -->
+      <div class="controls-top" style="display:none;">
+        <label for="typePreference" class="select-label">Style</label>
+        <select id="typePreference" class="orb-select">
+          <option value="mixed">Mixed</option>
+          <option value="truth">Truth</option>
+          <option value="dare">Dare</option>
+        </select>
+      </div>
+
+      <div class="controls">
+        <button id="histPrevBtn" type="button" class="hist-nav-btn" title="Previous prompt">&#9664;</button>
+        <button id="skipBtn" type="button">Skip</button>
+        <button id="nextBtn" type="button" class="primary play-btn">Play</button>
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="histNextBtn" type="button" class="hist-nav-btn" title="Next prompt">&#9654;</button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./prompts_v2.js"></script>
+  <script src="./couples_prompts_v2.js"></script>
+  <script src="./atmosphere.js"></script>
+  <script src="./orb-voice.js"></script>
+  <script src="./ai_orb.js"></script>
+  <!-- engine split into modules; loaded in dependency order -->
+  <script src="./orb-data.js"></script>
+  <script src="./orb-templates.js"></script>
+  <script src="./orb-state.js"></script>
+  <script src="./orb-memory.js"></script>
+  <script src="./orb-engine.js"></script>
+  <script src="./orb-music.js"></script>
+  <script src="./orb-ui.js"></script>
+</body>
+</html>
