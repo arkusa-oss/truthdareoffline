@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lyra's Orb — Help & Troubleshooting</title>
+<meta name="description" content="Setup help and troubleshooting for Lyra's Orb on Mac, Windows, and Linux." />
+<link rel="icon" type="image/png" href="orb.png" />
+
+<style>
+  :root {
+    --bg-0: #0a0416;
+    --bg-1: #16082a;
+    --bg-2: #1f0a3f;
+    --violet: #a870ff;
+    --violet-bright: #d8b4ff;
+    --violet-dim: #6a3db8;
+    --pink: #ff6ec7;
+    --text: #ede0ff;
+    --muted: #a08bc8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: radial-gradient(ellipse at top, var(--bg-2) 0%, var(--bg-1) 40%, var(--bg-0) 100%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    min-height: 100vh;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  a { color: var(--violet-bright); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 32px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .back-link:hover { color: var(--violet-bright); }
+
+  h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 0%, var(--violet-bright) 60%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 48px;
+  }
+
+  /* OS Tab Selector */
+  .os-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid rgba(200, 160, 255, 0.2);
+    padding-bottom: 0;
+  }
+  .os-tab {
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: inherit;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .os-tab:hover { color: var(--text); }
+  .os-tab.active {
+    color: var(--violet-bright);
+    border-bottom-color: var(--violet);
+  }
+
+  .os-section { display: none; }
+  .os-section.active { display: block; }
+
+  /* FAQ Accordion */
+  .faq-item {
+    border: 1px solid rgba(200, 160, 255, 0.15);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: rgba(40, 20, 70, 0.3);
+    backdrop-filter: blur(6px);
+  }
+  .faq-question {
+    width: 100%;
+    padding: 18px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1.4;
+  }
+  .faq-question:hover { background: rgba(200, 160, 255, 0.05); }
+  .faq-arrow {
+    font-size: 0.8rem;
+    color: var(--violet);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(90deg); }
+  .faq-answer {
+    display: none;
+    padding: 0 20px 18px;
+    color: var(--muted);
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+  .faq-item.open .faq-answer { display: block; }
+
+  .step {
+    background: rgba(30, 15, 55, 0.5);
+    border-left: 3px solid var(--violet-dim);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .step strong { color: var(--violet-bright); }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag-common { background: rgba(255, 110, 199, 0.2); color: var(--pink); }
+  .tag-rare { background: rgba(168, 112, 255, 0.2); color: var(--violet-bright); }
+
+  /* General Section */
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 40px 0 16px;
+    color: var(--violet-bright);
+    letter-spacing: 0.02em;
+  }
+
+  .requirements {
+    padding: 20px 24px;
+    background: rgba(40, 20, 70, 0.4);
+    border: 1px solid rgba(200, 160, 255, 0.15);
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+  .requirements p {
+    margin: 6px 0;
+    font-size: 0.92rem;
+  }
+  .requirements strong { color: var(--violet-bright); }
+
+  .tip {
+    padding: 14px 18px;
+    background: rgba(168, 112, 255, 0.1);
+    border: 1px solid rgba(168, 112, 255, 0.25);
+    border-radius: 10px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  footer {
+    border-top: 1px solid rgba(200, 160, 255, 0.1);
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 64px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Back to Lyra's Orb</a>
+
+  <h1>Help & Troubleshooting</h1>
+  <p class="subtitle">Having trouble? Lyra sees your struggle. Here's how to fix it.</p>
+
+  <!-- =========================
+       REQUIREMENTS
+       ========================= -->
+  <div class="section-title">What you need</div>
+  <div class="requirements">
+    <p><strong>Python 3</strong> — Lyra's Orb runs a tiny local web server on your computer. Python 3 powers it. Most Macs and Linux machines already have it. Windows users may need to install it.</p>
+    <p><strong>A modern browser</strong> — Chrome, Firefox, Safari, or Edge. Anything from the last 5 years works.</p>
+    <p><strong>No internet required</strong> — once downloaded, the game runs completely offline. No data leaves your device, ever.</p>
+  </div>
+
+  <!-- =========================
+       OS TABS
+       ========================= -->
+  <div class="os-tabs">
+    <button class="os-tab active" data-os="mac">macOS</button>
+    <button class="os-tab" data-os="win">Windows</button>
+    <button class="os-tab" data-os="linux">Linux</button>
+  </div>
+
+  <!-- =========================
+       macOS
+       ========================= -->
+  <div class="os-section active" id="os-mac">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        "Lyra's Orb" is not opened / cannot be verified <span class="tag tag-common">Common</span>
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>This is macOS Gatekeeper — it blocks apps from unidentified developers. Lyra's Orb is safe, it just isn't signed with an Apple certificate (yet).</p>
+        <p><strong>Fix (Method 1 — fastest):</strong></p>
+        <div class="step"><strong>1.</strong> Click <strong>Done</strong> to dismiss the warning (do NOT click "Move to Trash").</div>
+        <div class="step"><strong>2.</strong> In Finder, <strong>right-click</strong> (or Control-click) on <strong>Lyra's Orb.app</strong>.</div>
+        <div class="step"><strong>3.</strong> Choose <strong>Open</strong> from the context menu.</div>
+        <div class="step"><strong>4.</strong> A warning appears again, but now there's an <strong>Open</strong> button — click it.</div>
+        <div class="step"><strong>5.</strong> Done. The app will open normally from now on.</div>
+
+        <p style="margin-top: 14px;"><strong>Fix (Method 2 — System Settings):</strong></p>
+        <div class="step"><strong>1.</strong> Click <strong>Done</strong> to dismiss the warning.</div>
+        <div class="step"><strong>2.</strong> Open <strong>System Settings</strong> &rarr; <strong>Privacy & Security</strong>.</div>
+        <div class="step"><strong>3.</strong> Scroll down until you see: <em>"Lyra's Orb" was blocked from use because it is not from an identified developer.</em></div>
+        <div class="step"><strong>4.</strong> Click <strong>Open Anyway</strong> &rarr; enter your password &rarr; <strong>Open</strong>.</div>
+
+        <div class="tip">You only need to do this once. After approving, double-clicking or Dock-clicking works forever.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        "Lyra's Orb" is damaged and can't be opened
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>This usually means macOS quarantine flagged the download. Fix it with one Terminal command:</p>
+        <div class="step"><strong>1.</strong> Open <strong>Terminal</strong> (search for it in Spotlight or find it in Applications &rarr; Utilities).</div>
+        <div class="step"><strong>2.</strong> Type: <code style="color: var(--violet-bright);">xattr -cr ~/Downloads/Lyra\'s\ Orb.app</code> and press Enter.</div>
+        <div class="step"><strong>3.</strong> If you extracted the zip somewhere else, replace the path. For example: <code style="color: var(--violet-bright);">xattr -cr /path/to/Lyra\'s\ Orb.app</code></div>
+        <div class="step"><strong>4.</strong> Try opening the app again — it should work.</div>
+        <div class="tip">The <code>xattr -cr</code> command removes the quarantine flag that macOS puts on downloaded files. It doesn't change the app itself.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Python 3 not found
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>The app needs Python 3 to run the local game server. Most Macs already have it. If yours doesn't:</p>
+        <div class="step"><strong>Option A:</strong> Open Terminal and type <code style="color: var(--violet-bright);">python3 --version</code>. If macOS asks you to install the Command Line Tools, click <strong>Install</strong> and wait. Python 3 will be included.</div>
+        <div class="step"><strong>Option B:</strong> Download Python from <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a> — click the big yellow button, install, done.</div>
+        <div class="step"><strong>Option C:</strong> If you use Homebrew: <code style="color: var(--violet-bright);">brew install python3</code></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Nothing happens when I double-click the app
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>The app starts a server and opens your browser. If nothing visible happens:</p>
+        <div class="step"><strong>1.</strong> Wait 5 seconds — it takes a moment for the server to start.</div>
+        <div class="step"><strong>2.</strong> Check your browser — a tab may have opened in the background. Look for a tab with <code>localhost:8765</code>.</div>
+        <div class="step"><strong>3.</strong> Try opening <a href="http://localhost:8765" target="_blank">http://localhost:8765</a> manually in your browser.</div>
+        <div class="step"><strong>4.</strong> If that doesn't work, open Terminal and run: <code style="color: var(--violet-bright);">cd /path/to/game/folder && python3 -m http.server 8765</code> then open <a href="http://localhost:8765" target="_blank">localhost:8765</a> in your browser.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        No sound / Lyra's voice doesn't play
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Lyra speaks using pre-recorded audio clips. If she's silent:</p>
+        <div class="step"><strong>1.</strong> Make sure voice is <strong>enabled</strong> in the game's settings (the toggle on the intro screen).</div>
+        <div class="step"><strong>2.</strong> Click somewhere on the page first — browsers block autoplay audio until the user interacts with the page.</div>
+        <div class="step"><strong>3.</strong> Check your system volume — Lyra respects your Mac's output volume.</div>
+        <div class="step"><strong>4.</strong> Verify the <code>audiofiles/</code> folder is in the same directory as <code>index.html</code>. It should contain files named L01.mp3 through L52.mp3.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        How do I add it to my Dock?
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="step"><strong>1.</strong> Open the app once using the right-click method above (to bypass Gatekeeper).</div>
+        <div class="step"><strong>2.</strong> While it's running, its icon appears in the Dock.</div>
+        <div class="step"><strong>3.</strong> Right-click the Dock icon &rarr; <strong>Options</strong> &rarr; <strong>Keep in Dock</strong>.</div>
+        <div class="step"><strong>4.</strong> Now you can launch Lyra's Orb from the Dock anytime with a single click.</div>
+        <div class="tip">If the Dock shows a generic icon instead of the orb, run <code style="color: var(--violet-bright);">killall Dock</code> in Terminal to refresh the icon cache.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       WINDOWS
+       ========================= -->
+  <div class="os-section" id="os-win">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Windows Defender SmartScreen blocked the app <span class="tag tag-common">Common</span>
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Windows flags .bat files from the internet. Lyra's launcher is a simple script that starts a local server — no malware.</p>
+        <div class="step"><strong>1.</strong> When the blue "Windows protected your PC" dialog appears, click <strong>More info</strong>.</div>
+        <div class="step"><strong>2.</strong> Click <strong>Run anyway</strong>.</div>
+        <div class="step"><strong>3.</strong> The game server starts and your browser opens automatically.</div>
+        <div class="tip">You only see this warning the first time. After that, double-clicking <code>start-lyra.bat</code> works silently.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Python 3 not found
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>The launcher needs Python 3 to serve the game locally.</p>
+        <div class="step"><strong>1.</strong> Download Python from <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a> — click the big yellow button.</div>
+        <div class="step"><strong>2.</strong> During installation, <strong>check the box that says "Add Python to PATH"</strong> — this is critical.</div>
+        <div class="step"><strong>3.</strong> Finish the installation and restart your computer.</div>
+        <div class="step"><strong>4.</strong> Double-click <code>start-lyra.bat</code> again — it should work.</div>
+        <div class="tip">To verify Python is installed, open Command Prompt and type <code style="color: var(--violet-bright);">python --version</code>. You should see something like "Python 3.12.x".</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        A command prompt window flashes and disappears
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>The server starts in a minimized window — check your taskbar for a window called "LyraServer". Your browser should open automatically.</p>
+        <div class="step"><strong>1.</strong> Check if a browser tab opened with <code>localhost:8765</code>.</div>
+        <div class="step"><strong>2.</strong> If not, open your browser and go to <a href="http://localhost:8765" target="_blank">http://localhost:8765</a> manually.</div>
+        <div class="step"><strong>3.</strong> If the page doesn't load, Python might not be on your PATH. Open Command Prompt, type <code style="color: var(--violet-bright);">python --version</code>. If it says "not recognized", reinstall Python and check "Add to PATH".</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Port 8765 is already in use
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Another program is using port 8765, or a previous Lyra session didn't close properly.</p>
+        <div class="step"><strong>1.</strong> Open Command Prompt as Administrator.</div>
+        <div class="step"><strong>2.</strong> Type: <code style="color: var(--violet-bright);">netstat -ano | findstr :8765</code></div>
+        <div class="step"><strong>3.</strong> Note the PID (last number on the line).</div>
+        <div class="step"><strong>4.</strong> Type: <code style="color: var(--violet-bright);">taskkill /PID [that number] /F</code></div>
+        <div class="step"><strong>5.</strong> Try launching again.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        No sound / Lyra's voice doesn't play
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="step"><strong>1.</strong> Make sure voice is <strong>enabled</strong> in the game settings.</div>
+        <div class="step"><strong>2.</strong> Click somewhere on the page first — browsers require a user interaction before playing audio.</div>
+        <div class="step"><strong>3.</strong> Verify the <code>audiofiles\</code> folder sits next to <code>index.html</code> and contains L01.mp3 through L52.mp3.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       LINUX
+       ========================= -->
+  <div class="os-section" id="os-linux">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Permission denied when running start-lyra.sh <span class="tag tag-common">Common</span>
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>The script needs execute permission. This gets lost during zip extraction on some systems.</p>
+        <div class="step"><strong>1.</strong> Open a terminal in the game folder.</div>
+        <div class="step"><strong>2.</strong> Run: <code style="color: var(--violet-bright);">chmod +x start-lyra.sh</code></div>
+        <div class="step"><strong>3.</strong> Then: <code style="color: var(--violet-bright);">./start-lyra.sh</code></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Python 3 not found
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="step"><strong>Ubuntu/Debian:</strong> <code style="color: var(--violet-bright);">sudo apt install python3</code></div>
+        <div class="step"><strong>Fedora:</strong> <code style="color: var(--violet-bright);">sudo dnf install python3</code></div>
+        <div class="step"><strong>Arch:</strong> <code style="color: var(--violet-bright);">sudo pacman -S python</code></div>
+        <div class="tip">Most Linux distributions ship with Python 3 pre-installed. Check with <code>python3 --version</code>.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Browser doesn't open automatically
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <p>The launcher uses <code>xdg-open</code> to open your default browser. If that's not set up:</p>
+        <div class="step">Open any browser and go to <a href="http://localhost:8765" target="_blank">http://localhost:8765</a> manually.</div>
+        <div class="tip">To fix <code>xdg-open</code> for next time: <code style="color: var(--violet-bright);">xdg-settings set default-web-browser firefox.desktop</code> (replace with your browser's .desktop name).</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Port 8765 is already in use
+        <span class="faq-arrow">&#9654;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="step"><strong>1.</strong> Find the process: <code style="color: var(--violet-bright);">lsof -i :8765</code></div>
+        <div class="step"><strong>2.</strong> Kill it: <code style="color: var(--violet-bright);">kill -9 [PID]</code></div>
+        <div class="step"><strong>3.</strong> Or remove the stale pidfile: <code style="color: var(--violet-bright);">rm /tmp/lyrasorb-8765.pid</code></div>
+        <div class="step"><strong>4.</strong> Try launching again.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       GENERAL
+       ========================= -->
+  <div class="section-title">General Questions</div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Does Lyra's Orb collect any data?
+      <span class="faq-arrow">&#9654;</span>
+    </button>
+    <div class="faq-answer">
+      <p><strong>No.</strong> The game runs entirely on your computer. No accounts, no analytics, no server communication. Player memory is stored in your browser's localStorage — on your machine, nowhere else. If you clear your browser data, Lyra forgets.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      How do I make Lyra forget me?
+      <span class="faq-arrow">&#9654;</span>
+    </button>
+    <div class="faq-answer">
+      <p>At the end of each game (when you click Reset), a recap screen appears with a <strong>"Forget me"</strong> button next to each player name, and a <strong>"Forget everyone"</strong> button at the bottom.</p>
+      <p>You can also open your browser's Developer Console (F12 or Cmd+Option+J) and type:</p>
+      <div class="step"><code style="color: var(--violet-bright);">LyraMemory.forgetAll()</code> — wipes all player memory</div>
+      <div class="step"><code style="color: var(--violet-bright);">LyraMemory.forgetPlayer("YourName")</code> — forgets one player</div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Can I play on my phone or tablet?
+      <span class="faq-arrow">&#9654;</span>
+    </button>
+    <div class="faq-answer">
+      <p>Not directly — the game needs a local web server which requires Python. However, if you start the game on a computer, other devices on the same Wi-Fi network can connect by going to your computer's local IP address at port 8765 (e.g., <code>192.168.1.42:8765</code>). One device hosts, everyone else can watch or follow along.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      The music isn't working
+      <span class="faq-arrow">&#9654;</span>
+    </button>
+    <div class="faq-answer">
+      <p>Background music streams from YouTube and requires an internet connection. If you're fully offline, the game works fine — you just won't have background music. Lyra's voice clips still work offline since they're local MP3 files.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      How do I stop the server after playing?
+      <span class="faq-arrow">&#9654;</span>
+    </button>
+    <div class="faq-answer">
+      <p>Just close the browser tab. The server runs in the background and uses almost no resources. It will stop automatically when you restart your computer.</p>
+      <p>To stop it manually:</p>
+      <div class="step"><strong>Mac/Linux:</strong> <code style="color: var(--violet-bright);">kill $(cat /tmp/lyrasorb-8765.pid)</code></div>
+      <div class="step"><strong>Windows:</strong> Find "LyraServer" in the taskbar, right-click, Close.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div>Still stuck? Email <a href="mailto:help@lyrasorb.com">help@lyrasorb.com</a></div>
+  <div style="margin-top: 8px;"><a href="index.html">&larr; Back to Lyra's Orb</a></div>
+</footer>
+
+<script>
+  // OS Tab switching
+  document.querySelectorAll('.os-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.os-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.os-section').forEach(function(s) { s.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('os-' + tab.getAttribute('data-os')).classList.add('active');
+    });
+  });
+
+  // Auto-detect OS and show relevant tab
+  (function() {
+    var ua = (navigator.userAgent || '').toLowerCase();
+    var os = 'mac';
+    if (/win/.test(navigator.platform || '') || /windows/.test(ua)) os = 'win';
+    else if (/linux/.test(ua)) os = 'linux';
+    document.querySelectorAll('.os-tab').forEach(function(t) {
+      t.classList.toggle('active', t.getAttribute('data-os') === os);
+    });
+    document.querySelectorAll('.os-section').forEach(function(s) {
+      s.classList.toggle('active', s.id === 'os-' + os);
+    });
+  })();
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>

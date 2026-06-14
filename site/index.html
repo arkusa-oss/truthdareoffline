@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lyra's Orb — The game that remembers</title>
+<meta name="description" content="An adult Truth or Dare party game with a mysterious AI host who remembers every player, every night." />
+<meta property="og:title" content="Lyra's Orb — The game that remembers" />
+<meta property="og:description" content="Seven stages. One orb. She remembers everything." />
+<meta property="og:image" content="orb.png" />
+<link rel="icon" type="image/png" href="orb.png" />
+
+<style>
+  :root {
+    --bg-0: #0a0416;
+    --bg-1: #16082a;
+    --bg-2: #1f0a3f;
+    --violet: #a870ff;
+    --violet-bright: #d8b4ff;
+    --violet-dim: #6a3db8;
+    --pink: #ff6ec7;
+    --text: #ede0ff;
+    --muted: #a08bc8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: radial-gradient(ellipse at top, var(--bg-2) 0%, var(--bg-1) 40%, var(--bg-0) 100%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Ambient floating orbs in background */
+  .bg-orbs {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  }
+  .bg-orbs::before, .bg-orbs::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+  }
+  .bg-orbs::before {
+    width: 500px; height: 500px;
+    top: -100px; left: -100px;
+    background: radial-gradient(circle, var(--violet) 0%, transparent 70%);
+    animation: float 18s ease-in-out infinite;
+  }
+  .bg-orbs::after {
+    width: 600px; height: 600px;
+    bottom: -150px; right: -150px;
+    background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+    animation: float 22s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(80px, 60px); }
+  }
+
+  .container {
+    position: relative; z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* =========================
+     AGE GATE
+     ========================= */
+  .age-gate {
+    position: fixed; inset: 0;
+    background: rgba(5, 2, 15, 0.97);
+    backdrop-filter: blur(20px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    padding: 24px;
+  }
+  .age-gate.is-hidden { display: none; }
+  .age-gate-card {
+    max-width: 480px;
+    background: linear-gradient(180deg, rgba(40, 20, 70, 0.9), rgba(20, 8, 40, 0.95));
+    border: 1px solid rgba(200, 160, 255, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 80px rgba(140, 80, 220, 0.3);
+  }
+  .age-gate-orb {
+    width: 80px; height: 80px;
+    margin: 0 auto 16px;
+    display: block;
+  }
+  .age-gate h2 {
+    font-size: 1.5rem; margin-bottom: 8px; letter-spacing: 0.03em;
+  }
+  .age-gate p {
+    color: var(--muted); margin-bottom: 24px; font-size: 0.95rem;
+  }
+  .age-gate-btns { display: flex; gap: 12px; justify-content: center; }
+  .age-gate-btns button {
+    flex: 1; padding: 12px 20px;
+    border-radius: 10px; border: 1px solid rgba(200, 160, 255, 0.4);
+    background: linear-gradient(135deg, var(--violet-dim), var(--violet));
+    color: white; font-size: 1rem; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .age-gate-btns button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(168, 112, 255, 0.4);
+  }
+  .age-gate-btns button.secondary {
+    background: transparent; opacity: 0.6;
+  }
+
+  /* =========================
+     HERO
+     ========================= */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 48px;
+  }
+  .hero-orb {
+    width: 140px; height: 140px;
+    margin: 0 auto 32px;
+    filter: drop-shadow(0 0 40px rgba(168, 112, 255, 0.6));
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 40px rgba(168, 112, 255, 0.6)); }
+    50% { transform: scale(1.04); filter: drop-shadow(0 0 60px rgba(216, 180, 255, 0.8)); }
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 0%, var(--violet-bright) 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-tag {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .hero-sub {
+    color: var(--violet-bright);
+    opacity: 0.85;
+    font-size: 0.95rem;
+    margin-bottom: 48px;
+  }
+
+  /* =========================
+     OS PICKER + DOWNLOAD
+     ========================= */
+  .download-section {
+    max-width: 680px;
+    margin: 0 auto 80px;
+    text-align: center;
+  }
+  .os-picker {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .os-btn {
+    padding: 10px 22px;
+    background: rgba(40, 20, 70, 0.5);
+    border: 1px solid rgba(200, 160, 255, 0.2);
+    color: var(--muted);
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .os-btn:hover { border-color: rgba(200, 160, 255, 0.5); color: var(--text); }
+  .os-btn.active {
+    background: linear-gradient(135deg, var(--violet-dim), var(--violet));
+    border-color: var(--violet-bright);
+    color: white;
+    box-shadow: 0 4px 20px rgba(168, 112, 255, 0.35);
+  }
+
+  .download-card {
+    background: linear-gradient(180deg, rgba(40, 20, 70, 0.6), rgba(20, 8, 40, 0.8));
+    border: 1px solid rgba(200, 160, 255, 0.25);
+    border-radius: 20px;
+    padding: 36px 32px;
+    backdrop-filter: blur(10px);
+  }
+  .download-title {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .download-meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+  .download-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    font-family: inherit;
+  }
+  .download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255, 110, 199, 0.35);
+  }
+  .download-btn:disabled {
+    background: rgba(100, 80, 130, 0.4);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .download-divider {
+    margin: 16px 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.7;
+  }
+  .play-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border: 1px solid rgba(200, 160, 255, 0.4);
+    border-radius: 10px;
+    color: var(--violet-bright);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background: transparent;
+  }
+  .play-btn:hover {
+    background: rgba(140, 80, 200, 0.2);
+    border-color: var(--violet-bright);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+  .download-note {
+    margin-top: 18px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* =========================
+     FEATURE STRIP
+     ========================= */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin: 0 auto 96px;
+    max-width: 1000px;
+  }
+  .feature {
+    padding: 28px 24px;
+    background: rgba(40, 20, 70, 0.3);
+    border: 1px solid rgba(200, 160, 255, 0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+  }
+  .feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--violet-bright), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .feature h3 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+    color: var(--violet-bright);
+    font-weight: 500;
+  }
+  .feature p {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  /* =========================
+     PLAYLIST CARD
+     ========================= */
+  .playlist-card {
+    margin-top: 28px;
+    padding: 28px 28px 20px;
+    background: rgba(40, 20, 70, 0.35);
+    border: 1px solid rgba(200, 160, 255, 0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    text-align: left;
+  }
+  .playlist-title {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--violet-bright);
+    margin-bottom: 6px;
+  }
+  .playlist-sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+  .playlist-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 560px) {
+    .playlist-links { grid-template-columns: 1fr; }
+  }
+  .playlist-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: rgba(30, 15, 55, 0.5);
+    border: 1px solid rgba(200, 160, 255, 0.12);
+    border-radius: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .playlist-link:hover {
+    border-color: rgba(200, 160, 255, 0.4);
+    background: rgba(140, 80, 200, 0.15);
+    transform: translateY(-1px);
+  }
+  .playlist-emoji { font-size: 1.3rem; flex-shrink: 0; }
+  .playlist-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-style: italic;
+  }
+
+  /* =========================
+     FOOTER
+     ========================= */
+  footer {
+    border-top: 1px solid rgba(200, 160, 255, 0.1);
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer a {
+    color: var(--violet-bright);
+    text-decoration: none;
+  }
+  footer a:hover { text-decoration: underline; }
+  .footer-warning {
+    color: var(--pink);
+    font-size: 0.78rem;
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient background orbs -->
+<div class="bg-orbs"></div>
+
+<!-- =========================
+     AGE GATE
+     ========================= -->
+<div id="ageGate" class="age-gate">
+  <div class="age-gate-card">
+    <img src="orb.png" alt="" class="age-gate-orb" />
+    <h2>Are you 18 or older?</h2>
+    <p>Lyra's Orb is an adult party game. It contains explicit themes, sexual content, and prompts intended for mature audiences only.</p>
+    <div class="age-gate-btns">
+      <button onclick="leaveSite()" class="secondary">No, I'm not</button>
+      <button onclick="acceptAge()">Yes, I'm 18+</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================
+     HERO
+     ========================= -->
+<div class="container">
+  <section class="hero">
+    <img src="orb.png" alt="Lyra's Orb" class="hero-orb" />
+    <h1>Lyra's Orb</h1>
+    <p class="hero-tag">The game that remembers.</p>
+    <p class="hero-sub">Seven stages. One orb. She sees everything.</p>
+  </section>
+
+  <!-- =========================
+       DOWNLOAD
+       ========================= -->
+  <section class="download-section">
+    <div class="os-picker">
+      <button class="os-btn" data-os="mac">🍎 macOS</button>
+      <button class="os-btn" data-os="win">🪟 Windows</button>
+      <button class="os-btn" data-os="linux">🐧 Linux</button>
+    </div>
+
+    <div class="download-card">
+      <div class="download-title" id="dlTitle">Download for macOS</div>
+      <div class="download-meta" id="dlMeta">macOS 10.12 or later · ~3 MB · Runs locally, no internet needed</div>
+      <a href="#" class="download-btn" id="dlBtn">Download Lyra's Orb</a>
+      <div class="download-divider">or</div>
+      <a href="play/" class="play-btn">Play in browser — no download needed</a>
+      <div class="download-note" id="dlNote">First-time launch: right-click the app and choose Open to bypass Gatekeeper.</div>
+    </div>
+
+    <!-- Recommended playlist -->
+    <div class="playlist-card">
+      <div class="playlist-title">Set the mood</div>
+      <div class="playlist-sub">Lyra recommends playing music in the background. Pick a vibe that fits your night.</div>
+      <div class="playlist-links">
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO" target="_blank" rel="noopener" class="playlist-link">
+          <span class="playlist-emoji">🔥</span>
+          <span>Sensual — Slow burn, R&B, intimate</span>
+        </a>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DXa8NOEUWPn9W" target="_blank" rel="noopener" class="playlist-link">
+          <span class="playlist-emoji">💃</span>
+          <span>Latin Heat — Bachata, reggaeton, salsa</span>
+        </a>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DWYoYGBbGKurt" target="_blank" rel="noopener" class="playlist-link">
+          <span class="playlist-emoji">🌙</span>
+          <span>Chill — Lo-fi, downtempo, late night</span>
+        </a>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DX2vYju3i0lNX" target="_blank" rel="noopener" class="playlist-link">
+          <span class="playlist-emoji">🎶</span>
+          <span>Party — Pop, dance, energy</span>
+        </a>
+      </div>
+      <div class="playlist-note">Open a playlist in Spotify, press play, then start the game. Lyra handles the rest.</div>
+    </div>
+  </section>
+
+  <!-- =========================
+       FEATURES
+       ========================= -->
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">◎</div>
+      <h3>She remembers you</h3>
+      <p>Lyra learns your tendencies — your boldness, your jealousy, who you look at. Come back another night and she picks up where she left off.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⟁</div>
+      <h3>Seven stages</h3>
+      <p>Personal, playful, flirty, suggestive, intimate, erotic, taboo. The orb escalates only as far as you're willing to go.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">♡</div>
+      <h3>Couples or groups</h3>
+      <p>Two players or seven. Solo couples mode tunes every prompt for two. Group mode introduces the seducer role, jealousy arcs, and chemistry tests.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Your data stays yours</h3>
+      <p>Everything runs on your own computer. No account. No servers. No data leaves your device — ever.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+<footer>
+  <div>© <span id="year"></span> Lyra's Orb · Adults only · Play responsibly</div>
+  <div style="margin-top: 8px;">
+    <a href="help.html">Help & Troubleshooting</a> · <a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-warning">Not affiliated with any real-world entity named Lyra. All content is fictional.</div>
+</footer>
+
+<script>
+  // =========================
+  // DOWNLOAD METADATA PER OS
+  // =========================
+  var DOWNLOADS = {
+    mac: {
+      title: "Download for macOS",
+      meta: "macOS 10.12 or later · ~3 MB · Runs locally, no internet needed",
+      href: "downloads/LyrasOrb-mac.zip",
+      note: "First-time launch: right-click the app and choose Open to bypass Gatekeeper. <a href='help.html'>Need help?</a>"
+    },
+    win: {
+      title: "Download for Windows",
+      meta: "Windows 10 or later · ~3 MB · Runs locally, no internet needed",
+      href: "downloads/LyrasOrb-win.zip",
+      note: "Windows Defender may warn the first time — click \"More info\" then \"Run anyway\". <a href='help.html'>Need help?</a>"
+    },
+    linux: {
+      title: "Download for Linux",
+      meta: "Any modern distro · ~3 MB · Requires Python 3",
+      href: "downloads/LyrasOrb-linux.zip",
+      note: "Extract, run chmod +x start-lyra.sh && ./start-lyra.sh — opens your browser automatically. <a href='help.html'>Need help?</a>"
+    }
+  };
+
+  // =========================
+  // OS DETECTION
+  // =========================
+  function detectOS() {
+    var ua = navigator.userAgent || "";
+    var platform = (navigator.platform || "").toLowerCase();
+    if (/mac|darwin|iphone|ipad/.test(ua.toLowerCase()) || platform.indexOf("mac") === 0) return "mac";
+    if (/win/.test(platform) || /windows/i.test(ua)) return "win";
+    if (/linux/.test(platform) || /linux/i.test(ua)) return "linux";
+    return "mac"; // default
+  }
+
+  function selectOS(os) {
+    var d = DOWNLOADS[os];
+    if (!d) return;
+    document.getElementById("dlTitle").textContent = d.title;
+    document.getElementById("dlMeta").textContent = d.meta;
+    document.getElementById("dlNote").textContent = d.note;
+    document.getElementById("dlBtn").setAttribute("href", d.href);
+
+    document.querySelectorAll(".os-btn").forEach(function(b) {
+      b.classList.toggle("active", b.getAttribute("data-os") === os);
+    });
+  }
+
+  // Wire OS picker buttons
+  document.querySelectorAll(".os-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      selectOS(btn.getAttribute("data-os"));
+    });
+  });
+
+  // =========================
+  // AGE GATE
+  // =========================
+  function acceptAge() {
+    try { localStorage.setItem("lyra_age_confirmed", "1"); } catch (e) {}
+    document.getElementById("ageGate").classList.add("is-hidden");
+  }
+  function leaveSite() {
+    window.location.href = "https://www.google.com";
+  }
+
+  // Init on load
+  (function init() {
+    // Skip age gate if already confirmed this device
+    try {
+      if (localStorage.getItem("lyra_age_confirmed") === "1") {
+        document.getElementById("ageGate").classList.add("is-hidden");
+      }
+    } catch (e) {}
+
+    selectOS(detectOS());
+    document.getElementById("year").textContent = new Date().getFullYear();
+  })();
+</script>
+
+</body>
+</html>

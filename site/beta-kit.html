@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyra's Orb — Beta Kit</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0d0a1a; color: #e0d8f0; line-height: 1.7; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 40px 24px; }
+
+  h1 { font-size: 2rem; color: #d4a5ff; margin-bottom: 8px; }
+  h2 { font-size: 1.4rem; color: #c084fc; margin: 48px 0 16px; border-bottom: 1px solid #2a1f4a; padding-bottom: 8px; }
+  h3 { font-size: 1.1rem; color: #a78bfa; margin: 32px 0 12px; }
+  .subtitle { color: #8b7aaa; font-size: 0.95rem; margin-bottom: 40px; }
+
+  /* Tab navigation */
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tab-btn { padding: 10px 20px; border: 1px solid #3b2d6b; border-radius: 8px; background: transparent; color: #a78bfa; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+  .tab-btn:hover { background: #1a1230; }
+  .tab-btn.active { background: #7c3aed; color: white; border-color: #7c3aed; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Email preview */
+  .email-box { background: #ffffff; color: #1a1a2e; border-radius: 12px; padding: 32px; margin: 16px 0; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.7; }
+  .email-box .subject-line { font-size: 0.85rem; color: #666; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+  .email-box .subject-line strong { color: #333; }
+  .email-box p { margin-bottom: 14px; color: #333; }
+  .email-box .cta-btn { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 16px 0; }
+  .email-box .footer-note { font-size: 0.85rem; color: #888; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee; }
+  .email-box a { color: #7c3aed; }
+  .email-box ul { margin: 8px 0 16px 20px; }
+  .email-box li { margin-bottom: 6px; color: #444; }
+  .email-box .signature { margin-top: 20px; color: #555; }
+  .email-box .lyra-header { text-align: center; margin-bottom: 24px; }
+  .email-box .lyra-header h2 { color: #7c3aed; font-size: 1.5rem; margin: 0; border: none; padding: 0; }
+  .email-box .lyra-header p { color: #888; font-size: 0.9rem; font-style: italic; }
+
+  /* Copy button */
+  .copy-wrap { text-align: right; margin-bottom: 8px; }
+  .copy-btn { padding: 8px 16px; background: #7c3aed; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+  .copy-btn:hover { background: #6d28d9; }
+  .copy-btn.copied { background: #059669; }
+
+  /* Form questions */
+  .form-section { background: #1a1230; border: 1px solid #2a1f4a; border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .form-q { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #2a1f4a; }
+  .form-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .form-q .q-num { color: #7c3aed; font-weight: 700; font-size: 0.85rem; }
+  .form-q .q-text { font-weight: 600; color: #d4a5ff; margin: 4px 0; }
+  .form-q .q-type { font-size: 0.8rem; color: #8b7aaa; }
+  .form-q .q-options { margin-top: 6px; padding-left: 16px; font-size: 0.9rem; color: #a0a0c0; }
+
+  .tip-box { background: #1a1230; border-left: 3px solid #7c3aed; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; font-size: 0.9rem; }
+  .tip-box strong { color: #c084fc; }
+
+  .link-box { background: #1a1230; border: 1px dashed #3b2d6b; border-radius: 8px; padding: 16px 20px; margin: 12px 0; font-family: monospace; font-size: 0.95rem; color: #c084fc; word-break: break-all; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Lyra's Orb — Beta Kit</h1>
+<p class="subtitle">Everything you need to invite testers and collect feedback.</p>
+
+<!-- ===== GAME LINK ===== -->
+<h2>Game Link</h2>
+<p>Share this link with your beta testers — no download required:</p>
+<div class="link-box">https://lyrasorb.com/play/</div>
+<p style="margin-top:12px; font-size:0.9rem; color:#8b7aaa;">Players need a laptop or desktop browser. Chrome or Safari recommended. Mobile works but the experience is designed for bigger screens.</p>
+
+<!-- ===== EMAILS ===== -->
+<h2>Beta Invite Emails</h2>
+<p style="margin-bottom:20px;">Three versions depending on your audience. Click "Copy" to grab the text, then paste into Gmail.</p>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('friends')">Close Friends</button>
+  <button class="tab-btn" onclick="showTab('wider')">Wider Circle</button>
+  <button class="tab-btn" onclick="showTab('online')">Online / Bachelorette</button>
+</div>
+
+<!-- ===== EMAIL 1: CLOSE FRIENDS ===== -->
+<div id="tab-friends" class="tab-content active">
+  <div class="copy-wrap"><button class="copy-btn" onclick="copyEmail('email-friends', this)">Copy</button></div>
+  <div class="email-box" id="email-friends">
+    <div class="subject-line"><strong>Subject:</strong> I built a game — need you to break it 🔮</div>
+
+    <p>Hey!</p>
+
+    <p>Remember how I've been working on that Truth or Dare game? It's alive. Her name is Lyra, and she's... intense.</p>
+
+    <p><strong>Lyra's Orb</strong> is a Truth or Dare party game with 7 escalating stages — from innocent icebreakers all the way to... well, you'll see. She picks the prompts, controls the music vibe, and remembers your name for next time. Think of it as a party host who reads the room better than you do.</p>
+
+    <p>I need 3+ people to playtest it together and tell me what works, what's awkward, and what needs to go.</p>
+
+    <p><strong>Play here (no download, no signup):</strong><br>
+    <a href="https://lyrasorb.com/play/">https://lyrasorb.com/play/</a></p>
+
+    <p>After you play, hit me with honest feedback here:<br>
+    <a href="#">[FEEDBACK FORM LINK]</a></p>
+
+    <p>Heads up:</p>
+    <ul>
+      <li>You need a laptop/desktop and 3+ players (or 2 for couples mode)</li>
+      <li>It's an adult game — it escalates. You've been warned 😏</li>
+      <li>Best with drinks and good music (she has playlist suggestions built in)</li>
+      <li>Sessions run 45 min to 2+ hours depending on how deep you go</li>
+    </ul>
+
+    <p>Be brutally honest. If a prompt is cringe, tell me. If the pacing drags, tell me. If something makes the room go silent in a good way — definitely tell me.</p>
+
+    <p class="signature">Thanks for being a guinea pig 🐹<br>— Alvin</p>
+  </div>
+</div>
+
+<!-- ===== EMAIL 2: WIDER CIRCLE ===== -->
+<div id="tab-wider" class="tab-content">
+  <div class="copy-wrap"><button class="copy-btn" onclick="copyEmail('email-wider', this)">Copy</button></div>
+  <div class="email-box" id="email-wider">
+    <div class="subject-line"><strong>Subject:</strong> Beta testers wanted — adult party game (free, browser-based)</div>
+
+    <div class="lyra-header">
+      <h2>Lyra's Orb</h2>
+      <p>She sees everything. She forgets nothing.</p>
+    </div>
+
+    <p>Hi!</p>
+
+    <p>I'm building an adult Truth or Dare party game called <strong>Lyra's Orb</strong>, and I'm looking for groups of friends willing to playtest it and share honest feedback.</p>
+
+    <p><strong>What is it?</strong><br>
+    A browser-based party game where a mysterious AI host named Lyra guides your group through 7 escalating stages of Truth or Dare — from lighthearted icebreakers to increasingly bold and intimate challenges. She adapts to your group's energy: if everyone's having fun and saying "yes," she pushes further. If people pass, she reads the room and adjusts.</p>
+
+    <p><strong>What makes it different?</strong></p>
+    <ul>
+      <li><strong>Real escalation</strong> — 7 stages that build naturally, not random questions from a hat</li>
+      <li><strong>She remembers</strong> — play again and Lyra picks up where she left off</li>
+      <li><strong>Couples or groups</strong> — 2-player couples mode or 3+ group mode with a "seducer" role</li>
+      <li><strong>Music built in</strong> — mood-matched playlists that evolve with the stages</li>
+      <li><strong>100% private</strong> — runs in your browser, nothing stored on any server</li>
+    </ul>
+
+    <p><strong>What I need from you:</strong><br>
+    Gather 2+ friends, open the link on a laptop, play through at least 3-4 stages, and fill out a short feedback form afterward.</p>
+
+    <p><a href="https://lyrasorb.com/play/" style="display:inline-block; padding:14px 32px; background:linear-gradient(135deg,#7c3aed,#a855f7); color:white; text-decoration:none; border-radius:8px; font-weight:600; margin:16px 0;">Play Lyra's Orb</a></p>
+
+    <p><strong>Share your feedback:</strong> <a href="#">[FEEDBACK FORM LINK]</a></p>
+
+    <p><strong>Important notes:</strong> This is an 18+ game that gets progressively more intimate. Every player can pass or refuse any prompt — Lyra respects boundaries. Best experienced with drinks, dimmed lights, and a willingness to be surprised.</p>
+
+    <p class="signature">Thanks for helping shape this!<br>— Alvin<br><a href="mailto:alvin@lyrasorb.com">alvin@lyrasorb.com</a></p>
+  </div>
+</div>
+
+<!-- ===== EMAIL 3: ONLINE / BACHELORETTE ===== -->
+<div id="tab-online" class="tab-content">
+  <div class="copy-wrap"><button class="copy-btn" onclick="copyEmail('email-online', this)">Copy</button></div>
+  <div class="email-box" id="email-online">
+    <div class="subject-line"><strong>Subject:</strong> Free adult party game — perfect for bachelorette nights, game nights, or couples</div>
+
+    <div class="lyra-header">
+      <h2>🔮 Lyra's Orb</h2>
+      <p>Seven stages. One orb. No going back.</p>
+    </div>
+
+    <p>Hey!</p>
+
+    <p>Planning a bachelorette party, couples night, or girls' night in? I built something for you.</p>
+
+    <p><strong>Lyra's Orb</strong> is a free, browser-based Truth or Dare game that actually escalates — from fun icebreakers to heart-racing dares across 7 stages. No apps to download, no accounts to create, no data collected. Just open the link on a laptop and let Lyra take over.</p>
+
+    <p><strong>Why it works for bachelorette parties:</strong></p>
+    <ul>
+      <li>Lyra is your host — mysterious, flirty, and relentless. No awkward "whose turn is it to think of a dare?"</li>
+      <li>The game builds tension naturally over 7 stages — it starts fun and goes exactly as far as your group is willing</li>
+      <li>Everyone can pass any prompt — no pressure, no judgment</li>
+      <li>Built-in mood music suggestions (Spotify playlists matched to each stage)</li>
+      <li>Works for couples (2 players), friend groups (3+), or mixed groups with a "seducer" role</li>
+      <li>One laptop, one browser — everyone plays together in the same room</li>
+    </ul>
+
+    <p><strong>It's currently in beta</strong> — meaning it's free, it's playable, and I'm looking for groups to try it and tell me what they think.</p>
+
+    <p><a href="https://lyrasorb.com/play/" style="display:inline-block; padding:14px 32px; background:linear-gradient(135deg,#7c3aed,#a855f7); color:white; text-decoration:none; border-radius:8px; font-weight:600; margin:16px 0;">Play Lyra's Orb — Free</a></p>
+
+    <p>Played it? I'd love your feedback (takes 3 minutes):<br>
+    <a href="#">[FEEDBACK FORM LINK]</a></p>
+
+    <p class="footer-note"><strong>18+ only.</strong> This game contains adult content that escalates progressively. All data stays in your browser — nothing is sent to any server. Built with love (and a little mischief) by an independent developer.</p>
+
+    <p class="signature">— Alvin @ Lyra's Orb<br><a href="mailto:alvin@lyrasorb.com">alvin@lyrasorb.com</a></p>
+  </div>
+</div>
+
+<!-- ===== GOOGLE FORM ===== -->
+<h2>Google Form — Setup Guide</h2>
+
+<div class="tip-box">
+  <strong>How to create:</strong> Go to <a href="https://forms.google.com" style="color:#c084fc;">forms.google.com</a> → Blank form → Title it "Lyra's Orb — Beta Feedback" → Add the questions below. Responses automatically go to a Google Sheet you can analyze.
+</div>
+
+<h3>Section 1: About Your Session</h3>
+<div class="form-section">
+  <div class="form-q">
+    <span class="q-num">Q1</span>
+    <div class="q-text">How many players were in your session?</div>
+    <div class="q-type">Type: Dropdown</div>
+    <div class="q-options">2 (couples) · 3 · 4 · 5 · 6+</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q2</span>
+    <div class="q-text">What was the context? (Select all that apply)</div>
+    <div class="q-type">Type: Checkboxes</div>
+    <div class="q-options">Date night · Friends hanging out · Pre-game / party warmup · Bachelorette / bachelor party · Game night · Other</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q3</span>
+    <div class="q-text">What's the furthest stage you reached?</div>
+    <div class="q-type">Type: Dropdown</div>
+    <div class="q-options">Personal (1) · Playful (2) · Flirty (3) · Suggestive (4) · Intimate (5) · Erotic (6) · Taboo (7)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q4</span>
+    <div class="q-text">How long did your session last?</div>
+    <div class="q-type">Type: Dropdown</div>
+    <div class="q-options">Under 30 min · 30–60 min · 1–2 hours · Over 2 hours</div>
+  </div>
+</div>
+
+<h3>Section 2: The Experience</h3>
+<div class="form-section">
+  <div class="form-q">
+    <span class="q-num">Q5</span>
+    <div class="q-text">How was the pacing? (1 = too slow, 5 = too fast)</div>
+    <div class="q-type">Type: Linear scale (1–5, center label: "Just right")</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q6</span>
+    <div class="q-text">Did the escalation between stages feel natural?</div>
+    <div class="q-type">Type: Linear scale (1 = Jumped too fast, 5 = Too gradual)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q7</span>
+    <div class="q-text">Were there any prompts that killed the mood or felt out of place?</div>
+    <div class="q-type">Type: Long answer (paragraph)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q8</span>
+    <div class="q-text">Were there any prompts that were a highlight — something that made the room react?</div>
+    <div class="q-type">Type: Long answer (paragraph)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q9</span>
+    <div class="q-text">Did anyone use "Pass" or "Refused" frequently? If so, at which stage did it start?</div>
+    <div class="q-type">Type: Short answer</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q10</span>
+    <div class="q-text">Were there any prompts that were too repetitive?</div>
+    <div class="q-type">Type: Long answer (paragraph)</div>
+  </div>
+</div>
+
+<h3>Section 3: Features & Polish</h3>
+<div class="form-section">
+  <div class="form-q">
+    <span class="q-num">Q11</span>
+    <div class="q-text">How was the visual design? (1 = Ugly, 5 = Beautiful)</div>
+    <div class="q-type">Type: Linear scale (1–5)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q12</span>
+    <div class="q-text">Did you use the music feature?</div>
+    <div class="q-type">Type: Multiple choice</div>
+    <div class="q-options">Yes, loved it · Yes, but turned it off · No, didn't notice it · Used our own music instead</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q13</span>
+    <div class="q-text">Did you notice any bugs or things that didn't work?</div>
+    <div class="q-type">Type: Long answer (paragraph)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q14</span>
+    <div class="q-text">What device / browser did you play on?</div>
+    <div class="q-type">Type: Short answer</div>
+  </div>
+</div>
+
+<h3>Section 4: Would You Play Again?</h3>
+<div class="form-section">
+  <div class="form-q">
+    <span class="q-num">Q15</span>
+    <div class="q-text">How likely are you to play again? (1 = Never, 5 = Definitely)</div>
+    <div class="q-type">Type: Linear scale (1–5)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q16</span>
+    <div class="q-text">How likely are you to recommend it to friends? (1 = Not at all, 5 = Already did)</div>
+    <div class="q-type">Type: Linear scale (1–5)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q17</span>
+    <div class="q-text">Would you pay for this game? If so, what feels fair?</div>
+    <div class="q-type">Type: Multiple choice</div>
+    <div class="q-options">No, should be free · $1–3 one-time · $5–10 one-time · $10–15 one-time · Would pay monthly for new content</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q18</span>
+    <div class="q-text">What's the one thing you'd change or add?</div>
+    <div class="q-type">Type: Long answer (paragraph)</div>
+  </div>
+  <div class="form-q">
+    <span class="q-num">Q19</span>
+    <div class="q-text">Anything else you want to tell us?</div>
+    <div class="q-type">Type: Long answer (paragraph) — optional</div>
+  </div>
+</div>
+
+<div class="tip-box">
+  <strong>Pro tip:</strong> In Google Forms settings, enable "Collect email addresses" so you can follow up with testers who give great feedback. Also turn on "Send respondents a copy of their response" so they have a record.
+</div>
+
+<!-- ===== WHERE TO POST ===== -->
+<h2>Where to Find Beta Testers</h2>
+
+<h3>Bachelorette / Hen Party Communities</h3>
+<div class="form-section">
+  <p style="margin-bottom:12px;"><strong>Reddit:</strong></p>
+  <ul style="padding-left:20px; margin-bottom:16px;">
+    <li>r/bachelorette — bachelorette party planning</li>
+    <li>r/weddingplanning — engaged couples planning events</li>
+    <li>r/AskWomen — "what games do you play at girls' night?"</li>
+    <li>r/TwoXChromosomes — general women's community</li>
+    <li>r/sex — open-minded adults (use the online/bachelorette email tone)</li>
+    <li>r/boardgames or r/partygames — game enthusiasts</li>
+  </ul>
+  <p style="margin-bottom:12px;"><strong>Facebook Groups:</strong></p>
+  <ul style="padding-left:20px; margin-bottom:16px;">
+    <li>Search "bachelorette party ideas" or "hen party games"</li>
+    <li>Search "couples game night"</li>
+    <li>Maid of honor / bridesmaids planning groups</li>
+  </ul>
+  <p style="margin-bottom:12px;"><strong>Other:</strong></p>
+  <ul style="padding-left:20px;">
+    <li>TikTok — short video demoing the game (screen recording + reaction)</li>
+    <li>Instagram stories — "looking for beta testers for an adult party game"</li>
+    <li>Product Hunt — launch as a beta when ready for wider exposure</li>
+  </ul>
+</div>
+
+</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function copyEmail(id, btn) {
+  var el = document.getElementById(id);
+  // Get clean text (strip HTML for email paste)
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  document.execCommand('copy');
+  sel.removeAllRanges();
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+}
+</script>
+</body>
+</html>
