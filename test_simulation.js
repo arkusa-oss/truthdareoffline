@@ -84,9 +84,19 @@ try {
 
 console.log('Loading engine config...');
 try {
-  const engineCode = fs.readFileSync('./engine.js', 'utf8');
-  const engineContext = Object.assign({}, domStubs);
-  vm.runInNewContext(engineCode, engineContext);
+  const engineContext = Object.assign({}, domStubs, { PROMPTS: PROMPTS });
+
+  // Load dependency files into context in order before the engine
+  var depFiles = ['orb-state.js', 'orb-templates.js', 'orb-data.js', 'orb-engine.js'];
+  for (var di = 0; di < depFiles.length; di++) {
+    try {
+      var depCode = fs.readFileSync('./' + depFiles[di], 'utf8');
+      vm.runInNewContext(depCode, engineContext);
+    } catch (depErr) {
+      // non-fatal: some files reference DOM APIs we stub
+    }
+  }
+
   CHAPTER_ORDER = engineContext.CHAPTER_ORDER || ['playful', 'personal', 'flirty', 'suggestive', 'intimate', 'erotic', 'taboo'];
   CHAPTER_CONFIG = engineContext.CHAPTER_CONFIG || {};
   console.log('Loaded', CHAPTER_ORDER.length, 'chapters');
