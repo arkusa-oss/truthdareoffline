@@ -966,7 +966,7 @@ body.setup-open .prompt-panel {
   justify-content: center;
   align-items: center;
   gap: 14px;
-  margin: 20px auto 4px;
+  margin: 0 auto 8px;
   opacity: 1;
   transition: opacity 180ms ease, transform 180ms ease;
 }
