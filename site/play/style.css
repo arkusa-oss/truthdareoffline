@@ -966,15 +966,18 @@ body.setup-open .prompt-panel {
   justify-content: center;
   align-items: center;
   gap: 14px;
-  margin: 0 auto 8px;
+  margin: 0 auto;
   opacity: 1;
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .feedback-panel.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(6px);
+  display: none;
+}
+
+/* When feedback is active, hide Skip/Play row — same footer height */
+.controls-wrap:has(.feedback-panel:not(.is-hidden)) .controls {
+  display: none;
 }
 
 .feedback-btn {
