@@ -1620,7 +1620,15 @@ function injectPromptText(text, player, target) {
           // If preceded by auxiliary verb (did/does/do/will/would/can/could/etc.), don't conjugate
           var pre = (preceding || "").trim().toLowerCase();
           var auxiliaries = { "did":1,"does":1,"do":1,"will":1,"would":1,"can":1,"could":1,"should":1,"shall":1,"may":1,"might":1,"must":1,"didn't":1,"doesn't":1 };
-          if (auxiliaries[pre]) return (preceding || "") + s + " " + verb;
+          if (auxiliaries[pre]) {
+            // "do they" → "does she/he" (aux "do" must also conjugate)
+            var precOut = preceding || "";
+            if (pre === "do") {
+              var wasCapPre = preceding && preceding[0] >= "A" && preceding[0] <= "Z";
+              precOut = wasCapPre ? "Does " : "does ";
+            }
+            return precOut + s + " " + verb;
+          }
           // Common irregular verbs
           var irregulars = { "are": "is", "were": "was", "have": "has", "do": "does", "don't": "doesn't", "aren't": "isn't" };
           if (irregulars[verb]) return (preceding || "") + s + " " + irregulars[verb];
