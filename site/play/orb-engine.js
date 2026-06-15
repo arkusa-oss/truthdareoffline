@@ -1692,7 +1692,7 @@ const SPINNER_POOLS = {
   clothing_hot: [
     { text: "Remove your top (shirt, blouse or whatever's on top)", category: "clothing", item: "top" },
     { text: "Remove your pants, skirt or shorts", category: "clothing", item: "pants" },
-    { text: "Remove your bra (if wearing one)", category: "clothing", item: "bra" },
+    { text: "Remove your bra (if wearing one)", category: "clothing", item: "bra", gender: "female" },
     { text: "Swap an item of clothing with {target}", category: "clothing", item: "swapped item" },
   ],
   dares_flirty: [
@@ -1914,10 +1914,14 @@ function startSpinner(prompt, player, target) {
   var fullPool = getSpinnerPool(pools);
   // Filter out clothing items the player has already removed
   var removed = gameState.memory.clothingRemoved[player] || [];
+  var playerObj = gameState.players.find(function(p) { return p.name === player; });
+  var playerGender = playerObj ? playerObj.gender : "other";
   fullPool = fullPool.filter(function(o) {
     if (o.category === "clothing" && o.item && removed.indexOf(o.item) >= 0) return false;
     // Conditional items: only include if the required item was already removed
     if (o.requires && removed.indexOf(o.requires) < 0) return false;
+    // Gender-restricted items: skip if player gender doesn't match
+    if (o.gender && o.gender !== playerGender) return false;
     return true;
   });
 
