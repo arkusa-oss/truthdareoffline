@@ -143,13 +143,13 @@ var MUSIC_THEMES = {
     description: "Party R&B \u2192 Slow Jams \u2192 Neo-Soul",
     dances: { dance1: "two-step", dance2: "groove", dance_slow: "soul", beat: "R&B groove" },
     stages: {
-      personal:   { genre: "Upbeat R&B",      label: "Stage 1 \u00B7 Upbeat R&B",      sub: "Bruno Mars \u00B7 Doja Cat \u00B7 upbeat 120 BPM",      url: "https://www.youtube.com/playlist?list=PLGBuKfnErZlCkROf7MVZHkFPGbz3PhSfB" },
-      playful:    { genre: "Smooth R&B",      label: "Stage 2 \u00B7 Smooth R&B",      sub: "Usher \u00B7 Beyonc\u00E9 \u00B7 silky 110 BPM",        url: "https://www.youtube.com/playlist?list=PLgzTt0k8mXzEpH_-4z5mTJPsQMbsMRKb0" },
-      flirty:     { genre: "Slow Jams",       label: "Stage 3 \u00B7 Slow Jams",       sub: "TLC \u00B7 Aaliyah \u00B7 90s vibes 90 BPM",             url: "https://www.youtube.com/playlist?list=PLYAYp5PfkEEJM0sBqMSez3EMVAb5d_rFH" },
-      suggestive: { genre: "Classic Soul",    label: "Stage 4 \u00B7 Classic Soul",    sub: "Barry White \u00B7 Marvin Gaye \u00B7 lush 80 BPM",      url: "https://www.youtube.com/playlist?list=PLbU7KZt-z2fDeNrWvDUXC6RfV-7y-eFNU" },
-      intimate:   { genre: "Quiet Storm",     label: "Stage 5 \u00B7 Quiet Storm",     sub: "Luther Vandross \u00B7 Anita Baker \u00B7 tender 75 BPM", url: "https://www.youtube.com/playlist?list=PL194JUQ0Lk48lyxDdYpzDQ9Lx1BSb9U0a" },
-      erotic:     { genre: "Neo-Soul",        label: "Stage 6 \u00B7 Neo-Soul",        sub: "Erykah Badu \u00B7 Lauryn Hill \u00B7 hushed 65 BPM",    url: "https://www.youtube.com/playlist?list=PLa07jJp6whl-ob8NrKPweADTXQTADNvQw" },
-      taboo:      { genre: "Dark R&B",        label: "Stage 7 \u00B7 Dark R&B",        sub: "The Weeknd \u00B7 Frank Ocean \u00B7 James Blake 58 BPM", url: "https://www.youtube.com/playlist?list=PLF4DAA360ADF72D1D" }
+      personal:   { genre: "Upbeat R&B",      label: "Stage 1 \u00B7 Upbeat R&B",      sub: "Fresh R&B \u00B7 party vibes \u00B7 120 BPM",            url: "https://www.youtube.com/playlist?list=PL3-sRm8xAzY_Rr7jgjrVCEy1JnNPuVp0W" },
+      playful:    { genre: "Smooth R&B",      label: "Stage 2 \u00B7 Smooth R&B",      sub: "Best R&B 2026 \u00B7 silky 110 BPM",                    url: "https://www.youtube.com/playlist?list=PLRZlMhcYkA2FGdVe0qFuaCLHgT1EAXOvw" },
+      flirty:     { genre: "Slow Jams",       label: "Stage 3 \u00B7 Slow Jams",       sub: "Quiet storm \u00B7 neo-soul \u00B7 90 BPM",              url: "https://www.youtube.com/playlist?list=PLHUPapYSc2W0-eW1VDEDthB5V4aHIAGF-" },
+      suggestive: { genre: "Classic Soul",    label: "Stage 4 \u00B7 Classic Soul",    sub: "All-time R&B classics \u00B7 lush 80 BPM",              url: "https://www.youtube.com/playlist?list=PLi13rLFLL6Q8h6kbXHkXIKJJn9IX5Qtx5" },
+      intimate:   { genre: "Quiet Storm",     label: "Stage 5 \u00B7 Quiet Storm",     sub: "Late night bedroom R&B \u00B7 75 BPM",                  url: "https://www.youtube.com/playlist?list=PLcId4x0SuhP-uoyvLLoMUTk2NEiAMOXeI" },
+      erotic:     { genre: "Sensual R&B",     label: "Stage 6 \u00B7 Sensual R&B",     sub: "Intimate vibes \u00B7 hushed 65 BPM",                   url: "https://www.youtube.com/playlist?list=PLyORnIW1xT6z85aaukgLkTbzurHQ4HnC0" },
+      taboo:      { genre: "Deep Soul",       label: "Stage 7 \u00B7 Deep Soul",       sub: "Classic R&B deep cuts \u00B7 slow burn 58 BPM",          url: "https://www.youtube.com/playlist?list=RDCLAK5uy_lGEZwG4gR8OEKC55Ofj-bLT0IDkr8b6BY" }
     }
   },
   pop: {
@@ -158,13 +158,13 @@ var MUSIC_THEMES = {
     description: "Dance Pop \u2192 Dream Pop \u2192 Dark Ambient",
     dances: { dance1: "freestyle", dance2: "indie", dance_slow: "reverie", beat: "pop beat" },
     stages: {
-      personal:   { genre: "Dance Pop",       label: "Stage 1 \u00B7 Dance Pop",       sub: "Dua Lipa \u00B7 Harry Styles \u00B7 bright 120 BPM",    url: "https://www.youtube.com/playlist?list=PLxA687tYuMWhkqYjvAGtW_UrT8hEcOnKn" },
-      playful:    { genre: "Indie Pop",       label: "Stage 2 \u00B7 Indie Pop",       sub: "Tame Impala \u00B7 MGMT \u00B7 hazy 110 BPM",            url: "https://www.youtube.com/playlist?list=PLrpyDacBCh7BBaQCB3OPqjJLk8qsPmqf_" },
-      flirty:     { genre: "Dream Pop",       label: "Stage 3 \u00B7 Dream Pop",       sub: "CHVRCHES \u00B7 The 1975 \u00B7 shimmery 95 BPM",        url: "https://www.youtube.com/playlist?list=PLu_lQs7P2s1_KKJptfLfuLOxvmjtaZ0Qq" },
-      suggestive: { genre: "Alt-Pop",         label: "Stage 4 \u00B7 Alt-Pop",         sub: "Billie Eilish \u00B7 Lana Del Rey \u00B7 moody 80 BPM",  url: "https://www.youtube.com/playlist?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf" },
-      intimate:   { genre: "Ambient Pop",     label: "Stage 5 \u00B7 Ambient Pop",     sub: "Bon Iver \u00B7 Cigarettes After Sex 70 BPM",            url: "https://www.youtube.com/playlist?list=PLMEZyDHJojxzL14L-MKGFP5dmp8WIrgEb" },
-      erotic:     { genre: "Dark Pop",        label: "Stage 6 \u00B7 Dark Pop",        sub: "Banks \u00B7 FKA Twigs \u00B7 slow pulse 65 BPM",        url: "https://www.youtube.com/playlist?list=PLdaww8js1XKlvppcYQkY0s35YQHgT9apD" },
-      taboo:      { genre: "Trip Hop",        label: "Stage 7 \u00B7 Trip Hop",        sub: "Massive Attack \u00B7 Portishead \u00B7 Tricky 55 BPM",   url: "https://www.youtube.com/playlist?list=PLyw_Xylne_7rLpOdSlAwKs9VB1a_MIbY9" }
+      personal:   { genre: "Indie Pop",       label: "Stage 1 \u00B7 Indie Pop",       sub: "New indie 2026 \u00B7 bright 120 BPM",              url: "https://www.youtube.com/playlist?list=PLMmqTuUsDkRLf1nFrFrmHbnrAdp4i6CWH" },
+      playful:    { genre: "Indie Pop",       label: "Stage 2 \u00B7 Indie Pop",       sub: "Great indie pop songs \u00B7 110 BPM",              url: "https://www.youtube.com/playlist?list=PL3WATaB8O49EzVu6jZtxTofdRjwOdPTT5" },
+      flirty:     { genre: "Indie Love",      label: "Stage 3 \u00B7 Indie Love",      sub: "Romantic indie hits \u00B7 95 BPM",                 url: "https://www.youtube.com/playlist?list=PLinS5uF49IBpZM4HrSN71bbqcoS2QWdtr" },
+      suggestive: { genre: "Dream Pop",       label: "Stage 4 \u00B7 Dream Pop",       sub: "Indie dream pop \u00B7 shimmery 80 BPM",            url: "https://www.youtube.com/playlist?list=PLom-EE613JpNLHvaauNvrxmu4aUdri8WK" },
+      intimate:   { genre: "Ambient Pop",     label: "Stage 5 \u00B7 Ambient Pop",     sub: "alexrainbird \u00B7 atmospheric 70 BPM",            url: "https://www.youtube.com/playlist?list=PLHRfWmB-cTz_lVMpdg-U9grUwAVUhHRIC" },
+      erotic:     { genre: "Sensual Chill",   label: "Stage 6 \u00B7 Sensual Chill",   sub: "Intimate late night \u00B7 65 BPM",                 url: "https://www.youtube.com/playlist?list=PLyORnIW1xT6z85aaukgLkTbzurHQ4HnC0" },
+      taboo:      { genre: "Dark Soul",       label: "Stage 7 \u00B7 Dark Soul",       sub: "Deep cuts \u00B7 slow burn 55 BPM",                 url: "https://www.youtube.com/playlist?list=RDCLAK5uy_lGEZwG4gR8OEKC55Ofj-bLT0IDkr8b6BY" }
     }
   },
   lofi: {
@@ -173,13 +173,13 @@ var MUSIC_THEMES = {
     description: "Chill Beats \u2192 Jazz Hop \u2192 Dark Ambient",
     dances: { dance1: "freestyle", dance2: "lo-fi", dance_slow: "drift", beat: "chill beat" },
     stages: {
-      personal:   { genre: "Lo-fi Hip Hop",    label: "Stage 1 \u00B7 Lo-fi Hip Hop",    sub: "Upbeat chill beats \u00B7 100 BPM",                  url: "https://www.youtube.com/playlist?list=PLofht4PTcKYnaH8w5olJCI-wUVxuoMHqM" },
-      playful:    { genre: "Chill Beats",      label: "Stage 2 \u00B7 Chill Beats",      sub: "Mellow grooves \u00B7 90 BPM",                       url: "https://www.youtube.com/playlist?list=PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo" },
-      flirty:     { genre: "Jazz Hop",        label: "Stage 3 \u00B7 Jazz Hop",        sub: "Smoky vibes \u00B7 warm keys \u00B7 80 BPM",            url: "https://www.youtube.com/playlist?list=PLFPg_IUxqGzI7zBMDMIzv0MeBGRwIXQg7" },
-      suggestive: { genre: "Ambient R&B",     label: "Stage 4 \u00B7 Ambient R&B",     sub: "R&B lo-fi \u00B7 dreamy layers \u00B7 75 BPM",           url: "https://www.youtube.com/playlist?list=PLfzxR9TEHkQdjFI6JquhLpuxKv8e9XdzC" },
-      intimate:   { genre: "Downtempo",       label: "Stage 5 \u00B7 Downtempo",       sub: "Slow pulse \u00B7 atmospheric \u00B7 65 BPM",            url: "https://www.youtube.com/playlist?list=PLYkB2GLfxxJcleXAzNz0qZH_mOtIQrhvS" },
-      erotic:     { genre: "Deep Chill",      label: "Stage 6 \u00B7 Deep Chill",      sub: "Minimal \u00B7 dark \u00B7 60 BPM",                     url: "https://www.youtube.com/playlist?list=PLSAe9OsDpT8JM3XNd_gtGPFAmllLRPy8T" },
-      taboo:      { genre: "Dark Ambient",    label: "Stage 7 \u00B7 Dark Ambient",    sub: "Deep immersion \u00B7 50 BPM",                     url: "https://www.youtube.com/playlist?list=PL45yjvvlPb-B2_LLBZAw-QU7XX0SR1Hhf" }
+      personal:   { genre: "Lo-fi Hip Hop",    label: "Stage 1 \u00B7 Lo-fi Hip Hop",    sub: "Best lo-fi 2026 \u00B7 chill 100 BPM",              url: "https://www.youtube.com/playlist?list=PLyORnIW1xT6xL7lVBSCsEoI0NPlpcwzj2" },
+      playful:    { genre: "Chill Beats",      label: "Stage 2 \u00B7 Chill Beats",      sub: "Chillhop \u00B7 mellow grooves \u00B7 90 BPM",           url: "https://www.youtube.com/playlist?list=PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo" },
+      flirty:     { genre: "Jazz Hop",         label: "Stage 3 \u00B7 Jazz Hop",         sub: "Lo-fi hip hop 2025 \u00B7 warm keys \u00B7 80 BPM",      url: "https://www.youtube.com/playlist?list=PLBTanuC8SLeZUH4mYXFvRbDfxTMKvNLHJ" },
+      suggestive: { genre: "Late Night Lofi",  label: "Stage 4 \u00B7 Late Night Lofi",  sub: "Late night vibes \u00B7 75 BPM",                    url: "https://www.youtube.com/playlist?list=PLDEZ-kARItAQ7npc7zHfxZYeRLOBbshVf" },
+      intimate:   { genre: "Lofi Loft",        label: "Stage 5 \u00B7 Lofi Loft",        sub: "Atmospheric downtempo \u00B7 65 BPM",               url: "https://www.youtube.com/playlist?list=RDCLAK5uy_kb7EBi6y3GrtJri4_ZH56Ms786DFEimbM" },
+      erotic:     { genre: "Lofi Girl",        label: "Stage 6 \u00B7 Lofi Girl",        sub: "Deep chill compilations \u00B7 60 BPM",             url: "https://www.youtube.com/playlist?list=PL6NdkXsPL07KN01gH2vucrHCEyyNmVEx4" },
+      taboo:      { genre: "Dark Ambient",     label: "Stage 7 \u00B7 Dark Ambient",     sub: "Sensual dark chill \u00B7 50 BPM",                  url: "https://www.youtube.com/playlist?list=PLyORnIW1xT6z85aaukgLkTbzurHQ4HnC0" }
     }
   }
 };

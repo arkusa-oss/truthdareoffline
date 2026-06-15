@@ -67,8 +67,15 @@ var OrbMusic = (function() {
 
   // Build a brand-new player for `chapter`, starting at `startVol` volume.
   // If `fadeIn` is true, starts at 0 and fades to targetVolume over 2s.
-  function buildPlayer(chapter, startVol, fadeIn) {
-    var entry = getActivePlaylistMap()[chapter] || getActivePlaylistMap().personal;
+  // If `useLatinFallback` is true, forces the Latin theme playlist for this chapter.
+  function buildPlayer(chapter, startVol, fadeIn, useLatinFallback) {
+    var entry;
+    if (useLatinFallback && MUSIC_THEMES && MUSIC_THEMES.latin) {
+      entry = MUSIC_THEMES.latin.stages[chapter] || MUSIC_THEMES.latin.stages.personal;
+      console.log("OrbMusic: using Latin fallback playlist for", chapter);
+    } else {
+      entry = getActivePlaylistMap()[chapter] || getActivePlaylistMap().personal;
+    }
     var listId = getPlaylistId(entry.url);
     if (!listId) {
       console.warn("OrbMusic: no playlist ID for chapter", chapter);
@@ -107,6 +114,7 @@ var OrbMusic = (function() {
 
     var retryCount = 0;
     var playbackStarted = false;
+    var embedErrCount = 0;
 
     player = new YT.Player(elId, {
       height: "1",
@@ -171,10 +179,21 @@ var OrbMusic = (function() {
           }
         },
         onError: function(event) {
-          console.warn("OrbMusic: YT error code", event.data, "— skipping track");
+          var code = event.data;
+          console.warn("OrbMusic: YT error code", code, "— skipping track");
           clearTimeout(buildTimeout);
           currentChapter = targetChapter;
-          switching = false; // unblock future stage switches
+          switching = false;
+          if ((code === 150 || code === 101) && !useLatinFallback) {
+            embedErrCount++;
+            console.warn("OrbMusic: embed error #" + embedErrCount + " for", targetChapter);
+            if (embedErrCount >= 3) {
+              console.warn("OrbMusic: playlist embedding blocked — falling back to Latin for", targetChapter);
+              killPlayer();
+              setTimeout(function() { buildPlayer(targetChapter, targetVolume, false, true); }, 300);
+              return;
+            }
+          }
           try { event.target.nextVideo(); } catch(e) {}
         }
       }
