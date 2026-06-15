@@ -143,8 +143,8 @@ var MUSIC_THEMES = {
     description: "Party R&B \u2192 Slow Jams \u2192 Neo-Soul",
     dances: { dance1: "two-step", dance2: "groove", dance_slow: "soul", beat: "R&B groove" },
     stages: {
-      personal:   { genre: "Upbeat R&B",      label: "Stage 1 \u00B7 Upbeat R&B",      sub: "Fresh R&B \u00B7 party vibes \u00B7 120 BPM",            url: "https://www.youtube.com/playlist?list=PL3-sRm8xAzY_Rr7jgjrVCEy1JnNPuVp0W" },
-      playful:    { genre: "Smooth R&B",      label: "Stage 2 \u00B7 Smooth R&B",      sub: "Best R&B 2026 \u00B7 silky 110 BPM",                    url: "https://www.youtube.com/playlist?list=PLRZlMhcYkA2FGdVe0qFuaCLHgT1EAXOvw" },
+      personal:   { genre: "Afrobeats",        label: "Stage 1 \u00B7 Afrobeats",        sub: "Dance floor Afrobeats \u00B7 high energy 120 BPM",   url: "https://www.youtube.com/playlist?list=PLkN9IoY-hkDT53V_I7PSEsHVZaz46ioTS" },
+      playful:    { genre: "Party Afrobeats", label: "Stage 2 \u00B7 Party Afrobeats",  sub: "Afrobeats party anthems \u00B7 funky 115 BPM",      url: "https://www.youtube.com/playlist?list=PL8bR2RI9ne1eFGO_m2-0p-GRkgcsZ3E_L" },
       flirty:     { genre: "Slow Jams",       label: "Stage 3 \u00B7 Slow Jams",       sub: "Quiet storm \u00B7 neo-soul \u00B7 90 BPM",              url: "https://www.youtube.com/playlist?list=PLHUPapYSc2W0-eW1VDEDthB5V4aHIAGF-" },
       suggestive: { genre: "Classic Soul",    label: "Stage 4 \u00B7 Classic Soul",    sub: "All-time R&B classics \u00B7 lush 80 BPM",              url: "https://www.youtube.com/playlist?list=PLi13rLFLL6Q8h6kbXHkXIKJJn9IX5Qtx5" },
       intimate:   { genre: "Quiet Storm",     label: "Stage 5 \u00B7 Quiet Storm",     sub: "Late night bedroom R&B \u00B7 75 BPM",                  url: "https://www.youtube.com/playlist?list=PLcId4x0SuhP-uoyvLLoMUTk2NEiAMOXeI" },
@@ -158,8 +158,8 @@ var MUSIC_THEMES = {
     description: "Dance Pop \u2192 Dream Pop \u2192 Dark Ambient",
     dances: { dance1: "freestyle", dance2: "indie", dance_slow: "reverie", beat: "pop beat" },
     stages: {
-      personal:   { genre: "Indie Pop",       label: "Stage 1 \u00B7 Indie Pop",       sub: "New indie 2026 \u00B7 bright 120 BPM",              url: "https://www.youtube.com/playlist?list=PLMmqTuUsDkRLf1nFrFrmHbnrAdp4i6CWH" },
-      playful:    { genre: "Indie Pop",       label: "Stage 2 \u00B7 Indie Pop",       sub: "Great indie pop songs \u00B7 110 BPM",              url: "https://www.youtube.com/playlist?list=PL3WATaB8O49EzVu6jZtxTofdRjwOdPTT5" },
+      personal:   { genre: "Dance Pop",        label: "Stage 1 \u00B7 Dance Pop",        sub: "Party mix 2026 \u00B7 club & pop \u00B7 125 BPM",        url: "https://www.youtube.com/playlist?list=PLwpFrtWg2EJFW2fzunujrznjqmdp8tbaf" },
+      playful:    { genre: "Upbeat Pop",      label: "Stage 2 \u00B7 Upbeat Pop",      sub: "Happy upbeat pop 2026 \u00B7 115 BPM",              url: "https://www.youtube.com/playlist?list=PLvFYFNbi-IBF9Ei999OSo54l3pV7h2Yzg" },
       flirty:     { genre: "Indie Love",      label: "Stage 3 \u00B7 Indie Love",      sub: "Romantic indie hits \u00B7 95 BPM",                 url: "https://www.youtube.com/playlist?list=PLinS5uF49IBpZM4HrSN71bbqcoS2QWdtr" },
       suggestive: { genre: "Dream Pop",       label: "Stage 4 \u00B7 Dream Pop",       sub: "Indie dream pop \u00B7 shimmery 80 BPM",            url: "https://www.youtube.com/playlist?list=PLom-EE613JpNLHvaauNvrxmu4aUdri8WK" },
       intimate:   { genre: "Ambient Pop",     label: "Stage 5 \u00B7 Ambient Pop",     sub: "alexrainbird \u00B7 atmospheric 70 BPM",            url: "https://www.youtube.com/playlist?list=PLHRfWmB-cTz_lVMpdg-U9grUwAVUhHRIC" },
