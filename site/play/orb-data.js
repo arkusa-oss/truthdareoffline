@@ -646,10 +646,10 @@ const CHAIN_PROMPTS = [
 
   // =============================================
   // TABOO ARC F: The Dance Returns
-  // Marvin Gaye vibes → partner switch → deep connection
+  // slow dance → partner switch → deep connection
   // =============================================
   { id: "ARC_F1", chapter: "taboo", role: "setup", type: "group", promptType: "dare",
-    intensity: 8.5, text: "Lyra remembers your dance. Lights low again. This time — put on something slow and seductive. Marvin Gaye. Al Green. Whatever sets the mood.",
+    intensity: 8.5, text: "Lyra remembers your dance. Lights low again. This time — move slow. Move close. Let the music tell you what to do.",
     target: "group", chain_id: "taboo_dance", chain_step: 1 },
   { id: "ARC_F2", chapter: "taboo", role: "build", type: "directed", promptType: "dare",
     intensity: 9, text: "Pull {target} in close. Hold them tight — one hand on their lower back, the other in their hair. Dance like you mean it.",
@@ -1408,7 +1408,7 @@ var DANCE_AND_CLOSENESS_PROMPTS = [
   { id: "DNC020", chapter: "suggestive", role: "interaction", type: "directed", promptType: "dare", intensity: 5.5,
     text: "{actor}, sit on the floor in front of {target} with your back against their legs. Stay like that for the next two prompts.", target: "other" },
   { id: "DNC021", chapter: "suggestive", role: "build", type: "directed", promptType: "dare", intensity: 6,
-    text: "{actor}, dance for {target}. Slow. One Barry White song's worth. They aren't allowed to look away.", target: "other" },
+    text: "{actor}, dance for {target}. Slow. one full song. They aren't allowed to look away.", target: "other" },
   { id: "DNC022", chapter: "suggestive", role: "action", type: "directed", promptType: "dare", intensity: 6,
     text: "{actor}, sit in {target}'s lap. That's the whole dare. Stay there until the next spin.", target: "other" },
 
@@ -1422,13 +1422,13 @@ var DANCE_AND_CLOSENESS_PROMPTS = [
 
   // ---- EROTIC / Quiet Storm stage ----
   { id: "DNC040", chapter: "erotic", role: "interaction", type: "directed", promptType: "dare", intensity: 7.5,
-    text: "{actor}, give {target} a private slow dance — hips close, hands wherever they're welcome. Sade's playing. Make it last.", target: "other" },
+    text: "{actor}, give {target} a private slow dance — hips close, hands wherever they're welcome. Let it last.", target: "other" },
   { id: "DNC041", chapter: "erotic", role: "build", type: "directed", promptType: "dare", intensity: 8,
     text: "{actor}, straddle {target}'s lap and move slowly to the music. They keep their hands at their sides unless you invite them to move.", target: "other" },
 
   // ---- TABOO / Dark Neo-Soul stage ----
   { id: "DNC050", chapter: "taboo", role: "action", type: "directed", promptType: "dare", intensity: 8.5,
-    text: "{actor}, dance slowly for {target} — whatever D'Angelo's playing dictates the pace. They may touch you with one hand only.", target: "other" },
+    text: "{actor}, dance slowly for {target} — whatever is playing dictates the pace. They may touch you with one hand only.", target: "other" },
 
   // ---- CLOSENESS prompts — remove physical distance ----
   { id: "CLS001", chapter: "playful", role: "interaction", type: "directed", promptType: "dare", intensity: 2.5,
@@ -1467,10 +1467,10 @@ var DANCE_AND_CLOSENESS_PROMPTS = [
     text: "{actor}, take {target} by the hips and lead her in a slow grind to whatever's playing. Forehead-to-forehead. The room watches.",
     target: "other", actor_gender: "male", target_gender: "female" },
   { id: "DNC_MF004", chapter: "intimate", role: "interaction", type: "directed", promptType: "dare", intensity: 7,
-    text: "{actor}, pull {target} into your lap facing you. Move her hips slowly with your hands while a Teddy Pendergrass song plays.",
+    text: "{actor}, pull {target} into your lap facing you. Move her hips slowly with your hands while the music plays.",
     target: "other", actor_gender: "male", target_gender: "female" },
   { id: "DNC_MF005", chapter: "erotic", role: "build", type: "directed", promptType: "dare", intensity: 8,
-    text: "{actor}, dance with {target} pressed against you from behind. Your hands on her hips, hers wherever she wants them. One Sade song.",
+    text: "{actor}, dance with {target} pressed against you from behind. Your hands on her hips, hers wherever she wants them. One full song.",
     target: "other", actor_gender: "male", target_gender: "female" },
 
   // ---- FEMALE leads MALE — she takes the lead ----
@@ -1515,7 +1515,7 @@ var DANCE_AND_CLOSENESS_PROMPTS = [
     text: "{actor}, slow-dance with {target} — your forehead against his, one hand at the back of his neck. Hold that for the length of one Philly Soul track.",
     target: "other", actor_gender: "male", target_gender: "male" },
   { id: "DNC_MM004", chapter: "erotic", role: "build", type: "directed", promptType: "dare", intensity: 8,
-    text: "{actor}, dance behind {target} with your hands on his hips, moving him with you. Sade is playing. Don't rush.",
+    text: "{actor}, dance behind {target} with your hands on his hips, moving him with you. The music is playing. Don't rush.",
     target: "other", actor_gender: "male", target_gender: "male" }
 ];
 
@@ -1622,13 +1622,13 @@ var MUSIC_INTIMATE_PROMPTS = [
   { id: "MUS010", chapter: "suggestive", role: "build", type: "directed", promptType: "dare", intensity: 6,
     text: "{actor}, the strings are playing for you. Stand behind {target}, put your hands on their shoulders, and slowly sway them to the beat. No words.", target: "other" },
   { id: "MUS011", chapter: "suggestive", role: "action", type: "directed", promptType: "dare", intensity: 6.5,
-    text: "{actor}, Barry White doesn't do anything halfway and neither do you. Pull {target} close and dance — chest to chest, one hand on their lower back. Stay there until the chorus ends.", target: "other" },
+    text: "{actor}, don't do anything halfway. Pull {target} close and dance — chest to chest, one hand on their lower back. Stay there until the chorus ends.", target: "other" },
   { id: "MUS012", chapter: "suggestive", role: "peak", type: "directed", promptType: "dare", intensity: 6.5,
     text: "{actor}, close your eyes and listen to this song for ten seconds. Now open your eyes, look at {target}, and say the first thing the music made you think about {target_him}.", target: "other" },
 
   // ---- INTIMATE / Philly Soul (Stage 5) ----
   { id: "MUS020", chapter: "intimate", role: "build", type: "directed", promptType: "dare", intensity: 7,
-    text: "{actor}, Teddy Pendergrass is singing this one for you and {target}. Slow dance — foreheads touching, eyes closed. One full song. Nobody interrupts.", target: "other" },
+    text: "{actor}, Lyra chose this one for you and {target}. Slow dance — foreheads touching, eyes closed. One full song. Nobody interrupts.", target: "other" },
   { id: "MUS021", chapter: "intimate", role: "action", type: "directed", promptType: "dare", intensity: 7.5,
     text: "{actor}, sit facing {target}. Hold both their hands. Listen to the music together without speaking for thirty seconds. Then tell them one thing you've been wanting to say tonight.", target: "other" },
   { id: "MUS022", chapter: "intimate", role: "peak", type: "directed", promptType: "dare", intensity: 7.5,
@@ -1636,7 +1636,7 @@ var MUSIC_INTIMATE_PROMPTS = [
 
   // ---- EROTIC / Quiet Storm (Stage 6) ----
   { id: "MUS030", chapter: "erotic", role: "build", type: "directed", promptType: "dare", intensity: 8,
-    text: "{actor}, Sade is in control now. Dance with {target} — your back against their chest, moving together. Their hands start on your hips. You decide where they end up.", target: "other" },
+    text: "{actor}, The music is in control now. Dance with {target} — your back against their chest, moving together. Their hands start on your hips. You decide where they end up.", target: "other" },
   { id: "MUS031", chapter: "erotic", role: "action", type: "directed", promptType: "dare", intensity: 8.5,
     text: "{actor}, pull {target} close enough that you can feel their heartbeat. Move with whatever's playing. When the song changes, whisper one word that describes what you're feeling.", target: "other" },
   { id: "MUS032", chapter: "erotic", role: "peak", type: "directed", promptType: "dare", intensity: 8.5,
@@ -1644,7 +1644,7 @@ var MUSIC_INTIMATE_PROMPTS = [
 
   // ---- TABOO / Dark Neo-Soul (Stage 7) ----
   { id: "MUS040", chapter: "taboo", role: "build", type: "directed", promptType: "dare", intensity: 9,
-    text: "{actor}, D'Angelo's pace is your pace now. Move with {target} — slow, deliberate, no rush. Let the bass tell your hips what to do. The room is silent except the music.", target: "other" },
+    text: "{actor}, The music's pace is your pace now. Move with {target} — slow, deliberate, no rush. Let the bass tell your hips what to do. The room is silent except the music.", target: "other" },
   { id: "MUS041", chapter: "taboo", role: "action", type: "directed", promptType: "dare", intensity: 9.5,
     text: "{actor}, lie down. {target}, lie next to them. Listen to the music together — bodies touching, breathing together. When the song ends, one of you makes the first move. The other responds.", target: "other" },
   { id: "MUS042", chapter: "taboo", role: "peak", type: "directed", promptType: "dare", intensity: 9.5,
