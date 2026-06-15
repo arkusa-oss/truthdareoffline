@@ -16645,7 +16645,7 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1700",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
@@ -16655,11 +16655,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1701",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 7.5,
     "text": "Start at {target}'s ankle. Smooth the first stocking up the length of their leg — no rushing, no skipping. Feel the fabric settle before you move to the second. Make it count.",
     "target": "other"
   },

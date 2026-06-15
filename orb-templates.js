@@ -131,10 +131,10 @@ var MUSIC_THEMES = {
       personal:   { genre: "Merengue",          label: "Stage 1 \u00B7 Merengue",          sub: "Juan Luis Guerra \u00B7 bright, warm, 160 BPM",       url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeBxBYpn-lRo8FzIFLfRqwh8" },
       playful:    { genre: "Bachata",           label: "Stage 2 \u00B7 Bachata",           sub: "Aventura \u00B7 Romeo Santos \u00B7 flirty 130 BPM",    url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeCDu4V3JNyX-syiN5UwZrsi" },
       flirty:     { genre: "Bolero",            label: "Stage 3 \u00B7 Bolero",            sub: "Boleros cl\u00E1sicos \u00B7 slow, guitar, candlelight 70 BPM",   url: "https://www.youtube.com/playlist?list=PLvGuXKRcrt1jjRDFRHw8--sqOe-Orb5a4" },
-      suggestive: { genre: "Orchestral Soul",   label: "Stage 4 \u00B7 Orchestral Soul",   sub: "Barry White \u00B7 lush strings 75 BPM",               url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeDg1flh6UsFoIsezDammDx7" },
-      intimate:   { genre: "Philadelphia Soul", label: "Stage 5 \u00B7 Philly Soul",       sub: "Teddy Pendergrass \u00B7 smooth 80 BPM",               url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeBLit50F4VCllVMT1LssVqv" },
-      erotic:     { genre: "Quiet Storm",       label: "Stage 6 \u00B7 Quiet Storm",       sub: "Sade \u00B7 hushed, sultry 65 BPM",                     url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeDqOSqCFUZLhx5AThdz8-fg" },
-      taboo:      { genre: "Dark Neo-Soul",     label: "Stage 7 \u00B7 Dark Neo-Soul",     sub: "D'Angelo \u00B7 slow burn 58 BPM",                     url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeAQDDWCEVxO_xbfRgKanvXu" }
+      suggestive: { genre: "Orchestral Soul",   label: "Stage 4 \u00B7 Orchestral Soul",   sub: "Lush strings \u00B7 warm 75 BPM",                      url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeDg1flh6UsFoIsezDammDx7" },
+      intimate:   { genre: "Philadelphia Soul", label: "Stage 5 \u00B7 Philly Soul",       sub: "Philly soul \u00B7 smooth 80 BPM",                     url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeBLit50F4VCllVMT1LssVqv" },
+      erotic:     { genre: "Quiet Storm",       label: "Stage 6 \u00B7 Quiet Storm",       sub: "Hushed, sultry \u00B7 65 BPM",                          url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeDqOSqCFUZLhx5AThdz8-fg" },
+      taboo:      { genre: "Dark Neo-Soul",     label: "Stage 7 \u00B7 Dark Neo-Soul",     sub: "Dark neo-soul \u00B7 slow burn 58 BPM",                url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeAQDDWCEVxO_xbfRgKanvXu" }
     }
   },
   rnb: {
