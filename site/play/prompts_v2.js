@@ -3816,11 +3816,11 @@ const CSV_PROMPTS = [
     "id": "GRP0382",
     "chapter": "playful",
     "role": "peak",
-    "type": "group",
+    "type": "directed",
     "promptType": "dare",
     "intensity": 2.6,
     "text": "Look at {target}. Tell them exactly why they're special to you. No jokes. No deflection. Just the truth, out loud, in front of everyone.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP0383",
@@ -6056,11 +6056,11 @@ const CSV_PROMPTS = [
     "id": "GRP0646",
     "chapter": "personal",
     "role": "action",
-    "type": "group",
+    "type": "directed",
     "promptType": "truth",
     "intensity": 4.5,
     "text": "Tell {target} what you actually thought the first moment you saw them. Then tell them what replaced it. Both parts. No softening.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP0647",
@@ -6576,11 +6576,11 @@ const CSV_PROMPTS = [
     "id": "GRP0699",
     "chapter": "personal",
     "role": "transition",
-    "type": "group",
+    "type": "directed",
     "promptType": "dare",
     "intensity": 4.5,
     "text": "Lean close enough that your breath reaches {target}'s ear. Whisper the filthiest thing that has ever left your mouth. Say it like you mean it again.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP0700",
@@ -6786,11 +6786,11 @@ const CSV_PROMPTS = [
     "id": "GRP0724",
     "chapter": "personal",
     "role": "transition",
-    "type": "group",
+    "type": "directed",
     "promptType": "dare",
     "intensity": 4.5,
     "text": "Say something romantic to {target}. Not funny, not ironic — true. Something that lands in the chest. Lyra will know if you are faking.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP0725",
@@ -9736,11 +9736,11 @@ const CSV_PROMPTS = [
     "id": "GRP1029",
     "chapter": "suggestive",
     "role": "transition",
-    "type": "group",
+    "type": "directed",
     "promptType": "dare",
     "intensity": 6.5,
     "text": "Pick up your phone. Write {target} a sext right now — something that would make them look twice. Read it aloud before you send it.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP1030",
@@ -12746,11 +12746,11 @@ const CSV_PROMPTS = [
     "id": "GRP1294",
     "chapter": "intimate",
     "role": "transition",
-    "type": "group",
+    "type": "directed",
     "promptType": "dare",
     "intensity": 7.2,
     "text": "Lean in until your lips nearly brush {target}'s ear. Whisper something filthy — something you mean. Something you'd normally swallow. Make sure only they hear it.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP1295",
@@ -13716,11 +13716,11 @@ const CSV_PROMPTS = [
     "id": "GRP1392",
     "chapter": "erotic",
     "role": "action",
-    "type": "group",
+    "type": "directed",
     "promptType": "dare",
     "intensity": 8,
     "text": "Lean close to {target}. Drop your voice until only they can hear it. Say the thing that would make them want to leave this room with you. Then sit back and let the rest of us wonder.",
-    "target": "group"
+    "target": "other"
   },
   {
     "id": "GRP1393",
@@ -16680,7 +16680,7 @@ const CSV_PROMPTS = [
     "type": "group",
     "promptType": "dare",
     "intensity": 9,
-    "text": "Two of you — kneel in front of {target}, one on each side. Place your hands at their inner thighs and climb. Inch by inch. No rushing. {target} does not move.",
+    "text": "Two of you — kneel in front of {actor}, one on each side. Place your hands at their inner thighs and climb. Inch by inch. No rushing. {actor} does not move.",
     "target": "group"
   },
   {
@@ -16790,7 +16790,7 @@ const CSV_PROMPTS = [
     "type": "group",
     "promptType": "dare",
     "intensity": 9.5,
-    "text": "Two of you, now. One of you puts your mouth to {target}'s neck. The other lets fingers drift up their thighs. You move together for thirty seconds. No one speaks. {target} doesn't move.",
+    "text": "Two of you, now. One of you puts your mouth to {actor}'s neck. The other lets fingers drift up their thighs. You move together for thirty seconds. No one speaks. {actor} doesn't move.",
     "target": "group"
   },
   {
