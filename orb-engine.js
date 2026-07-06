@@ -1379,6 +1379,13 @@ function selectPrompt(actorName) {
       gameState.followThroughQueue = null;
       return { prompt: cplFt.prompt, actor: cplFt.actor, target: cplFt.target };
     }
+    // Spinner roulette works for two — the wheel picks the action, the
+    // partner is always the target.
+    var cplSpinner = maybePickSpinner(chapter);
+    if (cplSpinner) {
+      gameState.lastSpinnerTurn = gameState.turnCount;
+      return { prompt: cplSpinner, actor: actorName, target: chooseTarget(actorName, cplSpinner) };
+    }
     // Couples profiling: use _couplesOnly prompts in personal stage
     if (chapter === "personal" && !gameState.profilingComplete[actorName]) {
       var cpfPrompts = PROFILING_PROMPTS.filter(function(p) {
@@ -2586,11 +2593,49 @@ var MINIGAME_PROMPTS = [
     intensity: 5, text: "Anonymous confession! Everyone writes something they've never told the group on their phone. Shuffle and read them aloud.", target: "group", minigame: "reveal" }
 ];
 
+// Couples minigames — 2-player versions: partner quizzes, challenges, duels.
+// Same stage gate as group minigames (personal through suggestive).
+var COUPLES_MINIGAME_PROMPTS = [
+  { id: "CMINI_01", chapter: "personal", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 2, text: "Partner quiz! {actor}, you have 5 seconds: what is {target}'s guilty pleasure food? {target} judges. Wrong answer costs a sip.", target: "other", minigame: "speed" },
+  { id: "CMINI_02", chapter: "personal", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 2, text: "Two truths and a lie! {actor} — three things from your life before you two met. {target} has one guess to find the lie. If they nail it, you take a sip.", target: "other", minigame: "vote" },
+  { id: "CMINI_03", chapter: "personal", role: "build", type: "directed", promptType: "dare",
+    intensity: 2, text: "Staring contest! First to laugh or look away answers one question from the winner — total honesty, no passing.", target: "other", minigame: "challenge" },
+  { id: "CMINI_04", chapter: "personal", role: "build", type: "directed", promptType: "dare",
+    intensity: 2.5, text: "Impression time! {actor}, do your best impression of {target} in a specific situation of your choosing. {target} rates it out of 10 — below 7 means you try again.", target: "other", minigame: "impression" },
+  { id: "CMINI_05", chapter: "personal", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 2, text: "Rock paper scissors, best of three! Loser owes the winner one favor tonight — winner declares it now, Lyra remembers.", target: "other", minigame: "rps" },
+  { id: "CMINI_06", chapter: "playful", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 3, text: "Thumb war! Winner assigns the loser a 10-second dare, right now. Make it count.", target: "other", minigame: "challenge" },
+  { id: "CMINI_07", chapter: "playful", role: "build", type: "directed", promptType: "dare",
+    intensity: 3, text: "Mirror dance! {actor} leads for 15 seconds, {target} mirrors every move. Then swap. Worst mirror — you both vote — takes a sip.", target: "other", minigame: "challenge" },
+  { id: "CMINI_08", chapter: "playful", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 3, text: "Guess my answer! {actor}, ask {target}: 'What would I say is my most attractive quality?' {target} answers for you. Then reveal your real answer.", target: "other", minigame: "vote" },
+  { id: "CMINI_09", chapter: "playful", role: "build", type: "directed", promptType: "dare",
+    intensity: 3, text: "Finish my sentence! {actor} starts a sentence about {target} three times — '{target} always...', '{target} secretly...', '{target} never...'. {target} confirms or corrects each one.", target: "other", minigame: "reveal" },
+  { id: "CMINI_10", chapter: "playful", role: "setup", type: "directed", promptType: "dare",
+    intensity: 3, text: "Speed round! 5 seconds each, back and forth: name things you love about each other. First to stall, repeat, or laugh takes a sip.", target: "other", minigame: "speed" },
+  { id: "CMINI_11", chapter: "flirty", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 5, text: "Eye contact duel! One full minute, faces close, no talking, no laughing. Whoever breaks first — the winner whispers one instruction in their ear, to be done before the next stage.", target: "other", minigame: "challenge" },
+  { id: "CMINI_12", chapter: "flirty", role: "build", type: "directed", promptType: "dare",
+    intensity: 5, text: "Rock paper scissors — for stakes. Winner chooses exactly where the loser kisses them. Take your time deciding.", target: "other", minigame: "rps" },
+  { id: "CMINI_13", chapter: "suggestive", role: "interaction", type: "directed", promptType: "dare",
+    intensity: 6, text: "Blind trust walk! {target} closes their eyes. {actor} guides them around the room with only fingertips and whispers, then delivers them somewhere unexpected. No peeking.", target: "other", minigame: "challenge" },
+  { id: "CMINI_14", chapter: "suggestive", role: "build", type: "directed", promptType: "dare",
+    intensity: 6, text: "Freeze dance — slow version. Dance close. When either of you says 'freeze', hold completely still, exactly where you are, for ten breaths. Then keep dancing. Three freezes each.", target: "other", minigame: "challenge" }
+];
+
 // Inject minigame prompts into the main pool on load
 (function() {
   MINIGAME_PROMPTS.forEach(function(m) {
     if (!PROMPTS.some(function(p) { return p.id === m.id; })) {
       PROMPTS.push(m);
+    }
+  });
+  COUPLES_MINIGAME_PROMPTS.forEach(function(m) {
+    if (!COUPLES_PROMPTS.some(function(p) { return p.id === m.id; })) {
+      COUPLES_PROMPTS.push(m);
     }
   });
 })();
@@ -2871,7 +2916,8 @@ function maybePickMinigame(chapter) {
 
   if (Math.random() > chance) return null;
 
-  var available = MINIGAME_PROMPTS.filter(function(m) {
+  var minigamePool = isCouplesMode() ? COUPLES_MINIGAME_PROMPTS : MINIGAME_PROMPTS;
+  var available = minigamePool.filter(function(m) {
     return m.chapter === chapter && !wasRecentlyUsedPrompt(m.id);
   });
   if (!available.length) return null;
@@ -3148,11 +3194,13 @@ function nextTurn() {
     proceedWithSelected({ prompt: dance, actor: player, target: null });
     return;
   }
-  var minigame = isCouplesMode() ? null : maybePickMinigame(chapter);
+  var minigame = maybePickMinigame(chapter);
   if (minigame) {
     var mgText = minigame.text.replace(/\{player\}/g, capitalize(player));
     minigame = Object.assign({}, minigame, { text: mgText });
-    proceedWithSelected({ prompt: minigame, actor: player, target: null });
+    // Couples minigames are directed at the partner; group ones address everyone
+    var mgTarget = isCouplesMode() ? chooseTarget(player, minigame) : null;
+    proceedWithSelected({ prompt: minigame, actor: player, target: mgTarget });
     return;
   }
   var selected = selectPrompt(player);
