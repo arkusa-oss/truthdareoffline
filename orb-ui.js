@@ -150,7 +150,12 @@ if (introContinueBtn2) {
 // Music bar starts hidden; OrbMusic.init() will show it if enabled
 if (startGameBtn) {
   startGameBtn.addEventListener("click", function() {
-    if (!gameState.players.length) { alert("Add at least one player"); return; }
+    // If a name is sitting in the input un-added, add it now — people type
+    // the last player and hit Start without pressing "Add Player"
+    if (playerNameInputEl && playerNameInputEl.value.trim()) {
+      addPlayerFromSetup();
+    }
+    if (gameState.players.length < 2) { alert("Lyra needs at least 2 players — add one more."); return; }
 
     // Auto-detect game mode based on player count
     if (gameState.players.length === 2) {
