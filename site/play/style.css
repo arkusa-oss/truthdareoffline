@@ -12,7 +12,7 @@
   --button-border: rgba(255, 255, 255, 0.14);
 }
 
-body.stage-playful {
+body.stage-personal {
   --bg-1: #040814;
   --bg-2: #0c1838;
   --orb-glow: rgba(50, 110, 255, 0.7);
@@ -20,7 +20,7 @@ body.stage-playful {
   --orb-accent: rgba(120, 170, 255, 0.9);
 }
 
-body.stage-personal {
+body.stage-playful {
   --bg-1: #08061c;
   --bg-2: #18123a;
   --orb-glow: rgba(110, 60, 255, 0.7);

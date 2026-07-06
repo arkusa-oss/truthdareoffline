@@ -14,8 +14,8 @@
   // density, speed, fog, nebula intensity, and special effects.
 
   var STAGE_PROFILES = {
-    playful: {
-      // Cool cosmic blue — starfield, gentle dust
+    personal: {
+      // Cool cosmic blue — the night opens cold; starfield, gentle dust
       particles: { count: 60, speed: 0.3, sizeRange: [0.5, 2.5], drift: 0.15 },
       colors: {
         primary: [70, 130, 255],    // blue
@@ -31,8 +31,8 @@
       haze: 0
     },
 
-    personal: {
-      // Deep indigo-violet — more introspective, slower movement
+    playful: {
+      // Deep indigo-violet — warming up, slower movement
       particles: { count: 70, speed: 0.25, sizeRange: [0.5, 3], drift: 0.2 },
       colors: {
         primary: [120, 70, 255],
