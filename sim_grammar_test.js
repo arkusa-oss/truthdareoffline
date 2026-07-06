@@ -171,7 +171,9 @@ function loadGame(sandbox) {
 var CHECKS = [
   { name: 'raw-placeholder',   re: /\{[a-zA-Z_]+\}/ },
   { name: 'broken-contraction', re: /\b(?:[Hh]e|[Ss]he)'(?:re|ve)\b/ },
-  { name: 'bad-conjugation',   re: /\b(?:he|she) (?:are|were|have|don't|aren't)\b/i },
+  // "she have" is fine after a modal/aux inversion ("what would she have to do") —
+  // only flag when NOT preceded by would/could/should/might/must/do/does/did/will/shall/may/can
+  { name: 'bad-conjugation',   re: /\b(?<!\b(?:would|could|should|might|must|do|does|did|will|shall|may|can) )(?:he|she) (?:are|were|have|don't|aren't)\b/i },
   { name: 'undefined-in-text', re: /\bundefined\b|\bNaN\b|\bnull\b/ },
   { name: 'double-space',      re: /  +/ }
 ];
@@ -413,3 +415,13 @@ Object.keys(byType).forEach(function (t) {
   }
 });
 if (!allIssues.length) console.log('  none — clean run');
+
+// CI: fail the build on any content issue or engine error
+var totalErrors = summary.reduce(function (n, s) { return n + s.errors.length; }, 0);
+var totalStalls = summary.reduce(function (n, s) { return n + s.stalls; }, 0);
+if (allIssues.length || totalErrors) {
+  console.log('\nFAIL: ' + allIssues.length + ' issues, ' + totalErrors + ' errors, ' + totalStalls + ' stalls');
+  process.exitCode = 1;
+} else {
+  console.log('\nPASS: all games clean' + (totalStalls ? ' (' + totalStalls + ' stalled turns)' : ''));
+}

@@ -1,0 +1,45 @@
+name: Game simulation tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.js'
+      - 'index.html'
+      - '.github/workflows/sim-test.yml'
+  pull_request:
+    branches: [main]
+
+jobs:
+  simulate:
+    name: Mock-play all game modes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Syntax-check game files
+        run: |
+          for f in prompts_v2.js couples_prompts_v2.js couples_prompts_early.js \
+                   orb-data.js orb-templates.js orb-state.js orb-memory.js \
+                   orb-engine.js orb-ui.js orb-music.js orb-voice.js ai_orb.js atmosphere.js; do
+            node --check "$f"
+            echo "OK $f"
+          done
+
+      - name: Run game simulation (grammar + engine checks)
+        run: node sim_grammar_test.js --games 5 --turns 150
+
+      - name: Verify deploy folder is in sync
+        run: |
+          ./deploy-sync.sh
+          if ! git diff --quiet -- site/play/; then
+            echo "::error::site/play/ is out of sync with root game files — run ./deploy-sync.sh and commit"
+            git diff --stat -- site/play/
+            exit 1
+          fi
+          echo "site/play/ is in sync"
