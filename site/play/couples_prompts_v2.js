@@ -2705,11 +2705,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0247",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "setup",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5,
+    "intensity": 7.5,
     "text": "{actor}, stand still. Let {target} undress you — one piece at a time, at whatever pace they choose. Your only instruction: don't help.",
     "target": "other"
   },
