@@ -15,6 +15,31 @@ An adult Truth or Dare party game with 7 escalating stages: personal → playful
 - The orb (Lyra) speaks in a mysterious, sultry, all-knowing tone
 - Jealousy, desire, vulnerability are features, not bugs
 
+## Escalation Ladder (enforced — every prompt's physical action has a floor stage)
+Stages 1-2 are LIGHT: humor and profiling, temperature rises monotonically after.
+1. personal — no physical contact beyond dancing nearby. No kisses, no massage.
+2. playful — brief light touch, hug, whisper. Cheek/forehead kiss is the ceiling.
+3. flirty — sustained non-intimate touch (trace arm/jaw, close dance, breath on
+   neck), kiss on hand/cheek/wrist. No lip kissing, no clothing removal.
+4. suggestive — sensual but CLOTHED: neck/shoulder massage, neck/collarbone kiss,
+   brief closed-lip kiss ceiling, lap sitting, accessories/outer layer off only.
+5. intimate — French kissing, partial undressing (garments, never to full nudity),
+   body kisses, longer bare-hand massage, skin contact.
+6. erotic — full undressing, full-body/oil massage, grinding, explicit sex.
+7. taboo — control/edge tier: edging, orgasm control, D/s, most explicit.
+Note: erotic = explicit, taboo = power/control/edge — that split is deliberate.
+Group mode judges the same ladder more conservatively (players aren't all partners).
+Clothing continuity is tracked (both modes): fully-undressed players must never be
+asked to remove more clothing; chains skip contradicting steps.
+
+## Testing & Deploy
+- `node sim_grammar_test.js` mock-plays the real engine (grammar, escalation,
+  undress continuity, chain integrity). Runs in CI on every push — keep it green.
+- Deploy: `./deploy-sync.sh` copies game files into site/play/, then commit+push.
+  GitHub Actions tests, Cloudflare Pages auto-deploys from the repo (serves site/).
+- Music playlists are YouTube URLs in orb-templates.js MUSIC_THEMES; track curation
+  happens on YouTube directly, no code change needed.
+
 ## Key Architecture
 - orb-engine.js: prompt selection, chain system, profiling, memory
 - orb-data.js: all prompt data, chains, profiling prompts, callbacks, revelations
