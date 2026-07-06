@@ -125,12 +125,12 @@ var MUSIC_THEMES = {
   latin: {
     id: "latin",
     name: "Latin Vibes",
-    description: "Merengue \u2192 Bachata \u2192 Bolero \u2192 Soul",
-    dances: { dance1: "merengue", dance2: "bachata", dance_slow: "bolero", beat: "merengue beat" },
+    description: "Merengue \u2192 Bachata \u2192 Salsa \u2192 Soul",
+    dances: { dance1: "merengue", dance2: "bachata", dance_slow: "salsa", beat: "merengue beat" },
     stages: {
       personal:   { genre: "Merengue",          label: "Stage 1 \u00B7 Merengue",          sub: "Juan Luis Guerra \u00B7 bright, warm, 160 BPM",       url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeBxBYpn-lRo8FzIFLfRqwh8" },
       playful:    { genre: "Bachata",           label: "Stage 2 \u00B7 Bachata",           sub: "Aventura \u00B7 Romeo Santos \u00B7 flirty 130 BPM",    url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeCDu4V3JNyX-syiN5UwZrsi" },
-      flirty:     { genre: "Bolero",            label: "Stage 3 \u00B7 Bolero",            sub: "Boleros cl\u00E1sicos \u00B7 slow, guitar, candlelight 70 BPM",   url: "https://www.youtube.com/playlist?list=PLvGuXKRcrt1jjRDFRHw8--sqOe-Orb5a4" },
+      flirty:     { genre: "Salsa Rom\u00E1ntica",  label: "Stage 3 \u00B7 Salsa Rom\u00E1ntica",  sub: "Salsa sensual \u00B7 tension building \u00B7 100 BPM",   url: "https://www.youtube.com/playlist?list=PLGG-Y1Hr6VAU" },
       suggestive: { genre: "Orchestral Soul",   label: "Stage 4 \u00B7 Orchestral Soul",   sub: "Lush strings \u00B7 warm 75 BPM",                      url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeDg1flh6UsFoIsezDammDx7" },
       intimate:   { genre: "Philadelphia Soul", label: "Stage 5 \u00B7 Philly Soul",       sub: "Philly soul \u00B7 smooth 80 BPM",                     url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeBLit50F4VCllVMT1LssVqv" },
       erotic:     { genre: "Quiet Storm",       label: "Stage 6 \u00B7 Quiet Storm",       sub: "Hushed, sultry \u00B7 65 BPM",                          url: "https://www.youtube.com/playlist?list=PLTf0XtL09CeDqOSqCFUZLhx5AThdz8-fg" },
