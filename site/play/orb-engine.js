@@ -1704,9 +1704,19 @@ function injectPromptText(text, player, target) {
           if (verb.match(/[^aeiou]y$/)) return p + s + " " + verb.slice(0,-1) + "ies";
           return p + s + " " + verb + "s";
         });
+        // Contractions: they're → he's/she's, they've → he's/she's,
+        // they'll → he'll/she'll, they'd → he'd/she'd. Must run before the
+        // standalone replace below — the apostrophe is a word boundary, so
+        // \bthey\b matches inside "they're" and would produce "she're".
+        out = out.replace(/\b([Tt])hey're\b/g, function(m, t) { return (t === "T" ? capitalize(subj) : subj) + "'s"; });
+        out = out.replace(/\b([Tt])hey've\b/g, function(m, t) { return (t === "T" ? capitalize(subj) : subj) + "'s"; });
+        out = out.replace(/\b([Tt])hey'll\b/g, function(m, t) { return (t === "T" ? capitalize(subj) : subj) + "'ll"; });
+        out = out.replace(/\b([Tt])hey'd\b/g, function(m, t) { return (t === "T" ? capitalize(subj) : subj) + "'d"; });
         // Standalone "they" (not followed by a verb, e.g. end of sentence)
         out = out.replace(/\b[Tt]hey\b/g, function(m) { return m[0] === "T" ? capitalize(subj) : subj; });
         out = out.replace(/\b[Tt]heir\b/g, function(m) { return m[0] === "T" ? capitalize(poss) : poss; });
+        var reflexive = g === "male" ? "himself" : "herself";
+        out = out.replace(/\b[Tt]hemselves\b/g, function(m) { return m[0] === "T" ? capitalize(reflexive) : reflexive; });
       }
     }
   }
