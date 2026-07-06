@@ -4,6 +4,7 @@
 
 const gameState = {
   gameMode: "group",  // "group" or "couple"
+  coupleType: "established",  // "established" or "new" — only used in couple mode
   players: [],
   playerHistory: [],
   currentPlayer: null,
@@ -44,6 +45,7 @@ const gameState = {
   votingActive: false,
   lastVotedTurn: -99,
   lastMinigameTurn: -99,
+  lastDanceTurn: -99,
 
   // Player rotation anti-repeat
   lastActor: null,
@@ -61,6 +63,10 @@ const gameState = {
   // Passing/refusing subtracts. Voting "reveal more" on someone adds to their dimension.
   playerProfiles: {},
   profilingComplete: {},  // { "PlayerName": true } — has this player answered enough profiling Qs?
+
+  // Revelation system: truths answered that callbacks can pay off later
+  revelations: {},      // { "PlayerName": [{ theme, prompt, turn }] }
+  usedCallbacks: {},    // { callbackId: true }
 
   // Spinner state
   spinner: null,  // { spinsLeft: 2, outcomes: [], pool: [...], currentResults: [] }

@@ -10176,11 +10176,11 @@ const CSV_PROMPTS = [
     "id": "GRP0906",
     "chapter": "intimate",
     "role": "setup",
-    "type": "self",
+    "type": "directed",
     "promptType": "truth",
     "intensity": 6.5,
     "text": "Lean close to {target}. Close enough that only they can hear. Whisper something that makes them want to look over their shoulder — wicked, funny, and just for them.",
-    "target": "self"
+    "target": "other"
   },
   {
     "id": "GRP0907",
@@ -16607,11 +16607,11 @@ const CSV_PROMPTS = [
     "id": "GRP1683",
     "chapter": "taboo",
     "role": "transition",
-    "type": "self",
+    "type": "directed",
     "promptType": "truth",
     "intensity": 9,
     "text": "Look at {target} right now. No context, no history — just the two of you, this room, and everyone watching. Tell me exactly what happens.",
-    "target": "self"
+    "target": "other"
   },
   {
     "id": "GRP1684",

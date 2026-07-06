@@ -64,6 +64,10 @@ const gameState = {
   playerProfiles: {},
   profilingComplete: {},  // { "PlayerName": true } — has this player answered enough profiling Qs?
 
+  // Revelation system: truths answered that callbacks can pay off later
+  revelations: {},      // { "PlayerName": [{ theme, prompt, turn }] }
+  usedCallbacks: {},    // { callbackId: true }
+
   // Spinner state
   spinner: null,  // { spinsLeft: 2, outcomes: [], pool: [...], currentResults: [] }
 

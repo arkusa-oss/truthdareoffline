@@ -1246,6 +1246,31 @@ button {
   background: rgba(120, 80, 220, 0.45);
   border-color: rgba(167, 205, 255, 0.4);
 }
+.rules-enter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.rules-enter-btn:disabled:hover {
+  background: rgba(120, 80, 220, 0.25);
+  border-color: rgba(167, 205, 255, 0.25);
+}
+
+.age-confirm-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px auto 14px;
+  max-width: 460px;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(230, 220, 255, 0.85);
+  cursor: pointer;
+}
+.age-confirm-label input {
+  margin-top: 2px;
+  accent-color: #a070e0;
+}
 
 /* Toast overlay — full-screen Lyra speaks */
 .toast-overlay {

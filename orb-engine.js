@@ -351,7 +351,8 @@ function animatePromptBlurReveal() {
 function updateModeIndicator() {
   var modeValueEl = document.getElementById("setupModeValue");
   var count = gameState.players.length;
-  var seducerField = document.querySelector(".setup-field:has(#playerSeducerInput)");
+  var seducerField = null;
+  try { seducerField = document.querySelector(".setup-field:has(#playerSeducerInput)"); } catch (e) {}
   if (!seducerField) {
     // Fallback: find the label wrapping the seducer checkbox
     var seducerLabel = document.querySelector('label[for="playerSeducerInput"]');
@@ -845,6 +846,16 @@ function endChain(chainId) {
     gameState.pairAffinity[key] = Math.max(0, (gameState.pairAffinity[key] || 0) - 2);
     // Track when last chain ended to prevent back-to-back chains
     gameState.lastChainEndTurn = gameState.turnCount;
+    // If this was a jealousy test chain, release the trio — otherwise a chain
+    // killed by passes leaves jealousyTestActive set and blocks all future tests
+    var jt = gameState.jealousyTestActive;
+    if (jt && jt.chainId === chainId) {
+      if (!gameState.jealousyTested[jt.jealousPlayer]) gameState.jealousyTested[jt.jealousPlayer] = [];
+      if (gameState.jealousyTested[jt.jealousPlayer].indexOf(chainId) < 0) {
+        gameState.jealousyTested[jt.jealousPlayer].push(chainId);
+      }
+      gameState.jealousyTestActive = null;
+    }
 
     // Post-chain BRIDGE: a third player joins the chain pair to maintain energy.
     // Pick a third player who is NOT the actor or target.
@@ -1286,11 +1297,18 @@ function maybeStartJealousyChain(chapter, actorName) {
   // ~40% chance per eligible turn (dramatic pacing — don't fire every time)
   if (Math.random() > 0.40) return null;
 
+  // The seducer can't test themselves, and can't "seduce" their own partner —
+  // both collapse the trio into nonsense (self-kiss prompts).
+  testable = testable.filter(function(t) {
+    return t.player.name !== seducerObj.name && t.player.partner !== seducerObj.name;
+  });
+  if (!testable.length) return null;
+
   // Pick a random testable player
   var pick = testable[Math.floor(Math.random() * testable.length)];
   var jealousPlayer = pick.player;
   var partnerObj = getPlayerByName(jealousPlayer.partner);
-  if (!partnerObj) return null;
+  if (!partnerObj || partnerObj.name === seducerObj.name) return null;
 
   // Set up the jealousy test trio
   gameState.jealousyTestActive = {
@@ -1313,9 +1331,6 @@ function maybeStartJealousyChain(chapter, actorName) {
   // Start the chain: actor = seducer, target = the jealous player's PARTNER
   // (seducer flirts with/kisses the partner while the jealous player watches)
   startChain(pick.chainId, seducerObj.name, partnerObj.name);
-
-  console.log("JEALOUSY ARC TRIGGERED: " + pick.chainId + " | Seducer: " + seducerObj.name +
-    " → Partner: " + partnerObj.name + " | Testing: " + jealousPlayer.name);
 
   return {
     prompt: starter,
@@ -1356,6 +1371,13 @@ function selectPrompt(actorName) {
 
   // In couples mode, skip spinner and bridge templates — but DO profiling with couples-specific prompts
   if (isCouplesMode()) {
+    // TRUTH→DARE FOLLOW-THROUGH: consume the queue here too, or it locks the
+    // actor rotation forever (nextTurn forces actor while the queue is set).
+    if (gameState.followThroughQueue) {
+      var cplFt = gameState.followThroughQueue;
+      gameState.followThroughQueue = null;
+      return { prompt: cplFt.prompt, actor: cplFt.actor, target: cplFt.target };
+    }
     // Couples profiling: use _couplesOnly prompts in personal stage
     if (chapter === "personal" && !gameState.profilingComplete[actorName]) {
       var cpfPrompts = PROFILING_PROMPTS.filter(function(p) {
@@ -1417,6 +1439,8 @@ function selectPrompt(actorName) {
   if (chapter === "personal" && !gameState.profilingComplete[actorName]) {
     // Find profiling prompts this player hasn't answered yet
     var availableProfilePrompts = PROFILING_PROMPTS.filter(function(p) {
+      // Couples-only partner-quiz prompts don't belong in group play
+      if (p._couplesOnly) return false;
       // Jealousy probes only target partnered players
       if (p._jealousyProbe) {
         var actObj = getPlayerByName(actorName);
@@ -1617,12 +1641,15 @@ function injectPromptText(text, player, target) {
     out = out.replace(/\{actor_him\}/g, actorObj.pronouns.object);
     out = out.replace(/\{actor_his\}/g, actorObj.pronouns.possessive);
   }
-  // Target pronouns: {target_he}, {target_him}, {target_his}
+  // Target pronouns: {target_he}/{target_she}, {target_him}/{target_her}, {target_his}/{target_hers}
+  // she/her variants resolve to the SAME target pronouns — prompt authors use
+  // whichever reads naturally; the actual gender comes from the target player.
   var targetObj = target ? getPlayerByName(target) : null;
   if (targetObj && targetObj.pronouns) {
-    out = out.replace(/\{target_him\}/g, targetObj.pronouns.object);
-    out = out.replace(/\{target_he\}/g, targetObj.pronouns.subject);
-    out = out.replace(/\{target_his\}/g, targetObj.pronouns.possessive);
+    out = out.replace(/\{target_(?:He|She)\}/g, capitalize(targetObj.pronouns.subject));
+    out = out.replace(/\{target_(?:him|her)\}/g, targetObj.pronouns.object);
+    out = out.replace(/\{target_(?:his|hers)\}/g, targetObj.pronouns.possessive);
+    out = out.replace(/\{target_(?:he|she)\}/g, targetObj.pronouns.subject);
 
     // Smart pronoun replacement: only when the original text had {target},
     // meaning the pronouns (them/they/their) refer to that specific person.
@@ -2327,7 +2354,6 @@ function recordPromptCompletion(prompt, response) {
         gameState.memory.jealousy[jPlayer] = "unsure";
       }
     }
-    console.log("Jealousy profile: " + jPlayer + " → " + gameState.memory.jealousy[jPlayer] + " (score: " + ((gameState.playerProfiles[jPlayer] || {}).jealousy || 0) + ")");
   }
 
   // JEALOUSY CHAIN PROGRESSION: update active test on _askJealous steps
@@ -2365,7 +2391,6 @@ function recordPromptCompletion(prompt, response) {
             if (!gameState.jealousyTested[jTestPlayer]) gameState.jealousyTested[jTestPlayer] = [];
             gameState.jealousyTested[jTestPlayer].push(prompt.chain_id);
             gameState.jealousyTestActive = null;
-            console.log("Jealousy arc completed: " + prompt.chain_id + " for " + jTestPlayer);
           }
         }
       } else if (response === "pass" || response === "refused") {
@@ -3185,6 +3210,18 @@ function resetGame() {
   gameState.jealousyTested = {};
   gameState.jealousyTestActive = null;
   // clothingRemoved lives in gameState.memory (already reset above)
+  // Turn markers must reset with turnCount or their cooldown math goes
+  // negative and blocks chains/spinners/toasts for the whole next game
+  gameState.lastChainEndTurn = -99;
+  gameState.lastSpinnerTurn = -99;
+  lastToastTurn = -99;
+  // Lyra's memory: re-restore remembered players (setup restored them once,
+  // but the wipes above just erased that)
+  try {
+    if (typeof LyraMemory !== "undefined") {
+      gameState.players.forEach(function(p) { LyraMemory.restoreInto(p.name); });
+    }
+  } catch (e) {}
 
   // Initialize seducer name from player setup
   var seducerPlayer = gameState.players.find(function(p) { return p.isSeducer; });

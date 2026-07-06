@@ -476,7 +476,7 @@ const CHAIN_PROMPTS = [
     "chain_step": 3
   },
   {
-    "id": "CHN2030",
+    "id": "CHN2039",
     "chapter": "erotic",
     "role": "setup",
     "type": "directed",
@@ -488,7 +488,7 @@ const CHAIN_PROMPTS = [
     "chain_step": 1
   },
   {
-    "id": "CHN2031",
+    "id": "CHN2040",
     "chapter": "erotic",
     "role": "build",
     "type": "directed",
@@ -500,7 +500,7 @@ const CHAIN_PROMPTS = [
     "chain_step": 2
   },
   {
-    "id": "CHN2032",
+    "id": "CHN2041",
     "chapter": "erotic",
     "role": "peak",
     "type": "directed",
@@ -1657,7 +1657,9 @@ const PROMPTS = [
   ...HUMOR_PROMPTS,
   ...MUSIC_INTIMATE_PROMPTS,
   ...CHAIN_PROMPTS,
-  ...PROFILING_PROMPTS,
+  // Couples-only profiling prompts must not leak into the group pool —
+  // they're partner-quiz questions that make no sense between strangers.
+  ...PROFILING_PROMPTS.filter(function(p){ return !p._couplesOnly; }),
   ...CALLBACK_PROMPTS,
   ...DANCE_AND_CLOSENESS_PROMPTS
 ];
@@ -1665,7 +1667,16 @@ const PROMPTS = [
 // =========================
 // COUPLES PROMPT POOL
 // =========================
-// Built from CSV_COUPLES_PROMPTS (loaded via couples_prompts_v2.js).
+// Built from COUPLES_PROMPTS_EARLY (personal + playful stages, coupleType-tagged,
+// loaded via couples_prompts_early.js) + CSV_COUPLES_PROMPTS (flirty through taboo,
+// loaded via couples_prompts_v2.js). Early stages were rewritten for humor-first
+// profiling; v2's personal/playful prompts are excluded in favor of them.
 // This is the prompt pool used when gameMode === "couple".
-const COUPLES_PROMPTS = (typeof CSV_COUPLES_PROMPTS !== 'undefined') ? CSV_COUPLES_PROMPTS : [];
+const COUPLES_PROMPTS = (function() {
+  var v2 = (typeof CSV_COUPLES_PROMPTS !== 'undefined') ? CSV_COUPLES_PROMPTS : [];
+  var early = (typeof COUPLES_PROMPTS_EARLY !== 'undefined') ? COUPLES_PROMPTS_EARLY : [];
+  if (!early.length) return v2;
+  var lateStages = v2.filter(function(p) { return p.chapter !== 'personal' && p.chapter !== 'playful'; });
+  return early.concat(lateStages);
+})();
 

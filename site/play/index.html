@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lyra's Orb</title>
+  <title>Lyra's Orb — Adult Truth or Dare</title>
+  <meta name="description" content="An adult Truth or Dare party game that learns you. Seven escalating stages, couples and group modes, music that matches the mood. 18+." />
+  <meta name="rating" content="adult" />
+  <meta property="og:title" content="Lyra's Orb — Adult Truth or Dare" />
+  <meta property="og:description" content="A Truth or Dare game that learns you. Seven stages, couples and group modes. 18+." />
+  <meta property="og:url" content="https://lyrasorb.com/play/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,7 +86,11 @@
             </p>
           </div>
 
-          <button id="introContinueBtn" type="button" class="rules-enter-btn">Continue</button>
+          <label class="checkbox-label age-confirm-label">
+            <input id="ageConfirmInput" type="checkbox" autocomplete="off" />
+            <span>I confirm that I am 18 years or older, and that everyone playing tonight is too.</span>
+          </label>
+          <button id="introContinueBtn" type="button" class="rules-enter-btn" disabled>Continue</button>
         </div>
       </div>
 
@@ -215,6 +224,14 @@
           <div class="setup-mode-indicator" id="setupModeIndicator">
             <span class="setup-mode-label">Mode:</span>
             <span class="setup-mode-value" id="setupModeValue">Add players to begin</span>
+          </div>
+
+          <div class="setup-couple-type" id="setupCoupleType" style="display:none">
+            <span class="setup-mode-label">We are:</span>
+            <div class="setup-couple-type-options">
+              <button type="button" class="couple-type-btn active" data-couple-type="established">We know each other</button>
+              <button type="button" class="couple-type-btn" data-couple-type="new">Just met / Early days</button>
+            </div>
           </div>
 
           <div class="setup-list-wrap">
@@ -352,6 +369,7 @@
 
   <script src="./prompts_v2.js"></script>
   <script src="./couples_prompts_v2.js"></script>
+  <script src="./couples_prompts_early.js"></script>
   <script src="./atmosphere.js"></script>
   <script src="./orb-voice.js"></script>
   <script src="./ai_orb.js"></script>

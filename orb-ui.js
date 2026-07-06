@@ -96,9 +96,24 @@ if (histPrevBtn) histPrevBtn.addEventListener("click", function() { browseHistor
 if (histNextBtn) histNextBtn.addEventListener("click", function() { browseHistory("forward"); });
 if (nextBtn) nextBtn.addEventListener("click", nextTurn);
 if (skipBtn) skipBtn.addEventListener("click", skipTurn);
-if (resetBtn) resetBtn.addEventListener("click", resetGame);
+// Wrap in a closure so the click resolves the CURRENT global resetGame —
+// later code wraps/reassigns it (score reset, card re-render) and a direct
+// reference would keep calling the unwrapped original.
+if (resetBtn) resetBtn.addEventListener("click", function() { resetGame(); });
 if (typePreferenceEl) typePreferenceEl.addEventListener("change", function(e) { gameState.typePreference = e.target.value; });
-document.addEventListener("keydown", function(e) { if (e.code === "Space") { e.preventDefault(); nextTurn(); } });
+document.addEventListener("keydown", function(e) {
+  if (e.code !== "Space") return;
+  // Don't hijack Space while typing (player names can have spaces)
+  var tag = (e.target && e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select") return;
+  // Don't advance turns before the game has started (setup/rules/intro open)
+  if (document.body.classList.contains("setup-open")) return;
+  if (rulesOverlayEl && !rulesOverlayEl.classList.contains("is-hidden")) return;
+  if (setupOverlayEl && !setupOverlayEl.classList.contains("is-hidden")) return;
+  if (!gameState.players.length) return;
+  e.preventDefault();
+  nextTurn();
+});
 if (addPlayerBtn) addPlayerBtn.addEventListener("click", addPlayerFromSetup);
 if (rulesAcceptBtn) rulesAcceptBtn.addEventListener("click", closeRulesOverlay);
 initCoupleTypeButtons();
@@ -108,9 +123,18 @@ var introOverlay2El = document.getElementById("introOverlay2");
 var introContinueBtn = document.getElementById("introContinueBtn");
 var introContinueBtn2 = document.getElementById("introContinueBtn2");
 
+// Age gate: Continue stays disabled until the 18+ box is checked
+var ageConfirmInput = document.getElementById("ageConfirmInput");
+if (ageConfirmInput && introContinueBtn) {
+  ageConfirmInput.addEventListener("change", function() {
+    introContinueBtn.disabled = !ageConfirmInput.checked;
+  });
+}
+
 // Page 1 → Page 2
 if (introContinueBtn) {
   introContinueBtn.addEventListener("click", function() {
+    if (ageConfirmInput && !ageConfirmInput.checked) return;
     if (introOverlayEl) introOverlayEl.classList.add("is-hidden");
     if (introOverlay2El) introOverlay2El.classList.remove("is-hidden");
   });

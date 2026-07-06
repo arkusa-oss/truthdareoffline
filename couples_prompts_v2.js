@@ -1030,7 +1030,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 2,
-    "text": "{actor}, you just told {target} your ex is coming to dinner tonight. Walk me through their reaction — beat by beat, face by face. What does {target_her} body do before {target_she} even speaks?",
+    "text": "{actor}, you just told {target} your ex is coming to dinner tonight. Walk me through their reaction — beat by beat, face by face. What does {target_his} body do before {target_she} even speaks?",
     "target": "other"
   },
   {

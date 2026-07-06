@@ -1,0 +1,37 @@
+#!/bin/bash
+# Sync the game files from repo root into site/play/ for Cloudflare Pages deploy.
+# The site/ folder is what gets drag-and-dropped into Cloudflare — run this
+# before every deploy or the live game falls behind the code.
+set -e
+cd "$(dirname "$0")"
+
+GAME_FILES=(
+  index.html
+  style.css
+  prompts_v2.js
+  couples_prompts_v2.js
+  couples_prompts_early.js
+  atmosphere.js
+  orb-voice.js
+  ai_orb.js
+  orb-data.js
+  orb-templates.js
+  orb-state.js
+  orb-memory.js
+  orb-engine.js
+  orb-music.js
+  orb-ui.js
+)
+
+for f in "${GAME_FILES[@]}"; do
+  cp "$f" "site/play/$f"
+done
+
+# Audio files (only copies new/changed)
+rsync -a --delete audiofiles/ site/play/audiofiles/
+
+# Remove legacy prompt files no longer loaded by index.html
+rm -f site/play/couples_prompts_mid.js site/play/couples_prompts_late.js
+
+echo "Synced $(( ${#GAME_FILES[@]} )) game files + audiofiles into site/play/"
+echo "Now drag the site/ folder into Cloudflare Pages to deploy."
