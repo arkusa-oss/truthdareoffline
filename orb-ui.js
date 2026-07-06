@@ -101,6 +101,7 @@ if (typePreferenceEl) typePreferenceEl.addEventListener("change", function(e) { 
 document.addEventListener("keydown", function(e) { if (e.code === "Space") { e.preventDefault(); nextTurn(); } });
 if (addPlayerBtn) addPlayerBtn.addEventListener("click", addPlayerFromSetup);
 if (rulesAcceptBtn) rulesAcceptBtn.addEventListener("click", closeRulesOverlay);
+initCoupleTypeButtons();
 
 var introOverlayEl = document.getElementById("introOverlay");
 var introOverlay2El = document.getElementById("introOverlay2");

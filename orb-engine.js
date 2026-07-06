@@ -358,20 +358,25 @@ function updateModeIndicator() {
     if (seducerLabel) seducerField = seducerLabel.closest(".setup-field");
   }
 
+  var coupleTypeEl = document.getElementById("setupCoupleType");
   if (count === 0) {
     if (modeValueEl) modeValueEl.textContent = "Add players to begin";
     if (modeValueEl) modeValueEl.className = "setup-mode-value";
     if (seducerField) seducerField.style.display = "";
+    if (coupleTypeEl) coupleTypeEl.style.display = "none";
   } else if (count === 1) {
     if (modeValueEl) modeValueEl.textContent = "Add one more for Couple Mode, or more for Group Mode";
     if (modeValueEl) modeValueEl.className = "setup-mode-value";
     if (seducerField) seducerField.style.display = "";
+    if (coupleTypeEl) coupleTypeEl.style.display = "none";
   } else if (count === 2) {
     if (modeValueEl) { modeValueEl.textContent = "Couple Mode"; modeValueEl.className = "setup-mode-value mode-couple"; }
     if (seducerField) seducerField.style.display = "none";
+    if (coupleTypeEl) coupleTypeEl.style.display = "";
   } else {
     if (modeValueEl) { modeValueEl.textContent = "Group Mode (" + count + " players)"; modeValueEl.className = "setup-mode-value mode-group"; }
     if (seducerField) seducerField.style.display = "";
+    if (coupleTypeEl) coupleTypeEl.style.display = "none";
   }
 
   // Also hide/show seducer checkboxes in the player list rows
@@ -379,6 +384,17 @@ function updateModeIndicator() {
   seducerToggles.forEach(function(el) { el.style.display = (count === 2) ? "none" : ""; });
   var seducerBadges = document.querySelectorAll(".setup-seducer-badge");
   seducerBadges.forEach(function(el) { el.style.display = (count === 2) ? "none" : ""; });
+}
+
+function initCoupleTypeButtons() {
+  var btns = document.querySelectorAll(".couple-type-btn");
+  btns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      gameState.coupleType = btn.dataset.coupleType;
+      btns.forEach(function(b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+    });
+  });
 }
 
 function getNextPlayerId() {
@@ -1095,13 +1111,18 @@ function selectPromptByRole(chapter, role) {
   // Exclude callback prompts (triggerTheme) — those are only injected via the revelation system
   // In couples mode, exclude group-type prompts ("Everyone" wording doesn't work with 2 players)
   var skipGroup = isCouplesMode();
+  var coupleTypeOk = function(p) {
+    if (!isCouplesMode()) return true;
+    return !p.coupleType || p.coupleType === "both" || p.coupleType === gameState.coupleType;
+  };
   var pool = getPromptPool().filter(function(p) {
     return p.chapter === chapter && p.role === role && !p.chain_id && !p.triggerTheme &&
       !wasRecentlyUsedPrompt(p.id) &&
       promptMatchesGender(p, actor) &&
       !clothingContradiction(p, actor) &&
       (pref === "mixed" || !p.promptType || p.promptType === pref) &&
-      !(skipGroup && p.type === "group");
+      !(skipGroup && p.type === "group") &&
+      coupleTypeOk(p);
   });
 
   // If we have an anti-repeat preference and enough options, filter further
@@ -1116,7 +1137,8 @@ function selectPromptByRole(chapter, role) {
   pool = getPromptPool().filter(function(p) {
     return p.chapter === chapter && p.role === role && !p.chain_id && !p.triggerTheme && !wasRecentlyUsedPrompt(p.id) && promptMatchesGender(p, actor) &&
       !clothingContradiction(p, actor) &&
-      !(skipGroup && p.type === "group");
+      !(skipGroup && p.type === "group") &&
+      coupleTypeOk(p);
   });
   if (pool.length) return themeAwareRandom(pool);
 
@@ -1124,12 +1146,13 @@ function selectPromptByRole(chapter, role) {
   pool = getPromptPool().filter(function(p) {
     return p.chapter === chapter && !p.chain_id && !p.triggerTheme && !wasRecentlyUsedPrompt(p.id) &&
       !clothingContradiction(p, actor) &&
-      !(skipGroup && p.type === "group");
+      !(skipGroup && p.type === "group") &&
+      coupleTypeOk(p);
   });
   if (pool.length) return themeAwareRandom(pool);
 
   // Last resort: pick the least-recently-used prompt in chapter (avoid repeating recent ones)
-  var fallback = getPromptPool().filter(function(p) { return p.chapter === chapter && !p.chain_id && !p.triggerTheme && !clothingContradiction(p, actor) && !(skipGroup && p.type === "group"); });
+  var fallback = getPromptPool().filter(function(p) { return p.chapter === chapter && !p.chain_id && !p.triggerTheme && !clothingContradiction(p, actor) && !(skipGroup && p.type === "group") && coupleTypeOk(p); });
   if (fallback.length) {
     // Sort by how long ago they were used (least recent first)
     fallback.sort(function(a, b) {

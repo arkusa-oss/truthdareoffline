@@ -4,6 +4,7 @@
 
 const gameState = {
   gameMode: "group",  // "group" or "couple"
+  coupleType: "established",  // "established" or "new" — only used in couple mode
   players: [],
   playerHistory: [],
   currentPlayer: null,

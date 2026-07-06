@@ -947,6 +947,47 @@ button.primary:hover {
   color: #80c0ff;
 }
 
+.setup-couple-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 6px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'Inter', sans-serif;
+  flex-wrap: wrap;
+}
+
+.setup-couple-type-options {
+  display: flex;
+  gap: 8px;
+}
+
+.couple-type-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-meta);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.couple-type-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.couple-type-btn.active {
+  background: rgba(240, 160, 208, 0.18);
+  border-color: rgba(240, 160, 208, 0.45);
+  color: #f0a0d0;
+}
+
 .setup-footer {
   display: flex;
   justify-content: flex-end;
