@@ -407,6 +407,7 @@ function clearSetupInputs() {
   if (playerNameInputEl) playerNameInputEl.value = "";
   if (playerGenderInputEl) playerGenderInputEl.value = "male";
   if (playerPartnerInputEl) playerPartnerInputEl.value = "";
+  if (addPlayerBtn) addPlayerBtn.classList.remove("is-ready");
 }
 
 function refreshPartnerOptions() {

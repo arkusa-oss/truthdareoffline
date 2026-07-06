@@ -196,6 +196,13 @@ if (musicMuteBtn) {
 }
 if (playerNameInputEl) playerNameInputEl.addEventListener("keydown", function(e) { if (e.key === "Enter") addPlayerFromSetup(); });
 
+// Light up the Add Player button as soon as a name is entered
+if (playerNameInputEl && addPlayerBtn) {
+  playerNameInputEl.addEventListener("input", function() {
+    addPlayerBtn.classList.toggle("is-ready", !!playerNameInputEl.value.trim());
+  });
+}
+
 // Genre chip selector
 var genreOptionsEl = document.getElementById("musicGenreOptions");
 if (genreOptionsEl) {

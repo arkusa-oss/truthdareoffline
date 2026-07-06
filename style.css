@@ -947,6 +947,19 @@ button.primary:hover {
   color: #80c0ff;
 }
 
+/* Add Player button lights up once a name is typed */
+#addPlayerBtn.is-ready {
+  background: rgba(160, 112, 224, 0.4);
+  border-color: rgba(200, 160, 255, 0.7);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(160, 112, 224, 0.5), 0 0 30px rgba(160, 112, 224, 0.25);
+  animation: addPlayerPulse 1.6s ease-in-out infinite;
+}
+@keyframes addPlayerPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(160, 112, 224, 0.5), 0 0 30px rgba(160, 112, 224, 0.25); }
+  50%      { box-shadow: 0 0 18px rgba(200, 160, 255, 0.75), 0 0 44px rgba(160, 112, 224, 0.4); }
+}
+
 .setup-couple-type {
   display: flex;
   align-items: center;
