@@ -2275,11 +2275,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0204",
-    "chapter": "flirty",
+    "chapter": "intimate",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5,
+    "intensity": 6,
     "text": "{actor}, slide one hand beneath {target}'s clothing. Go slowly. Let {target} take your hand and place it where they want to be felt. Stay there. Don't move until they tell you to.",
     "target": "other"
   },
@@ -2355,7 +2355,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0212",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -2415,11 +2415,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0218",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5,
+    "intensity": 6,
     "text": "{actor}, lie beside {target}. One hand. Start at the nape of the neck and go — spine, ribs, the dip of the waist, the curve of the hip, the length of the leg. Slow. All the way.",
     "target": "other"
   },
@@ -2475,11 +2475,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0224",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 6,
     "text": "{actor}, kiss {target} now — not soft, not urgent. Somewhere in between. The kind of kiss that carries weight, that says: I know exactly what I want and it is you. Let your mouth mean it.",
     "target": "other"
   },
@@ -2535,11 +2535,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0230",
-    "chapter": "intimate",
+    "chapter": "taboo",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7.5,
+    "intensity": 9,
     "text": "{actor}, use your hands and your mouth to bring {target} right to the edge — then stop. Hold them there. Feel them tremble. Don't move until they beg.",
     "target": "other"
   },
@@ -2555,11 +2555,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0232",
-    "chapter": "flirty",
+    "chapter": "erotic",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 8,
     "text": "{actor}, give {target} your body. Every decision — how you're positioned, where you're touched, how fast or slow — is theirs. You simply follow. Trust the surrender.",
     "target": "other"
   },
@@ -2575,11 +2575,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0234",
-    "chapter": "flirty",
+    "chapter": "taboo",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 9,
     "text": "{actor}, bring {target} as close to the edge as you're able. Read their breathing, their skin, the shift in their weight — not their words. The body tells the truth first.",
     "target": "other"
   },
@@ -2615,11 +2615,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0238",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 4.5,
+    "intensity": 5,
     "text": "{actor}, give {target} a single, soft kiss — the kind that means thank you. Then stay close. Foreheads touching, eyes shut. No words needed for what that says.",
     "target": "other"
   },
@@ -2685,7 +2685,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0245",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "setup",
     "type": "directed",
     "promptType": "dare",
@@ -2735,11 +2735,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0250",
-    "chapter": "suggestive",
+    "chapter": "intimate",
     "role": "interaction",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 6,
     "text": "{actor}, press your mouth to {target}'s skin and begin. No goal, no destination — just move. Collarbone to hip, inner wrist to shoulder. Take your time. Map what you find.",
     "target": "other"
   },
@@ -2895,11 +2895,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0266",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 7.5,
     "text": "{actor}, lay {target} on their back. Use your hands. Then your mouth. Then your body. Build a slow rhythm they can almost predict — then break it completely. Watch what that does.",
     "target": "other"
   },
@@ -2935,11 +2935,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0270",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 7.5,
     "text": "{actor}, move above {target}. Press down. Grind slowly, with full control — show them exactly what you want without saying a single word. Let the weight of your body speak.",
     "target": "other"
   },
@@ -2975,11 +2975,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0274",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 7.5,
     "text": "{actor}, pin {target} still — gently but firmly. Touch them everywhere, building heat layer by layer. When they reach for you, stop. Not yet. They get to touch when you decide.",
     "target": "other"
   },
@@ -2995,11 +2995,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0276",
-    "chapter": "suggestive",
+    "chapter": "intimate",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 6.5,
     "text": "{actor}, kiss {target} deep — the kind that takes, not asks — and let your hands move south at the same pace. Slow. Purposeful. Every inch of the way intentional.",
     "target": "other"
   },
@@ -3035,11 +3035,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0280",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 7.5,
     "text": "{actor}, slow everything down to the pace of a held breath. Move against {target} like the moment before a wave breaks. Let it build. Don't rush the swell.",
     "target": "other"
   },
@@ -3135,11 +3135,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0290",
-    "chapter": "suggestive",
+    "chapter": "intimate",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 7,
     "text": "{actor}, use everything you have. Hands moving. Mouth finding. Chest pressing. Give {target} the full weight of your attention. Show them what it means when you mean it.",
     "target": "other"
   },
@@ -3155,11 +3155,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0292",
-    "chapter": "suggestive",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 8.5,
     "text": "{actor}, bring {target} right to the edge. Feel the tension gathering in their body. Then stop. Hold them there, trembling and unfinished. Not yet.",
     "target": "other"
   },
@@ -3175,11 +3175,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0294",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 8,
     "text": "{actor}, make {target}'s pleasure the only thing that exists. Mouth, hands, weight — all of it directed at them. Let hunger be your only guide.",
     "target": "other"
   },
@@ -3195,11 +3195,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0296",
-    "chapter": "suggestive",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 8.5,
     "text": "{actor}, lay {target} back, or bring them to their knees — your call. Find a rhythm. Let it build, let it break, let it build again. Keep going.",
     "target": "other"
   },
@@ -3235,11 +3235,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0300",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "{actor}, move into {target} with everything — no reservation, no half-measure. Let them feel the full weight of how much you need this. Need them.",
     "target": "other"
   },
@@ -3255,11 +3255,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0302",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "{actor}, open yourself fully to {target}. Move with them. Let them take what they came for. Give them permission to take all of it.",
     "target": "other"
   },
@@ -3275,11 +3275,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0304",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "{actor}, let the pace between you find itself. Don't decide. Don't lead. Move with {target} and let need do the steering.",
     "target": "other"
   },
@@ -3295,11 +3295,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0306",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "{actor}, bring {target} all the way. Feel every tremor pass through their body into yours. Watch them surrender. Let it happen in your hands.",
     "target": "other"
   },
@@ -3315,11 +3315,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0308",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "{actor}, move with {target} until the boundary between you dissolves — until where you end and they begin is a question neither of you can answer.",
     "target": "other"
   },
@@ -3335,11 +3335,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0310",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "{actor}, take {target} all the way to the edge — both of you moving as one thing, nothing withheld, nothing left in reserve.",
     "target": "other"
   },
@@ -3355,11 +3355,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0312",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8.5,
     "text": "{actor}, let {target} take everything you have left. Follow them through the rise, through the breaking, through the quiet that comes after.",
     "target": "other"
   },
@@ -3375,11 +3375,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0314",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8.5,
     "text": "{actor}, stay with {target}. Fully present, fully joined. Don't rush the arrival. Let the peak come when it comes — and meet it together.",
     "target": "other"
   },
@@ -3495,11 +3495,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0326",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "setup",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 7,
     "text": "{actor}, undress {target} as if time is not a factor. One piece at a time. As each one falls, say something true about what you see. Don't skip a single one.",
     "target": "other"
   },
@@ -4925,7 +4925,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0469",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "peak",
     "type": "directed",
     "promptType": "truth",
@@ -4935,7 +4935,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0470",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
@@ -6745,17 +6745,17 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0675",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7.5,
+    "intensity": 8.5,
     "text": "{actor}, two minutes on the clock. Your only job is to bring {target} to the edge of wanting — touch, breath, heat, words. Everything short of release. The timer ends it. Not you.",
     "target": "other"
   },
   {
     "id": "CPL0676",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -6765,7 +6765,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0677",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -6835,7 +6835,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0684",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -8485,11 +8485,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0849",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 5,
     "text": "{actor}, press your lips to {target}'s neck. Stay there one full breath longer than is casual. Let {target} feel the weight of what you're not saying.",
     "target": "other"
   },
@@ -8605,7 +8605,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0861",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -8615,7 +8615,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0862",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -8625,7 +8625,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0863",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -9185,11 +9185,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0919",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 5,
     "text": "{actor}, press your lips just below {target}'s ear. Linger there. Let {target_him} feel you smile against {target_his} skin.",
     "target": "other"
   },
@@ -9715,11 +9715,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0972",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 8,
+    "intensity": 7,
     "text": "{actor}, undress {target} completely. Take your time. When {target} is bare in front of you, tell {target} — specifically, honestly — what you see.",
     "target": "other"
   },
@@ -9925,7 +9925,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0993",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -9965,7 +9965,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0997",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -9985,7 +9985,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL0999",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -9995,7 +9995,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL1000",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -10005,7 +10005,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL1001",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -10015,7 +10015,7 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL1002",
-    "chapter": "erotic",
+    "chapter": "taboo",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -10379,11 +10379,11 @@ const CSV_COUPLES_PROMPTS = [
   },
   {
     "id": "CPL1037",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5,
+    "intensity": 6,
     "chain_id": "cpl_flirty_closein",
     "chain_step": 4,
     "text": "{actor}, kiss {target} once. Slow, full, deliberate. Then put your lips to their ear and say exactly what's moving through your mind right now.",

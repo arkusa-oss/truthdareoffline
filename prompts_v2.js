@@ -3794,11 +3794,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0380",
-    "chapter": "playful",
+    "chapter": "flirty",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 2.6,
+    "intensity": 4.5,
     "text": "Pull {target} into a long, slow hug. Not a polite one. Mean it. The group waits until it's real.",
     "target": "other"
   },
@@ -6184,7 +6184,7 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0659",
-    "chapter": "personal",
+    "chapter": "flirty",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
@@ -6304,11 +6304,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0671",
-    "chapter": "personal",
+    "chapter": "flirty",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 4.5,
+    "intensity": 5,
     "text": "Take the lipstick. Steady your hand. Paint {target}'s lips slowly and carefully. Take your time. Neither of you is allowed to rush this.",
     "target": "other"
   },
@@ -6564,7 +6564,7 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0698",
-    "chapter": "personal",
+    "chapter": "flirty",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
@@ -6574,11 +6574,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0699",
-    "chapter": "personal",
+    "chapter": "flirty",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 4.5,
+    "intensity": 5,
     "text": "Lean close enough that your breath reaches {target}'s ear. Whisper the filthiest thing that has ever left your mouth. Say it like you mean it again.",
     "target": "other"
   },
@@ -6634,7 +6634,7 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0705",
-    "chapter": "personal",
+    "chapter": "flirty",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
@@ -6674,7 +6674,7 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0710",
-    "chapter": "personal",
+    "chapter": "flirty",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
@@ -6764,11 +6764,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0722",
-    "chapter": "personal",
+    "chapter": "suggestive",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 4.5,
+    "intensity": 5.5,
     "text": "Hand {target} full authority over how you present yourself tonight. One change — hair, jewelry, a layer removed. Their choice. Your skin. No negotiating.",
     "target": "other"
   },
@@ -8014,11 +8014,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0825",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 6,
     "text": "Choose someone. Pretend you've never met. You have until they give you a kiss to make them want to. The clock starts now.",
     "target": "other"
   },
@@ -8084,11 +8084,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0832",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.5,
+    "intensity": 6,
     "text": "Settle into {target}'s lap — or pull them into yours. Stay there, warm and present, until the next dare pulls you apart.",
     "target": "other"
   },
@@ -9444,21 +9444,21 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1000",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 8,
     "text": "Your underwear comes off and goes on your head. Wear it like the crown it is. Hold that position until Lyra decides you have earned the dignity of putting it back.",
     "target": "other"
   },
   {
     "id": "GRP1001",
-    "chapter": "suggestive",
+    "chapter": "intimate",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 7,
     "text": "The choice is no longer yours. The group selects who you make out with. You surrender the decision — and then you follow through.",
     "target": "other"
   },
@@ -9834,11 +9834,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1040",
-    "chapter": "suggestive",
+    "chapter": "erotic",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6.5,
+    "intensity": 8,
     "text": "Stand up. Take everything off except your underwear. Leave it there. Stay in your seat and keep playing.",
     "target": "other"
   },
@@ -10904,11 +10904,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1107",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "Choose a word. Trace it onto {target}'s skin with only your tongue. Take your time. Make sure they feel every letter.",
     "target": "other"
   },
@@ -11664,11 +11664,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1183",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "action",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "One song, {actor}. Give {target} a lap dance — slow, close, deliberate. The song decides the pace. You do not rush it.",
     "target": "other"
   },
@@ -12604,11 +12604,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1280",
-    "chapter": "intimate",
+    "chapter": "erotic",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 7,
+    "intensity": 8,
     "text": "Stand. Face {target}. Then press the full length of your body against theirs — slowly, deliberately, from chest to knee. Feel every point of contact. Don't pull away.",
     "target": "other"
   },
@@ -14194,11 +14194,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1398",
-    "chapter": "suggestive",
+    "chapter": "intimate",
     "role": "peak",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 6,
+    "intensity": 7,
     "text": "Take {target}'s finger. Put it in your mouth and lick something sweet from it. Slowly — as if you are in no hurry at all to let it go.",
     "target": "other"
   },
@@ -16345,11 +16345,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP1657",
-    "chapter": "flirty",
+    "chapter": "suggestive",
     "role": "transition",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5,
+    "intensity": 6,
     "text": "{actor}, you're spinning the bottle. Whoever it points to: you kiss them. No deliberating. Let fate have the room.",
     "target": "other"
   },

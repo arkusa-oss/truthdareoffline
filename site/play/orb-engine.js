@@ -701,6 +701,13 @@ function chooseTarget(actorName, prompt) {
     if (genderFiltered.length) others = genderFiltered;
   }
 
+  // Undress prompts aimed at the target: skip players already fully undressed
+  var undressInfo = getPromptUndressInfo(prompt);
+  if (undressInfo && (undressInfo.subject === "target" || undressInfo.subject === "both") && gameState.memory.fullyUndressed) {
+    var dressed = others.filter(function(name) { return !gameState.memory.fullyUndressed[name]; });
+    if (dressed.length) others = dressed;
+  }
+
   // Count how many times each player has been targeted recently (last 10)
   var recentCounts = {};
   others.forEach(function(name) { recentCounts[name] = 0; });
@@ -919,10 +926,27 @@ function findChainContinuation() {
   var active = gameState.activeChains[chainId];
   if (!active) return null;
   var chapter = getCurrentChapter();
+  // Find the current step — skipping steps that would contradict clothing
+  // state (e.g. "remove one item" aimed at someone already fully undressed).
   var prompt = null;
-  for (var i = 0; i < getPromptPool().length; i++) {
-    var p = getPromptPool()[i];
-    if (p.chapter === chapter && p.chain_id === chainId && p.chain_step === active.step) { prompt = p; break; }
+  var guard = 0;
+  while (!prompt && guard++ < 12) {
+    for (var i = 0; i < getPromptPool().length; i++) {
+      var p = getPromptPool()[i];
+      if (p.chapter === chapter && p.chain_id === chainId && p.chain_step === active.step) { prompt = p; break; }
+    }
+    if (!prompt) break;
+    var uInfo = getPromptUndressInfo(prompt);
+    if (uInfo && gameState.memory.fullyUndressed) {
+      var uNames = uInfo.subject === "both" ? [active.actor, active.target]
+        : [uInfo.subject === "actor" ? active.actor : active.target];
+      var uBlocked = uNames.some(function (n) { return n && gameState.memory.fullyUndressed[n]; });
+      if (uBlocked) {
+        prompt = null;
+        active.step += 1; // skip this step, try the next
+        continue;
+      }
+    }
   }
   if (!prompt) { endChain(chainId); return null; }
 
@@ -1045,9 +1069,12 @@ function getPromptUndressInfo(prompt) {
   if (!/\b(undress|strip|take off|takes off|peel off|slip out of|remove)\b/.test(t)) return null;
   // ...and reference a garment / nudity (so "remove the blindfold" doesn't match).
   if (!/\b(undress|strip|naked|nude|layer|clothes|clothing|shirt|top|bra|pants|trousers|dress|skirt|underwear|underthings|piece|garment|shoe|sock)\b/.test(t)) return null;
-  // Who gets undressed? "{actor}, undress {target}" / "make {target} strip" -> the target. Otherwise the actor.
+  // Who gets undressed? "{actor}, undress {target}" / "make {target} strip" -> the target.
+  // "you and {target} each remove..." -> both. Otherwise the actor.
   var subject = "actor";
-  if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)/.test(t)) {
+  if (/\b(each|both)\b[^.]{0,40}\b(remove|take off|strip|undress)|\b(remove|take off|strip|undress)\b[^.]{0,25}\beach\b/.test(t)) {
+    subject = "both";
+  } else if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)/.test(t)) {
     subject = "target";
   }
   // Does it reach full nudity?
@@ -1059,34 +1086,62 @@ function undressSubjectName(prompt, actorName) {
   var info = getPromptUndressInfo(prompt);
   if (!info) return null;
   if (info.subject === "actor") return actorName;
+  // Target subject: at completion time the resolved target is recorded;
+  // fall back to the only other player (couples).
+  if (gameState.lastResolvedTarget && gameState.lastResolvedTarget !== actorName) {
+    return gameState.lastResolvedTarget;
+  }
   var others = getOtherPlayerNames(actorName);
-  return others.length ? others[0] : null; // couples: the partner
+  return others.length === 1 ? others[0] : null;
 }
 
 // True if showing this prompt would contradict a player's known clothing state.
 // Couples-only: target is the single partner, so the subject is deterministic.
 function clothingContradiction(prompt, actorName) {
-  if (!isCouplesMode()) return false;
-  if (!getPromptUndressInfo(prompt)) return false;
-  var name = undressSubjectName(prompt, actorName);
-  if (!name) return false;
-  return !!(gameState.memory.fullyUndressed && gameState.memory.fullyUndressed[name]);
+  var info = getPromptUndressInfo(prompt);
+  if (!info) return false;
+  if (!gameState.memory.fullyUndressed) return false;
+  // Actor-subject (and both-subject) prompts: check the actor. Target-subject:
+  // in couples the partner is known; in group mode the target isn't chosen
+  // yet, so chooseTarget filters fully-undressed candidates instead.
+  if (info.subject === "actor" || info.subject === "both") {
+    if (gameState.memory.fullyUndressed[actorName]) return true;
+    if (info.subject === "actor") return false;
+  }
+  if (isCouplesMode()) {
+    var others = getOtherPlayerNames(actorName);
+    var partner = others.length === 1 ? others[0] : null;
+    return !!(partner && gameState.memory.fullyUndressed[partner]);
+  }
+  return false;
 }
 
 // Record clothing state when an undress prompt is actually completed.
+// Works in both modes; group mode also tracks spinner outcomes separately.
 function recordClothingFromPrompt(prompt, actorName) {
-  if (!isCouplesMode()) return; // group mode tracks via the spinner instead
   var info = getPromptUndressInfo(prompt);
   if (!info) return;
-  var name = undressSubjectName(prompt, actorName);
-  if (!name) return;
-  if (!gameState.memory.clothingRemoved[name]) gameState.memory.clothingRemoved[name] = [];
-  gameState.memory.clothingRemoved[name].push("layer");
-  // Full strip, or 3+ layers shed, marks the player fully undressed.
-  if (info.makesFull || gameState.memory.clothingRemoved[name].length >= 3) {
-    if (!gameState.memory.fullyUndressed) gameState.memory.fullyUndressed = {};
-    gameState.memory.fullyUndressed[name] = true;
+  var names = [];
+  if (info.subject === "both") {
+    names.push(actorName);
+    // resolve the partner/last target directly
+    var resolved = (gameState.lastResolvedTarget && gameState.lastResolvedTarget !== actorName)
+      ? gameState.lastResolvedTarget
+      : (getOtherPlayerNames(actorName).length === 1 ? getOtherPlayerNames(actorName)[0] : null);
+    if (resolved) names.push(resolved);
+  } else {
+    var single = undressSubjectName(prompt, actorName);
+    if (single) names.push(single);
   }
+  names.forEach(function (name) {
+    if (!gameState.memory.clothingRemoved[name]) gameState.memory.clothingRemoved[name] = [];
+    gameState.memory.clothingRemoved[name].push("layer");
+    // Full strip, or 3+ layers shed, marks the player fully undressed.
+    if (info.makesFull || gameState.memory.clothingRemoved[name].length >= 3) {
+      if (!gameState.memory.fullyUndressed) gameState.memory.fullyUndressed = {};
+      gameState.memory.fullyUndressed[name] = true;
+    }
+  });
 }
 
 function selectPromptByRole(chapter, role) {
@@ -1896,6 +1951,10 @@ function maybeTriggerPenalty(player) {
       promptTextEl.textContent = msg;
       promptTextEl.style.opacity = "1";
     }
+    // Replace lastPrompt with a dummy so CHEERS finalizes the penalty itself —
+    // the original prompt was already settled by the caller with the real
+    // response (otherwise a passed chain step would be recorded as "done").
+    gameState.lastPrompt = { id: "PENALTY_SHOT", chapter: chapter, promptType: "dare", type: "self", target: "self", text: msg };
     // Show a simple OK button to continue
     clearFeedbackButtons();
     var wrap = getFeedbackPanelButtonsWrap();
@@ -2525,9 +2584,15 @@ function recordFeedback(response) {
 
   // Penalty spinner: if player passed/refused, maybe trigger a punishment spin
   if ((response === "pass" || response === "refused") && !isSpinnerPrompt(gameState.lastPrompt)) {
+    var originalPrompt = gameState.lastPrompt;
     var penaltyTriggered = maybeTriggerPenalty(actor);
     if (penaltyTriggered) {
-      // Don't finalize yet — the spinner will handle it when done
+      // Settle the ORIGINAL prompt's bookkeeping (chain skip, profiling) with
+      // the real response now — the penalty flow replaces lastPrompt, so its
+      // own finalize would otherwise never resolve this prompt and chains
+      // would re-serve the same step forever.
+      recordPromptCompletion(originalPrompt, response);
+      // Don't finalize yet — the penalty UI will finalize when done
       return;
     }
   }

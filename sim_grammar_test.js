@@ -27,7 +27,6 @@ function makeEl(id) {
   var el = {
     _id: id,
     textContent: '',
-    innerHTML: '',
     value: '',
     disabled: false,
     checked: false,
@@ -47,14 +46,37 @@ function makeEl(id) {
     removeAttribute: function () {},
     appendChild: function (c) { this.children.push(c); return c; },
     remove: function () {},
-    addEventListener: function () {},
+    addEventListener: function (ev, fn) { (this._handlers[ev] = this._handlers[ev] || []).push(fn); },
     removeEventListener: function () {},
     querySelector: function () { return null; },
     querySelectorAll: function () { return []; },
     closest: function () { return null; },
     focus: function () {},
-    click: function () {},
+    click: function () { var hs = (this._handlers.click || []).slice(); for (var i = 0; i < hs.length; i++) hs[i].call(this, { stopPropagation: function () {} }); },
     offsetWidth: 0
+  };
+  el._handlers = {};
+  // innerHTML assignment clears children (engine uses wrap.innerHTML = "")
+  var _html = '';
+  Object.defineProperty(el, 'innerHTML', {
+    get: function () { return _html; },
+    set: function (v) { _html = v; el.children.length = 0; }
+  });
+  // querySelector supports the '.class' lookups the engine uses, so repeated
+  // getFeedbackPanelButtonsWrap() calls reuse ONE wrap instead of stacking them
+  el.querySelector = function (sel) {
+    if (!sel || sel[0] !== '.') return null;
+    var cls = sel.slice(1);
+    function find(node) {
+      for (var i = 0; i < node.children.length; i++) {
+        var ch = node.children[i];
+        if ((ch.className || '').split(' ').indexOf(cls) >= 0 || (ch.classList && ch.classList.contains(cls))) return ch;
+        var deep = find(ch);
+        if (deep) return deep;
+      }
+      return null;
+    }
+    return find(el);
   };
   return el;
 }
@@ -140,6 +162,23 @@ var EXPORT_TAIL = `
 ;globalThis.updateHistoryButtons = function () {};
 globalThis.browseHistory = function () {};
 globalThis.returnToCurrent = function () {};
+// trace nextTurn callers
+var __origNT = nextTurn;
+nextTurn = function () {
+  if (globalThis.__ntTrace) {
+    var st = new Error().stack.split(String.fromCharCode(10)).slice(2, 4).join(' | ');
+    globalThis.__ntTrace(gameState.turnCount, gameState.awaitingResolution, st);
+  }
+  return __origNT();
+};
+// trace chain completions
+var __origRPC = recordPromptCompletion;
+recordPromptCompletion = function (prompt, response) {
+  if (prompt && prompt.chain_id && globalThis.__chainTrace) {
+    globalThis.__chainTrace('complete', prompt.chain_id, prompt.chain_step, response, JSON.stringify(gameState.activeChains[prompt.chain_id] || null));
+  }
+  return __origRPC(prompt, response);
+};
 globalThis.__game = {
   gameState: gameState,
   nextTurn: nextTurn,
@@ -148,6 +187,9 @@ globalThis.__game = {
   resetGame: function () { return resetGame(); },
   getCurrentChapter: getCurrentChapter,
   getPronouns: getPronouns,
+  getPromptUndressInfo: getPromptUndressInfo,
+  undressSubjectName: undressSubjectName,
+  doOneSpin: doOneSpin,
   setRenderPromptWrapper: function (wrap) {
     var orig = renderPrompt;
     renderPrompt = function (prompt, player, target) {
@@ -203,6 +245,17 @@ function playGame(config) {
   }
 
   var g = sandbox.__game;
+  sandbox.__ntTrace = function (t, aw, st) { if (process.env.NT_TRACE) console.error('[nt]', config.name, 'turn', t, 'awaiting', aw, st); };
+  sandbox.__chainTrace = function () { if (process.env.COMPLETE_TRACE) console.error.apply(console, ['[cmpl]', config.name].concat([].slice.call(arguments))); };
+
+  // ── Undress-progression + chain-integrity ledgers ──
+  // Sim-side clothing ledger, independent of the engine's own tracking,
+  // so we catch the engine failing to prevent contradictions.
+  var simClothing = {};   // player -> layers removed count
+  var simFullyBare = {};  // player -> true once fully undressed
+  var chainSeq = {};      // chain_id -> [steps in render order]
+  var UNDRESS_FLOOR = { personal: 1, playful: 1, flirty: 1, suggestive: 1, intimate: 5, erotic: 6, taboo: 7 };
+  var STAGE_NUM = { personal: 1, playful: 2, flirty: 3, suggestive: 4, intimate: 5, erotic: 6, taboo: 7 };
 
   // Wrap renderPrompt to capture every rendered prompt with its source object
   g.setRenderPromptWrapper(function (prompt, player, target) {
@@ -220,6 +273,36 @@ function playGame(config) {
     // "someone" fallback: {target} in source but no target chosen → renders as "someone"
     if (!target && prompt && /\{target\}/.test(prompt.text)) {
       issues.push({ type: 'someone-fallback', text: text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+    }
+
+    // ── UNDRESS PROGRESSION AUDIT ──
+    var uInfo = g.getPromptUndressInfo(prompt);
+    if (uInfo) {
+      var subjects = uInfo.subject === 'both' ? [player, target].filter(Boolean)
+        : [uInfo.subject === 'actor' ? player : (target || null)].filter(Boolean);
+      // Contradiction: an undress prompt served to someone already fully bare
+      var subject = subjects.find(function (s) { return simFullyBare[s]; });
+      if (subject) {
+        issues.push({ type: 'undress-contradiction', text: '[' + subject + ' already fully undressed] ' + text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+      }
+      // Full-strip dares before the intimate stage violate the escalation vision
+      var stageNum = STAGE_NUM[prompt.chapter] || 0;
+      if (uInfo.makesFull && stageNum < STAGE_NUM.erotic) {
+        issues.push({ type: 'full-undress-too-early', text: text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+      }
+    }
+
+    // ── CHAIN INTEGRITY AUDIT ──
+    if (prompt && prompt.chain_id && prompt.chain_step) {
+      var seq = chainSeq[prompt.chain_id] = chainSeq[prompt.chain_id] || [];
+      var last = seq.length ? seq[seq.length - 1] : 0;
+      // Steps must move FORWARD. Skips are legal (pass-skip, clothing-skip);
+      // restarts from 1 are legal (chain re-run). Repeats and regressions are bugs.
+      if (prompt.chain_step <= last && prompt.chain_step !== 1) {
+        issues.push({ type: 'chain-step-repeat-or-regress', text: '[' + prompt.chain_id + ' step ' + prompt.chain_step + ' after step ' + last + '] ' + text.slice(0, 80), id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+      }
+      seq.push(prompt.chain_step);
+      if (process.env.CHAIN_TRACE) console.error('[chain]', config.name, 'turn', g.gameState.turnCount, prompt.chain_id, 'step', prompt.chain_step, 'id', prompt.id, 'activeStep', JSON.stringify(g.gameState.activeChains[prompt.chain_id]));
     }
     // Self-targeting
     if (player && target && player === target) {
@@ -260,13 +343,18 @@ function playGame(config) {
   }
 
   function drainTimers(cap) {
+    // Run the queue to empty — dropping callbacks loses state transitions
+    // (e.g. the one that arms awaitingResolution). Cap only guards runaway loops.
     var n = 0;
     while (sandbox._timerQueue.length && n < cap) {
       var fn = sandbox._timerQueue.shift();
       try { fn(); } catch (e) { errors.push(e.message + ' (timer)'); }
       n++;
     }
-    sandbox._timerQueue.length = 0; // drop anything past the cap (runaway guard)
+    if (sandbox._timerQueue.length) {
+      errors.push('timer queue not drained (' + sandbox._timerQueue.length + ' left after ' + cap + ')');
+      sandbox._timerQueue.length = 0;
+    }
   }
 
   var turns = 0;
@@ -277,22 +365,57 @@ function playGame(config) {
       if (!g.gameState.awaitingResolution) {
         g.nextTurn();
       }
-      drainTimers(50);
+      drainTimers(1000);
+      // Interactive overlays (voting, penalty spinner): auto-click through
+      // them like a real player. Buttons live under the feedback panel stub.
+      var uiGuard = 0;
+      while ((g.gameState.votingActive || g.gameState.spinner) && uiGuard++ < 30) {
+        var panel = sandbox.document.getElementById('feedbackPanel');
+        var buttons = [];
+        (function collect(el) {
+          if (!el || !el.children) return;
+          el.children.forEach(function (ch) {
+            if (ch._handlers && ch._handlers.click) buttons.push(ch);
+            collect(ch);
+          });
+        })(panel);
+        if (!buttons.length) break;
+        buttons[Math.floor(Math.random() * buttons.length)].click();
+        drainTimers(1000);
+      }
+
       if (g.gameState.awaitingResolution) {
         // Player responds: mostly done, occasionally pass to exercise penalty paths
         var response = Math.random() < 0.9 ? 'done' : 'pass';
         var prompt = g.gameState.lastPrompt;
         if (prompt && prompt.promptType === 'truth' && response === 'done') response = 'answered';
+        // Maintain the sim-side clothing ledger BEFORE completing the prompt
+        if ((response === 'done') && prompt) {
+          var ui = g.getPromptUndressInfo(prompt);
+          if (ui) {
+            var subjs = ui.subject === 'both'
+              ? [g.gameState.currentPlayer, g.gameState.lastResolvedTarget].filter(Boolean)
+              : [ui.subject === 'actor' ? g.gameState.currentPlayer : g.gameState.lastResolvedTarget].filter(Boolean);
+            subjs.forEach(function (subj) {
+              simClothing[subj] = (simClothing[subj] || 0) + 1;
+              if (ui.makesFull || simClothing[subj] >= 3) simFullyBare[subj] = true;
+            });
+          }
+        }
+        // recordFeedback finalizes internally (which auto-queues the next turn) —
+        // calling finalizePromptAfterFeedback here too double-completes prompts
         g.recordFeedback(response);
-        g.finalizePromptAfterFeedback(response);
-        drainTimers(50);
+        drainTimers(1000);
       }
     } catch (e) {
       errors.push('turn ' + turns + ' [' + g.getCurrentChapter() + ']: ' + e.message);
       // try to recover
       g.gameState.awaitingResolution = false;
     }
-    if (rendered.length === lastRenderCount) stalls++;
+    if (rendered.length === lastRenderCount) {
+      stalls++;
+      if (process.env.STALL_TRACE) console.error('[stall]', config.name, 'turn', turns, 'awaiting', g.gameState.awaitingResolution, 'spinner', !!g.gameState.spinner, 'voting', g.gameState.votingActive, 'chains', JSON.stringify(g.gameState.activeChains), 'bridge', !!g.gameState.postChainBridge, 'ft', !!g.gameState.followThroughQueue);
+    }
     lastRenderCount = rendered.length;
   }
 
