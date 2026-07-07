@@ -90,7 +90,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 1,
-    "text": "{actor}, dance merengue as though you have been personally wronged by the entire concept of merengue. Deeply unimpressed. Barely participating. Make {target} break first.",
+    "text": "{actor}, dance {dance1} as though you have been personally wronged by the entire concept of {dance1}. Deeply unimpressed. Barely participating. Make {target} break first.",
     "target": "other"
   },
   {
@@ -190,7 +190,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, roll your hips — real merengue weight, commit to it — and pull {target} in to match you. When {target} fails, which {target} will, laugh without mercy. Then try again.",
+    "text": "{actor}, roll your hips — real {dance1} weight, commit to it — and pull {target} in to match you. When {target} fails, which {target} will, laugh without mercy. Then try again.",
     "target": "other"
   },
   {
@@ -230,7 +230,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 1,
-    "text": "{actor}, compose a verse — sung, not spoken — about {target}'s worst habit. Merengue rhythm if you dare. {target} may not defend themselves until the song is done.",
+    "text": "{actor}, compose a verse — sung, not spoken — about {target}'s worst habit. {dance1} rhythm if you dare. {target} may not defend themselves until the song is done.",
     "target": "other"
   },
   {
@@ -320,7 +320,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 1,
-    "text": "{actor}, you are an overenthusiastic merengue instructor and {target} is your most challenging student. Place their hands, correct their hips, get slightly too invested in the quality of this lesson. {target} endures.",
+    "text": "{actor}, you are an overenthusiastic {dance1} instructor and {target} is your most challenging student. Place their hands, correct their hips, get slightly too invested in the quality of this lesson. {target} endures.",
     "target": "other"
   },
   {
@@ -360,7 +360,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 1,
-    "text": "{actor}, inhabit {target} arguing — with full conviction, full body — that merengue is the undisputed pinnacle of human dance culture. Thirty seconds. {target} listens to their own argument.",
+    "text": "{actor}, inhabit {target} arguing — with full conviction, full body — that {dance1} is the undisputed pinnacle of human dance culture. Thirty seconds. {target} listens to their own argument.",
     "target": "other"
   },
   {
@@ -440,7 +440,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, your grocery list is a ballad. Sing it — merengue tempo, full chest, every item infused with longing. Milk. Eggs. Whatever is on that list. Give it everything you have.",
+    "text": "{actor}, your grocery list is a ballad. Sing it — {dance1} tempo, full chest, every item infused with longing. Milk. Eggs. Whatever is on that list. Give it everything you have.",
     "target": "other"
   },
   {
@@ -540,7 +540,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, you are {target} — sitting across from a merengue dancer who is handing out life advice with complete confidence. Receive it. React. Let the absurdity hit your body.",
+    "text": "{actor}, you are {target} — sitting across from a {dance1} dancer who is handing out life advice with complete confidence. Receive it. React. Let the absurdity hit your body.",
     "target": "other"
   },
   {
@@ -580,7 +580,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 1,
-    "text": "{actor}, roll your hips. Slow, deliberate merengue — and don't look away from {target}. Hold their gaze for fifteen full seconds. Lyra is counting. So is {target}.",
+    "text": "{actor}, roll your hips. Slow, deliberate {dance1} — and don't look away from {target}. Hold their gaze for fifteen full seconds. Lyra is counting. So is {target}.",
     "target": "other"
   },
   {
@@ -640,7 +640,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 1,
-    "text": "{actor}, {target} is your student. Merengue. You are the expert. Narrate {target}'s talent — but get it completely wrong. Call every stumble a breakthrough. Praise the worst moments.",
+    "text": "{actor}, {target} is your student. {dance1}. You are the expert. Narrate {target}'s talent — but get it completely wrong. Call every stumble a breakthrough. Praise the worst moments.",
     "target": "other"
   },
   {
@@ -700,7 +700,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, take {target}'s hands and dance. Full merengue. But let every step carry {target}'s personality — {target}'s rhythm, {target}'s impulses, {target}'s particular way of moving through the world. Make it unmistakably them.",
+    "text": "{actor}, take {target}'s hands and dance. Full {dance1}. But let every step carry {target}'s personality — {target}'s rhythm, {target}'s impulses, {target}'s particular way of moving through the world. Make it unmistakably them.",
     "target": "other"
   },
   {
@@ -740,7 +740,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, five minutes. You are {target}'s coach. Merengue. You see exactly what {target} is doing wrong, and you will not let it slide. Tough. Fair. Specific. Make {target} better.",
+    "text": "{actor}, five minutes. You are {target}'s coach. {dance1}. You see exactly what {target} is doing wrong, and you will not let it slide. Tough. Fair. Specific. Make {target} better.",
     "target": "other"
   },
   {
@@ -760,7 +760,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, start a slow merengue with {target}. Slow enough to feel every shift of weight. Let the rhythm do what it does. Let it become something else. Lyra isn't going to stop you.",
+    "text": "{actor}, start a slow {dance1} with {target}. Slow enough to feel every shift of weight. Let the rhythm do what it does. Let it become something else. Lyra isn't going to stop you.",
     "target": "other"
   },
   {
@@ -1040,7 +1040,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 3,
-    "text": "{actor}, bachata is playing. You are doing a dramatic tango anyway. Rose-in-mouth energy. Full commitment. {target} has to match you step for step — and neither of you is allowed to admit this is ridiculous.",
+    "text": "{actor}, {dance2} is playing. You are doing a dramatic tango anyway. Rose-in-mouth energy. Full commitment. {target} has to match you step for step — and neither of you is allowed to admit this is ridiculous.",
     "target": "other"
   },
   {
@@ -1130,7 +1130,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, pull {target} in and dance a slow bachata. Bodies close. Fully connected. You're allowed to laugh — just don't let go.",
+    "text": "{actor}, pull {target} in and dance a slow {dance2}. Bodies close. Fully connected. You're allowed to laugh — just don't let go.",
     "target": "other"
   },
   {
@@ -1400,7 +1400,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 5.5,
-    "text": "{actor}, a slow bachata with {target}. This time, let your hands move somewhere new. Keep the rhythm. Less playful, more present.",
+    "text": "{actor}, a slow {dance2} with {target}. This time, let your hands move somewhere new. Keep the rhythm. Less playful, more present.",
     "target": "other"
   },
   {
@@ -1580,7 +1580,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 4,
-    "text": "{actor}, take {target} into a slow bachata. Close enough to share breath. Eyes locked. Let them feel every inch of what you're not yet saying.",
+    "text": "{actor}, take {target} into a slow {dance2}. Close enough to share breath. Eyes locked. Let them feel every inch of what you're not yet saying.",
     "target": "other"
   },
   {
@@ -1640,7 +1640,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 2,
-    "text": "{actor}, lead {target} through a bachata where there is no question who is in control. Your grip says it. Your posture says it. Let your body make it undeniable.",
+    "text": "{actor}, lead {target} through a {dance2} where there is no question who is in control. Your grip says it. Your posture says it. Let your body make it undeniable.",
     "target": "other"
   },
   {

@@ -141,7 +141,7 @@ var MUSIC_THEMES = {
     id: "rnb",
     name: "R&B / Soul",
     description: "Party R&B \u2192 Slow Jams \u2192 Neo-Soul",
-    dances: { dance1: "two-step", dance2: "groove", dance_slow: "soul", beat: "R&B groove" },
+    dances: { dance1: "R&B", dance2: "groove", dance_slow: "slow jam", beat: "R&B groove" },
     stages: {
       personal:   { genre: "Afrobeats",         label: "Stage 1 \u00B7 Afrobeats",         sub: "Dancehall Afrobeats \u00B7 high energy 150 BPM",    url: "https://www.youtube.com/playlist?list=PLTuKswLYHiXlw19K1xQUwOLkQXTI6fbHK" },
       playful:    { genre: "Afrobeat Dance",   label: "Stage 2 \u00B7 Afrobeat Dance",   sub: "Afrobeats dance floor \u00B7 funky 130 BPM",        url: "https://www.youtube.com/playlist?list=PLkN9IoY-hkDT53V_I7PSEsHVZaz46ioTS" },
@@ -156,7 +156,7 @@ var MUSIC_THEMES = {
     id: "pop",
     name: "Pop / Indie",
     description: "Dance Pop \u2192 Dream Pop \u2192 Dark Ambient",
-    dances: { dance1: "freestyle", dance2: "indie", dance_slow: "reverie", beat: "pop beat" },
+    dances: { dance1: "pop", dance2: "groove", dance_slow: "slow dance", beat: "pop beat" },
     stages: {
       personal:   { genre: "Dance Pop",        label: "Stage 1 \u00B7 Dance Pop",        sub: "Party mix \u00B7 club & EDM pop \u00B7 130 BPM",         url: "https://www.youtube.com/playlist?list=PLwpFrtWg2EJFW2fzunujrznjqmdp8tbaf" },
       playful:    { genre: "Upbeat Pop",      label: "Stage 2 \u00B7 Upbeat Pop",       sub: "Happy upbeat pop 2026 \u00B7 120 BPM",              url: "https://www.youtube.com/playlist?list=PLvFYFNbi-IBF9Ei999OSo54l3pV7h2Yzg" },
@@ -171,7 +171,7 @@ var MUSIC_THEMES = {
     id: "lofi",
     name: "Lo-fi / Chill",
     description: "Chill Beats \u2192 Jazz Hop \u2192 Dark Ambient",
-    dances: { dance1: "freestyle", dance2: "lo-fi", dance_slow: "drift", beat: "chill beat" },
+    dances: { dance1: "lo-fi", dance2: "groove", dance_slow: "slow sway", beat: "chill beat" },
     stages: {
       personal:   { genre: "Lo-fi Hip Hop",    label: "Stage 1 \u00B7 Lo-fi Hip Hop",    sub: "Best lo-fi 2026 \u00B7 chill 100 BPM",              url: "https://www.youtube.com/playlist?list=PLyORnIW1xT6xL7lVBSCsEoI0NPlpcwzj2" },
       playful:    { genre: "Chill Beats",      label: "Stage 2 \u00B7 Chill Beats",      sub: "Chillhop \u00B7 mellow grooves \u00B7 90 BPM",           url: "https://www.youtube.com/playlist?list=PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo" },
