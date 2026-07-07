@@ -24,9 +24,25 @@ var TRANSLATIONS_ES = {
 
   // Prompt translations: id -> { text, enHash }
   // {actor}/{target}/{dance1}/{dance2} placeholders stay in the Spanish text.
+  // Style: tú, Latin-American Spanish, Lyra sensual y misteriosa — nunca literal.
   prompts: {
-    // Example (remove when real translation starts):
-    // CPL0001: { text: "…", enHash: 0 }
+    // ── PILOT BATCH: one slice through all seven stages ──
+    CPE0004: { text: "{actor}, narra la rutina matutina de {target} como si fuera un documental de David Attenborough. Compromiso total.", enHash: 1371766382 },
+    CPE0009: { text: "{actor}, baila como si estuvieras en un club de {dance1} pero fingiendo un aburrimiento profundo. Haz reír a {target}.", enHash: 3647164697 },
+    CPE0051: { text: "Si {target} tuviera una etiqueta de advertencia, ¿qué diría? Léela en voz alta como un comercial de farmacia.", enHash: 2433982572 },
+    CPLN008: { text: "¿Qué buscaste en Google sobre {target} antes de esta noche? Sé específico.", enHash: 2729070083 },
+    CPE0085: { text: "{actor}, susúrrale al oído a {target} algo que haga que se sonroje. Hazlo despacio.", enHash: 625296705 },
+    CPE0090: { text: "¿Cuál es la jugada de coqueteo más vergonzosa que {target} usó contigo? Cuéntanos todos los detalles.", enHash: 2519912926 },
+    CPL0163: { text: "{actor}, siéntate frente a {target}. Sin tocarse. Durante 60 segundos completos, mira — mira de verdad — y deja que sienta todo el peso de tu atención. No lo suavices.", enHash: 3372432095 },
+    CPL0170: { text: "{actor}, acércate y aparta un mechón de pelo de la cara de {target}. Despacio. Deja que tus dedos descansen un instante en su mejilla. Luego retírate. No digas nada. Deja que el gesto hable.", enHash: 3374940452 },
+    CPL0182: { text: "{actor}, toma la cara de {target} entre tus manos. Junta tu frente con la suya. Cierra los ojos y respira — sin buscar el mismo ritmo, solo cerca. Quédense así un minuto entero. Nada más.", enHash: 3326041212 },
+    CPL0224: { text: "{actor}, besa a {target} ahora — ni suave, ni urgente. Algo intermedio. El tipo de beso que pesa, que dice: sé exactamente lo que quiero, y eres tú. Que tu boca lo diga en serio.", enHash: 1648897946 },
+    CPL0338: { text: "{actor}, desviste a {target} — con los dientes y una mano. La otra queda plana sobre su pecho. Siente su corazón. Nota cuándo se acelera. Deja que eso te diga cómo vas.", enHash: 3167266481 },
+    CPL0368: { text: "{actor}, desviste a {target} — una prenda a la vez. Antes de quitar cada una, apoya tus labios en la piel que está a punto de revelarse. Después di lo que estás pensando. En voz alta. Cada vez.", enHash: 744531300 },
+    CPL0405: { text: "{actor}, desvístete despacio. {target} mira — ese es el reto. Tómate tu tiempo con cada prenda. Tu cuerpo construye el deseo antes de que tus manos lleguen a las suyas. Haz que la espera duela.", enHash: 58523739 },
+    CPL0444: { text: "{actor}, entra en {target}. Despacio — cada centímetro deliberado. Deja que sienta la llegada de cada uno. Luego encuentra un ritmo: constante, creciente, implacable como la marea. No apures lo que este momento merece.", enHash: 3822154644 },
+    CPL0470: { text: "{actor}, lleva a {target} hasta el borde — lee cada señal hasta que esté justo en el umbral — y retrocede. Cuando recupere el aliento, construye de nuevo. Que se quede ahí, temblando entre la ruina y el alivio, hasta que Lyra diga basta.", enHash: 3254017915 },
+    CPL0481: { text: "{actor}, da un paso atrás, lejos de {target}. Sin tocar. Sin hablar. Deja que sienta tu presencia como calor sin contacto. {target} espera. Tú decides cuándo termina el minuto — no antes.", enHash: 3665082000 }
   },
 
   // Engine/UI strings: key -> Spanish text.
