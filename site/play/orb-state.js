@@ -43,6 +43,7 @@ const gameState = {
   // Voting & vulnerability system
   vulnerability: {},       // { "Hans": 3, "Grecia": 5 } — how open a player has been
   votingActive: false,
+  verdictActive: false,
   lastVotedTurn: -99,
   lastMinigameTurn: -99,
   lastDanceTurn: -99,

@@ -2620,6 +2620,11 @@ function recordFeedback(response) {
   // prompt itself asks for a rating ("rates it 1-5", "did she get it right") —
   // the 1-5 vote overlay IS the rating, with real stakes: points = sum x 10,
   // and a low average triggers Lyra's deeper follow-up.
+  if ((response === "done" || response === "answered") && !gameState.verdictActive &&
+      isVerdictPrompt(gameState.lastPrompt)) {
+    startVerdict();
+    return; // Don't finalize yet — the verdict buttons will
+  }
   if ((response === "done" || response === "answered") &&
       (shouldTriggerVoting() || isRatingPrompt(gameState.lastPrompt))) {
     startVoting();
@@ -2824,15 +2829,78 @@ function isPersonalTruth(prompt) {
   return false;
 }
 
-// Prompts whose text explicitly asks for a rating or a right/wrong verdict.
+// Prompts whose text explicitly asks for a numeric rating.
 // These always get the 1-5 vote overlay after completion.
 function isRatingPrompt(prompt) {
   if (!prompt || !prompt.text) return false;
   if (isSpinnerPrompt(prompt)) return false;
   var t = prompt.text;
   return /\brat(e|es|ing)s?\b[^.]{0,60}\b(1-5|1 to 5|out of 5|scale of 1 to 5)/i.test(t) ||
-         /\b(1-5|1 to 5|out of 5|scale of 1 to 5)\b[^.]{0,40}\brat(e|es|ing)/i.test(t) ||
-         /did .{0,40}get it right/i.test(t);
+         /\b(1-5|1 to 5|out of 5|scale of 1 to 5)\b[^.]{0,40}\brat(e|es|ing)/i.test(t);
+}
+
+// Prompts with a right/wrong outcome ("did she get it right", "wrong answer
+// costs a sip") get a binary verdict with a drink penalty on WRONG.
+function isVerdictPrompt(prompt) {
+  if (!prompt || !prompt.text) return false;
+  if (isSpinnerPrompt(prompt)) return false;
+  var t = prompt.text;
+  return /did .{0,40}get it right/i.test(t) ||
+         /wrong answer costs/i.test(t) ||
+         /if .{0,25}(gets? it|answers?) wrong/i.test(t);
+}
+
+var VERDICT_SIP_MESSAGES = [
+  "Wrong! Lyra saw it coming. Drink up.",
+  "Not even close. The orb demands a sip.",
+  "You failed. Drink up — and pay closer attention next time.",
+  "Lyra winces. That was wrong. The sip is mandatory."
+];
+
+function startVerdict() {
+  gameState.verdictActive = true;
+  var actor = gameState.currentPlayer;
+  var originalPrompt = gameState.lastPrompt;
+  var otherPlayers = gameState.players.filter(function(p) { return p.name !== actor; });
+  var judge = isCouplesMode()
+    ? (otherPlayers.length ? capitalize(otherPlayers[0].name) : "Your partner")
+    : "The group";
+
+  clearFeedbackButtons();
+  setLegacyFeedbackButtonsHidden(true);
+  var wrap = getFeedbackPanelButtonsWrap();
+  if (!wrap) { gameState.verdictActive = false; finalizePromptAfterFeedback("done"); return; }
+
+  if (promptTextEl) {
+    promptTextEl.textContent = "Moment of truth: did " + capitalize(actor) + " get it right? " + judge + " decides.";
+    promptTextEl.style.opacity = "1";
+  }
+
+  wrap.appendChild(createFeedbackButton("CORRECT", "done", function() {
+    gameState.verdictActive = false;
+    // Reward the good answer
+    var ap = gameState.players.filter(function(p) { return p.name === actor; })[0];
+    if (ap) ap.score = (ap.score || 0) + 50;
+    if (typeof window !== "undefined" && window.OrbDynamicUI) window.OrbDynamicUI.renderPlayerCards();
+    finalizePromptAfterFeedback("done");
+  }));
+  wrap.appendChild(createFeedbackButton("WRONG — DRINK!", "refused", function() {
+    gameState.verdictActive = false;
+    // The prompt itself was still performed — record it, then Lyra collects
+    recordPromptCompletion(originalPrompt, "done");
+    var msg = VERDICT_SIP_MESSAGES[Math.floor(Math.random() * VERDICT_SIP_MESSAGES.length)];
+    if (promptTextEl) { promptTextEl.textContent = msg; promptTextEl.style.opacity = "1"; }
+    gameState.lastPrompt = { id: "VERDICT_SIP", chapter: getCurrentChapter(), promptType: "dare", type: "self", target: "self", text: msg };
+    clearFeedbackButtons();
+    var w2 = getFeedbackPanelButtonsWrap();
+    if (w2) {
+      w2.appendChild(createFeedbackButton("CHEERS!", "done", function() {
+        finalizePromptAfterFeedback("done");
+      }));
+      feedbackPanelEl.classList.remove("is-hidden");
+    }
+  }));
+  feedbackPanelEl.classList.remove("is-hidden");
 }
 
 function shouldTriggerVoting() {
@@ -2957,7 +3025,34 @@ function startVoting() {
   feedbackPanelEl.classList.remove("is-hidden");
 }
 
+var DARE_RETRY_TEMPLATES = [
+  "Lyra watched. That was not your best. Do it again — full commitment this time.",
+  "The score says try again. Lyra agrees. Round two — impress her.",
+  "Not good enough. Again. Slower, bolder, better.",
+  "Lyra has seen better. One more time, and mean it."
+];
+
 function triggerFollowUp(playerName) {
+  // Dares that scored low get a RETRY, not a truth-digging follow-up
+  if (gameState.lastPrompt && gameState.lastPrompt.promptType === "dare") {
+    var retry = DARE_RETRY_TEMPLATES[Math.floor(Math.random() * DARE_RETRY_TEMPLATES.length)];
+    if (promptTextEl) { promptTextEl.textContent = retry; promptTextEl.style.opacity = "1"; }
+    setLegacyFeedbackButtonsHidden(true);
+    setOrbRevealName(capitalize(playerName), "final");
+    clearFeedbackButtons();
+    var rw = getFeedbackPanelButtonsWrap();
+    if (rw) {
+      rw.appendChild(createFeedbackButton("DONE", "done", function() {
+        addVulnerability(playerName, 1);
+        finalizePromptAfterFeedback("done");
+      }));
+      rw.appendChild(createFeedbackButton("PASS", "pass", function() {
+        finalizePromptAfterFeedback("pass");
+      }));
+      feedbackPanelEl.classList.remove("is-hidden");
+    }
+    return;
+  }
   // Pick a random follow-up template
   var template = FOLLOWUP_TEMPLATES[Math.floor(Math.random() * FOLLOWUP_TEMPLATES.length)];
 
@@ -3359,6 +3454,7 @@ function resetGame() {
   gameState.typePreference = (typePreferenceEl ? typePreferenceEl.value : "mixed");
   gameState.vulnerability = {};
   gameState.votingActive = false;
+  gameState.verdictActive = false;
   gameState.lastVotedTurn = -99;
   gameState.lastMinigameTurn = -99;
   gameState.lastDanceTurn = -99;

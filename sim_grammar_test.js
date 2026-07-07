@@ -369,7 +369,7 @@ function playGame(config) {
       // Interactive overlays (voting, penalty spinner): auto-click through
       // them like a real player. Buttons live under the feedback panel stub.
       var uiGuard = 0;
-      while ((g.gameState.votingActive || g.gameState.spinner) && uiGuard++ < 30) {
+      while ((g.gameState.votingActive || g.gameState.spinner || g.gameState.verdictActive) && uiGuard++ < 30) {
         var panel = sandbox.document.getElementById('feedbackPanel');
         var buttons = [];
         (function collect(el) {
