@@ -2484,6 +2484,25 @@ function recordPromptCompletion(prompt, response) {
     }
   }
 
+  // Minigame stake follow-through: a game with declared stakes queues the
+  // collection as the very next turn (same pair), judged by the 1-5 rating.
+  if ((response === "done" || response === "answered") && prompt._stakeFollowUp) {
+    gameState.followThroughQueue = {
+      actor: gameState.currentPlayer,
+      target: gameState.lastResolvedTarget,
+      prompt: {
+        id: (prompt.id || "MINI") + "_STAKE",
+        chapter: prompt.chapter,
+        role: prompt.role || "action",
+        type: "directed",
+        promptType: "dare",
+        intensity: prompt.intensity || 3,
+        text: prompt._stakeFollowUp,
+        target: "other"
+      }
+    };
+  }
+
   // Truth→Dare follow-through: if a truth was completed, check if it triggers a follow-up dare
   if ((response === "done" || response === "answered") && prompt.promptType === "truth" && !prompt.chain_id) {
     var promptText = (prompt.text || "").toLowerCase();
@@ -2674,9 +2693,11 @@ var COUPLES_MINIGAME_PROMPTS = [
   { id: "CMINI_04", chapter: "personal", role: "build", type: "directed", promptType: "dare",
     intensity: 2.5, text: "Impression time! {actor}, do your best impression of {target} in a specific situation of your choosing. {target} rates it out of 5 — below 3 means you try again.", target: "other", minigame: "impression" },
   { id: "CMINI_05", chapter: "personal", role: "interaction", type: "directed", promptType: "dare",
-    intensity: 2, text: "Rock paper scissors, best of three! Loser owes the winner one favor tonight — winner declares it now, Lyra remembers.", target: "other", minigame: "rps" },
+    intensity: 2, text: "Rock paper scissors, best of three! Loser owes the winner one favor tonight — winner declares it now, Lyra remembers.", target: "other", minigame: "rps",
+    _stakeFollowUp: "Lyra remembers the debt. Loser of the rock-paper-scissors: deliver the favor you owe — right now. Winner rates it 1-5." },
   { id: "CMINI_06", chapter: "playful", role: "interaction", type: "directed", promptType: "dare",
-    intensity: 3, text: "Thumb war! Winner assigns the loser a 10-second dare, right now. Make it count.", target: "other", minigame: "challenge" },
+    intensity: 3, text: "Thumb war! Winner assigns the loser a 10-second dare, right now. Make it count.", target: "other", minigame: "challenge",
+    _stakeFollowUp: "Pay up! Loser of the thumb war: perform the assigned dare — ten full seconds, total commitment. Winner rates it 1-5." },
   { id: "CMINI_07", chapter: "playful", role: "build", type: "directed", promptType: "dare",
     intensity: 3, text: "Mirror dance! {actor} leads for 15 seconds, {target} mirrors every move. Then swap. Worst mirror — you both vote — takes a sip.", target: "other", minigame: "challenge" },
   { id: "CMINI_08", chapter: "playful", role: "interaction", type: "directed", promptType: "dare",
@@ -2686,7 +2707,8 @@ var COUPLES_MINIGAME_PROMPTS = [
   { id: "CMINI_10", chapter: "playful", role: "setup", type: "directed", promptType: "dare",
     intensity: 3, text: "Speed round! 5 seconds each, back and forth: name things you love about each other. First to stall, repeat, or laugh takes a sip.", target: "other", minigame: "speed" },
   { id: "CMINI_11", chapter: "flirty", role: "interaction", type: "directed", promptType: "dare",
-    intensity: 5, text: "Eye contact duel! One full minute, faces close, no talking, no laughing. Whoever breaks first — the winner whispers one instruction in their ear, to be done before the next stage.", target: "other", minigame: "challenge" },
+    intensity: 5, text: "Eye contact duel! One full minute, faces close, no talking, no laughing. Whoever breaks first — the winner whispers one instruction in their ear, to be done before the next stage.", target: "other", minigame: "challenge",
+    _stakeFollowUp: "The whispered instruction from the eye contact duel comes due. Loser: carry it out — now. Winner rates it 1-5." },
   { id: "CMINI_12", chapter: "flirty", role: "build", type: "directed", promptType: "dare",
     intensity: 5, text: "Rock paper scissors — for stakes. Winner chooses exactly where the loser kisses them. Take your time deciding.", target: "other", minigame: "rps" },
   { id: "CMINI_13", chapter: "suggestive", role: "interaction", type: "directed", promptType: "dare",
