@@ -11,6 +11,7 @@ GAME_FILES=(
   prompts_v2.js
   couples_prompts_v2.js
   couples_prompts_early.js
+  translations_es.js
   atmosphere.js
   orb-voice.js
   ai_orb.js

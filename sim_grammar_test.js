@@ -148,6 +148,7 @@ var LOAD_ORDER = [
   'prompts_v2.js',
   'couples_prompts_v2.js',
   'couples_prompts_early.js',
+  'translations_es.js',
   'orb-data.js',
   'orb-templates.js',
   'orb-state.js',

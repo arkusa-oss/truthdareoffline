@@ -16,6 +16,49 @@ function capitalize(name) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
+// =========================
+// LANGUAGE LAYER
+// =========================
+// GAME_LANG selects the prompt/UI language. Translations live in overlay
+// files (translations_es.js) keyed by prompt ID, with English as fallback —
+// so structural fixes (chapters, chains, mechanics) apply to every language
+// automatically, and only wording is per-language.
+
+var GAME_LANG = "en";
+try { GAME_LANG = localStorage.getItem("orb_lang") || "en"; } catch (e) {}
+
+function getTranslationTable() {
+  if (GAME_LANG === "es" && typeof TRANSLATIONS_ES !== "undefined") return TRANSLATIONS_ES;
+  return null;
+}
+
+function setGameLanguage(lang) {
+  GAME_LANG = lang || "en";
+  try { localStorage.setItem("orb_lang", GAME_LANG); } catch (e) {}
+}
+
+// Prompt text in the active language, falling back to English.
+function getPromptText(prompt) {
+  if (!prompt) return "";
+  var table = getTranslationTable();
+  if (table && prompt.id && table.prompts && table.prompts[prompt.id] && table.prompts[prompt.id].text) {
+    return table.prompts[prompt.id].text;
+  }
+  return prompt.text || "";
+}
+
+// Engine/UI string in the active language. `vars` fills {placeholders}.
+function T(key, fallback, vars) {
+  var table = getTranslationTable();
+  var s = (table && table.ui && table.ui[key]) ? table.ui[key] : fallback;
+  if (vars) {
+    Object.keys(vars).forEach(function (k) {
+      s = s.replace(new RegExp("\\{" + k + "\\}", "g"), vars[k]);
+    });
+  }
+  return s;
+}
+
 // Returns the active prompt pool based on game mode
 function getPromptPool() {
   return gameState.gameMode === "couple" ? COUPLES_PROMPTS : PROMPTS;
@@ -1634,6 +1677,8 @@ function selectPrompt(actorName) {
 // =========================
 
 function injectPromptText(text, player, target) {
+  // Accept a prompt object — resolves the active-language text by ID
+  if (text && typeof text === "object") text = getPromptText(text);
   var out = (text || "").trim();
   var actorObj = player ? getPlayerByName(player) : null;
   var partnerName = (actorObj && actorObj.partner) ? actorObj.partner : "your partner";
@@ -1786,7 +1831,7 @@ function injectPromptText(text, player, target) {
 }
 
 function renderPrompt(prompt, player, target) {
-  var text = injectPromptText(prompt.text, player, target);
+  var text = injectPromptText(prompt, player, target);
   if (promptTextEl) promptTextEl.textContent = text;
 
   if (metaTextEl) {
@@ -1986,7 +2031,7 @@ function maybeTriggerPenalty(player) {
   startSpinner(penaltyPrompt, player, target);
   setLegacyFeedbackButtonsHidden(true);
   if (promptTextEl) {
-    promptTextEl.textContent = injectPromptText(penaltyPrompt.text, player, target);
+    promptTextEl.textContent = injectPromptText(penaltyPrompt, player, target);
     promptTextEl.style.opacity = "1";
   }
   renderSpinnerUI(penaltyPrompt, player, target);
@@ -2237,7 +2282,7 @@ function renderSpinnerUI(prompt, player, target) {
       promptTextEl.textContent = lastText;
       promptTextEl.style.fontSize = "";
     } else {
-      var titleText = injectPromptText(prompt.text, player, target);
+      var titleText = injectPromptText(prompt, player, target);
       promptTextEl.textContent = titleText;
       promptTextEl.style.fontSize = "";
     }
@@ -2311,7 +2356,7 @@ function resolvePromptFlow(prompt, player, target) {
     renderPrompt(prompt, player, target);
     revealPromptText();
     // Store in history for back/forward navigation
-    var displayText = injectPromptText(prompt.text, player, target);
+    var displayText = injectPromptText(prompt, player, target);
     gameState.promptHistory.push({
       text: displayText,
       player: (prompt.type === "group") ? "EVERYONE" : (player || ""),
@@ -2863,8 +2908,8 @@ function startVerdict() {
   var originalPrompt = gameState.lastPrompt;
   var otherPlayers = gameState.players.filter(function(p) { return p.name !== actor; });
   var judge = isCouplesMode()
-    ? (otherPlayers.length ? capitalize(otherPlayers[0].name) : "Your partner")
-    : "The group";
+    ? (otherPlayers.length ? capitalize(otherPlayers[0].name) : T("judge.partner", "Your partner"))
+    : T("judge.group", "The group");
 
   clearFeedbackButtons();
   setLegacyFeedbackButtonsHidden(true);
@@ -2872,11 +2917,11 @@ function startVerdict() {
   if (!wrap) { gameState.verdictActive = false; finalizePromptAfterFeedback("done"); return; }
 
   if (promptTextEl) {
-    promptTextEl.textContent = "Moment of truth: did " + capitalize(actor) + " get it right? " + judge + " decides.";
+    promptTextEl.textContent = T("verdict.question", "Moment of truth: did {name} get it right? {judge} decides.", { name: capitalize(actor), judge: judge });
     promptTextEl.style.opacity = "1";
   }
 
-  wrap.appendChild(createFeedbackButton("CORRECT", "done", function() {
+  wrap.appendChild(createFeedbackButton(T("verdict.correct", "CORRECT"), "done", function() {
     gameState.verdictActive = false;
     // Reward the good answer
     var ap = gameState.players.filter(function(p) { return p.name === actor; })[0];
@@ -2884,7 +2929,7 @@ function startVerdict() {
     if (typeof window !== "undefined" && window.OrbDynamicUI) window.OrbDynamicUI.renderPlayerCards();
     finalizePromptAfterFeedback("done");
   }));
-  wrap.appendChild(createFeedbackButton("WRONG — DRINK!", "refused", function() {
+  wrap.appendChild(createFeedbackButton(T("verdict.wrong", "WRONG — DRINK!"), "refused", function() {
     gameState.verdictActive = false;
     // The prompt itself was still performed — record it, then Lyra collects
     recordPromptCompletion(originalPrompt, "done");
@@ -2952,12 +2997,12 @@ function startVoting() {
     var originalText = promptTextEl.textContent;
     var isDareRating = gameState.lastPrompt && gameState.lastPrompt.promptType === "dare";
     var judge = isCouplesMode()
-      ? (otherPlayers.length ? capitalize(otherPlayers[0].name) : "Your partner")
-      : "The group";
+      ? (otherPlayers.length ? capitalize(otherPlayers[0].name) : T("judge.partner", "Your partner"))
+      : T("judge.group", "The group");
     if (isDareRating) {
-      promptTextEl.textContent = "How did " + capitalize(actor) + " do? " + judge + " rates it 1-5.";
+      promptTextEl.textContent = T("vote.dare", "How did {name} do? {judge} rates it 1-5.", { name: capitalize(actor), judge: judge });
     } else {
-      promptTextEl.textContent = "Did " + capitalize(actor) + " reveal enough? " + judge + " decides.";
+      promptTextEl.textContent = T("vote.truth", "Did {name} reveal enough? {judge} decides.", { name: capitalize(actor), judge: judge });
     }
     promptTextEl.style.opacity = "0.8";
   }

@@ -118,6 +118,22 @@ if (addPlayerBtn) addPlayerBtn.addEventListener("click", addPlayerFromSetup);
 if (rulesAcceptBtn) rulesAcceptBtn.addEventListener("click", closeRulesOverlay);
 initCoupleTypeButtons();
 
+// Language switcher — persists across sessions via localStorage
+(function () {
+  var btns = document.querySelectorAll('.lang-btn');
+  btns.forEach(function (btn) {
+    if (btn.dataset.lang === GAME_LANG) {
+      btns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+    btn.addEventListener('click', function () {
+      setGameLanguage(btn.dataset.lang);
+      btns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+})();
+
 var introOverlayEl = document.getElementById("introOverlay");
 var introOverlay2El = document.getElementById("introOverlay2");
 var introContinueBtn = document.getElementById("introContinueBtn");
