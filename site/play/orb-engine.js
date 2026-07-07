@@ -2597,8 +2597,12 @@ function recordFeedback(response) {
     }
   }
 
-  // === VOTING TRIGGER: after truth prompts, let other players judge ===
-  if ((response === "done" || response === "answered") && shouldTriggerVoting()) {
+  // === VOTING TRIGGER: after truth prompts (random), or ALWAYS when the
+  // prompt itself asks for a rating ("rates it 1-5", "did she get it right") —
+  // the 1-5 vote overlay IS the rating, with real stakes: points = sum x 10,
+  // and a low average triggers Lyra's deeper follow-up.
+  if ((response === "done" || response === "answered") &&
+      (shouldTriggerVoting() || isRatingPrompt(gameState.lastPrompt))) {
     startVoting();
     return; // Don't finalize yet — voting will call finalizePromptAfterFeedback
   }
@@ -2668,7 +2672,7 @@ var COUPLES_MINIGAME_PROMPTS = [
   { id: "CMINI_03", chapter: "personal", role: "build", type: "directed", promptType: "dare",
     intensity: 2, text: "Staring contest! First to laugh or look away answers one question from the winner — total honesty, no passing.", target: "other", minigame: "challenge" },
   { id: "CMINI_04", chapter: "personal", role: "build", type: "directed", promptType: "dare",
-    intensity: 2.5, text: "Impression time! {actor}, do your best impression of {target} in a specific situation of your choosing. {target} rates it out of 10 — below 7 means you try again.", target: "other", minigame: "impression" },
+    intensity: 2.5, text: "Impression time! {actor}, do your best impression of {target} in a specific situation of your choosing. {target} rates it out of 5 — below 3 means you try again.", target: "other", minigame: "impression" },
   { id: "CMINI_05", chapter: "personal", role: "interaction", type: "directed", promptType: "dare",
     intensity: 2, text: "Rock paper scissors, best of three! Loser owes the winner one favor tonight — winner declares it now, Lyra remembers.", target: "other", minigame: "rps" },
   { id: "CMINI_06", chapter: "playful", role: "interaction", type: "directed", promptType: "dare",
@@ -2798,6 +2802,17 @@ function isPersonalTruth(prompt) {
   return false;
 }
 
+// Prompts whose text explicitly asks for a rating or a right/wrong verdict.
+// These always get the 1-5 vote overlay after completion.
+function isRatingPrompt(prompt) {
+  if (!prompt || !prompt.text) return false;
+  if (isSpinnerPrompt(prompt)) return false;
+  var t = prompt.text;
+  return /\brat(e|es|ing)s?\b[^.]{0,60}\b(1-5|1 to 5|out of 5|scale of 1 to 5)/i.test(t) ||
+         /\b(1-5|1 to 5|out of 5|scale of 1 to 5)\b[^.]{0,40}\brat(e|es|ing)/i.test(t) ||
+         /did .{0,40}get it right/i.test(t);
+}
+
 function shouldTriggerVoting() {
   var prompt = gameState.lastPrompt;
   if (!prompt) return false;
@@ -2845,11 +2860,14 @@ function startVoting() {
   // Change prompt text to voting instruction
   if (promptTextEl) {
     var originalText = promptTextEl.textContent;
-    if (isCouplesMode()) {
-      var partnerName = otherPlayers.length ? capitalize(otherPlayers[0].name) : "your partner";
-      promptTextEl.textContent = "Did " + capitalize(actor) + " reveal enough? " + partnerName + " decides.";
+    var isDareRating = gameState.lastPrompt && gameState.lastPrompt.promptType === "dare";
+    var judge = isCouplesMode()
+      ? (otherPlayers.length ? capitalize(otherPlayers[0].name) : "Your partner")
+      : "The group";
+    if (isDareRating) {
+      promptTextEl.textContent = "How did " + capitalize(actor) + " do? " + judge + " rates it 1-5.";
     } else {
-      promptTextEl.textContent = "Did " + capitalize(actor) + " reveal enough? The group decides.";
+      promptTextEl.textContent = "Did " + capitalize(actor) + " reveal enough? " + judge + " decides.";
     }
     promptTextEl.style.opacity = "0.8";
   }
