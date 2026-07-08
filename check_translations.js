@@ -28,17 +28,25 @@ function hash(s) {
 // Load prompt pools + translations in a bare sandbox
 var sandbox = { localStorage: { getItem: function () { return null; }, setItem: function () {} } };
 vm.createContext(sandbox);
-['prompts_v2.js', 'couples_prompts_v2.js', 'couples_prompts_early.js', 'translations_es.js'].forEach(function (f) {
-  vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8').replace(/^const /m, 'var '), sandbox, { filename: f });
+// orb-data.js/templates define PROFILING_PROMPTS, HUMOR_PROMPTS, etc. and
+// build PROMPTS/COUPLES_PROMPTS; load the full runtime pool so every
+// translatable id is known (not just the CSV-imported ones).
+['prompts_v2.js', 'couples_prompts_v2.js', 'couples_prompts_early.js',
+ 'orb-data.js', 'orb-templates.js', 'translations_es.js'].forEach(function (f) {
+  vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8').replace(/^const /gm, 'var '), sandbox, { filename: f });
 });
 
 // English text by id (v2 personal/playful replaced by the early file at runtime)
 var english = {};
-sandbox.CSV_PROMPTS.forEach(function (p) { english[p.id] = p.text; });
+sandbox.PROMPTS.forEach(function (p) { english[p.id] = p.text; });
 sandbox.CSV_COUPLES_PROMPTS.forEach(function (p) {
   if (p.chapter !== 'personal' && p.chapter !== 'playful') english[p.id] = p.text;
 });
 sandbox.COUPLES_PROMPTS_EARLY.forEach(function (p) { english[p.id] = p.text; });
+// Engine-defined minigames (both modes) live in orb-engine.js source
+var engSrc = fs.readFileSync(__dirname + '/orb-engine.js', 'utf8');
+var reMini = /\{ id: "((?:C?MINI)_\d+)"[\s\S]*?text: "((?:[^"\\]|\\.)*)"/g, mMini;
+while ((mMini = reMini.exec(engSrc))) { english[mMini[1]] = JSON.parse('"' + mMini[2] + '"'); }
 
 // --stub: print a ready-to-paste translation entry
 var stubIdx = process.argv.indexOf('--stub');

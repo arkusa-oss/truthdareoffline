@@ -627,12 +627,12 @@ function renderResponseOptions(prompt) {
   wrap.innerHTML = "";
   var mode = inferResponseMode(prompt);
   if (mode === "done_refused_pass") {
-    wrap.appendChild(createFeedbackButton("DONE", "done", function() { recordFeedback("done"); }));
-    wrap.appendChild(createFeedbackButton("REFUSED", "refused", function() { recordFeedback("refused"); }));
-    wrap.appendChild(createFeedbackButton("PASS", "pass", function() { recordFeedback("pass"); }));
+    wrap.appendChild(createFeedbackButton(T("btn.done", "DONE"), "done", function() { recordFeedback("done"); }));
+    wrap.appendChild(createFeedbackButton(T("btn.refused", "REFUSED"), "refused", function() { recordFeedback("refused"); }));
+    wrap.appendChild(createFeedbackButton(T("btn.pass", "PASS"), "pass", function() { recordFeedback("pass"); }));
   } else {
-    wrap.appendChild(createFeedbackButton("ANSWERED", "answered", function() { recordFeedback("answered"); }));
-    wrap.appendChild(createFeedbackButton("PASS", "pass", function() { recordFeedback("pass"); }));
+    wrap.appendChild(createFeedbackButton(T("btn.answered", "ANSWERED"), "answered", function() { recordFeedback("answered"); }));
+    wrap.appendChild(createFeedbackButton(T("btn.pass", "PASS"), "pass", function() { recordFeedback("pass"); }));
   }
   feedbackPanelEl.classList.remove("is-hidden");
 }
