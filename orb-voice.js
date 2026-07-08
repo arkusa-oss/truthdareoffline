@@ -132,6 +132,14 @@ var LyraVoice = (function() {
       return;
     }
 
+    // Voice clips are pre-recorded in English only. In another language,
+    // stay silent rather than clash with translated on-screen text.
+    // (Remove this guard once localized audio exists, e.g. audiofiles/es/.)
+    if (typeof GAME_LANG !== "undefined" && GAME_LANG !== "en") {
+      if (callback) callback();
+      return;
+    }
+
     // Stop any currently playing clip
     stop();
 

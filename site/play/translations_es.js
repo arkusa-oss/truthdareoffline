@@ -31,6 +31,7 @@ var TRANSLATIONS_ES = {
     CMINI_03: { text: "¡Concurso de miradas! Quien se ría primero o aparte la vista responde una pregunta del ganador — honestidad total, sin pasar.", enHash: 270247381 },
     CMINI_04: { text: "¡Hora de imitar! {actor}, haz tu mejor imitación de {target} en una situación específica que tú elijas. {target} lo califica del 1 al 5 — menos de 3 significa que lo intentas de nuevo.", enHash: 999037869 },
     CMINI_05: { text: "¡Piedra, papel o tijera, al mejor de tres! Quien pierda le debe un favor a quien gane esta noche — el ganador lo declara ahora, Lyra no olvida.", enHash: 3885294384 },
+    DANCE_01: { text: "Pausa de baile. Todos de pie — nadie se salva esta. Encuentra el ritmo que Lyra está tocando y muévete, aunque sea pésimo. Cuando cambie el ritmo, cambia de lugar con alguien al otro lado del cuarto.", enHash: 1317904855 },
     CPE0001: { text: "¿Qué hace {target} en casa pensando que es completamente privado — pero tú ya lo has visto mil veces y nunca has dicho nada?", enHash: 2385319598 },
     CPE0002: { text: "¿Cuál es el hábito más desesperante de {target} que llevas aguantando en silencio desde el principio — y cuánto tiempo llevas con eso guardado?", enHash: 4242779757 },
     CPE0003: { text: "¿Qué cosa de {target} llevas años queriendo tirar a la basura pero nunca has dicho ni pío?", enHash: 3569495104 },

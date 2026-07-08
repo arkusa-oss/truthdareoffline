@@ -1,0 +1,8 @@
+# Game logic and translations change often — never serve a stale copy.
+# HTML is already no-cache via meta; this covers the JS/CSS the game loads.
+/play/*.js
+  Cache-Control: no-cache, must-revalidate
+/play/*.css
+  Cache-Control: no-cache, must-revalidate
+/play/translations_es.js
+  Cache-Control: no-cache, must-revalidate
