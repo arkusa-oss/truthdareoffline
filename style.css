@@ -2225,3 +2225,19 @@ body:has(#toastOverlay:not(.is-hidden)) .music-bar {
   80%  { opacity: 1; transform: translate(-50%, -85%) scale(1); }
   100% { opacity: 0; transform: translate(-50%, -120%) scale(0.95); }
 }
+
+
+/* Language switch on the intro cover — top-right of the card */
+.cover-lang-switch {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.cover-lang-switch .lang-btn {
+  font-size: 0.72rem;
+  padding: 4px 10px;
+}
+.intro-card { position: relative; }

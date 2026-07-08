@@ -413,6 +413,13 @@ var TRANSLATIONS_ES = {
     PRF_R05: { text: "Mira a {target}. ¿Sería del tipo que lleva un reto demasiado lejos — o no lo suficiente?", enHash: 2095270655 }
   },
 
+  // Static HTML (intro pages, rules) — key -> Spanish HTML.
+  // Tag the matching element with data-i18n="key". Empty for now; the
+  // intro/rules pages will be translated into this table later.
+  static: {
+    // "intro.title": "Un juego de Verdad o Reto para adultos…",
+  },
+
   // Engine/UI strings: key -> Spanish text.
   // {name}/{judge} placeholders are substituted by the engine.
   ui: {

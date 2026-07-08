@@ -47,6 +47,23 @@ function getPromptText(prompt) {
   return prompt.text || "";
 }
 
+// Static-HTML translation: elements tagged data-i18n="key" get their text
+// swapped to the active language (TRANSLATIONS_ES.static[key]); the original
+// English is cached in data-i18n-en so switching back is lossless. This is the
+// mechanism for translating the intro/rules pages — tag elements with data-i18n
+// and add the key to the static table when those translations are written.
+function applyStaticTranslations() {
+  var table = getTranslationTable();
+  var stat = (table && table.static) ? table.static : null;
+  var nodes = document.querySelectorAll('[data-i18n]');
+  nodes.forEach(function (el) {
+    if (el.getAttribute('data-i18n-en') === null) el.setAttribute('data-i18n-en', el.innerHTML);
+    var key = el.getAttribute('data-i18n');
+    if (stat && stat[key]) el.innerHTML = stat[key];
+    else el.innerHTML = el.getAttribute('data-i18n-en');
+  });
+}
+
 // Engine/UI string in the active language. `vars` fills {placeholders}.
 function T(key, fallback, vars) {
   var table = getTranslationTable();

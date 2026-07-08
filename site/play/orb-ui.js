@@ -118,20 +118,23 @@ if (addPlayerBtn) addPlayerBtn.addEventListener("click", addPlayerFromSetup);
 if (rulesAcceptBtn) rulesAcceptBtn.addEventListener("click", closeRulesOverlay);
 initCoupleTypeButtons();
 
-// Language switcher — persists across sessions via localStorage
+// Language switcher — lives on the cover page AND the setup screen; both
+// groups stay in sync. Persists across sessions via localStorage.
 (function () {
-  var btns = document.querySelectorAll('.lang-btn');
-  btns.forEach(function (btn) {
-    if (btn.dataset.lang === GAME_LANG) {
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-    }
+  function syncActive(lang) {
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+  }
+  syncActive(GAME_LANG);
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       setGameLanguage(btn.dataset.lang);
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
+      syncActive(btn.dataset.lang);
+      applyStaticTranslations();  // swap intro/rules text when those are translated
     });
   });
+  applyStaticTranslations();
 })();
 
 var introOverlayEl = document.getElementById("introOverlay");
