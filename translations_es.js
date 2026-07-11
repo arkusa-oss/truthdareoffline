@@ -528,7 +528,7 @@ var TRANSLATIONS_ES = {
     GRP0566: { text: "Cuando el deseo se mueve a través de ti, ¿cómo llega a la otra persona? Explícame exactamente cómo dejas que alguien lo sienta.", enHash: 3918776098 },
     GRP0567: { text: "Estás con alguien. Un desconocido se inclina y se ofrece a invitarte una copa. Tienes la mano vacía. ¿Qué haces?", enHash: 520384404 },
     GRP0568: { text: "Cierra los ojos. Imagina la luna de miel de la que nunca quieres irte — la luz, el cuarto, el aire. Ahora dime dónde estás.", enHash: 2770627857 },
-    GRP0569: { text: "Tres palabras, y pueden arruinarlo todo o volverlo real. ¿Cuánto tiene que ganárselas alguien de ti?", enHash: 2027246049 },
+    GRP0569: { text: "Tres palabras que pueden arruinarlo todo o volverlo real. ¿Cuánto tiene que esforzarse alguien para que se las digas?", enHash: 2027246049 },
     GRP0570: { text: "Alguien te deseaba. Las señales estaban todas ahí — y pasaste de largo por cada una. ¿Qué se te escapó, y desearías que no?", enHash: 3375824646 },
     GRP0571: { text: "Miraste a la cara a alguien que te amaba y le dijiste algo que no era cierto. Quiero escuchar la mentira. La de verdad.", enHash: 554833679 },
     GRP0572: { text: "Alguien vio algo que no debía. ¿Dónde estabas, qué hacías, y cómo se te veía la cara cuando entraron?", enHash: 1327328069 },
