@@ -766,6 +766,8 @@ var TRANSLATIONS_ES = {
     "btn.spin": "GIRA ({n})",
 
     // Judges
+    "vote.continue": "Continuar",
+    "vote.continue_n": "Continuar (faltan {n})",
     "judge.partner": "Tu pareja",
     "judge.group": "El grupo"
   }

@@ -3067,11 +3067,15 @@ function startVoting() {
 
     [1, 2, 3, 4, 5].forEach(function(r) {
       var rateBtn = createFeedbackButton(String(r), r >= 4 ? "done" : (r <= 2 ? "refused" : "pass"), function() {
+        if (playerVoteWrap._voted) return; // guard against double-count
+        playerVoteWrap._voted = true;
         votes.sum += r;
         votes.count++;
         playerVoteWrap.style.opacity = "0.3";
         playerVoteWrap.style.pointerEvents = "none";
         if (typeof window !== "undefined" && window.OrbVoteBubble) window.OrbVoteBubble(p.name, r);
+        if (continueBtn) continueBtn.textContent = votes.count >= votes.total
+          ? T("vote.continue", "Continue") : T("vote.continue_n", "Continue ({n} left)", { n: votes.total - votes.count });
         if (votes.count >= votes.total) finishVoting();
       });
       rateBtn.style.minWidth = "40px";
@@ -3083,6 +3087,16 @@ function startVoting() {
     playerVoteWrap.appendChild(btnWrap);
     wrap.appendChild(playerVoteWrap);
   });
+
+  // Escape hatch: finish with whatever votes are in. Guarantees the round
+  // can always advance even if a rating tap is missed or mis-registered.
+  var continueBtn = createFeedbackButton(
+    T("vote.continue_n", "Continue ({n} left)", { n: votes.total }),
+    "done",
+    function() { if (gameState.votingActive) finishVoting(); }
+  );
+  continueBtn.style.marginTop = "10px";
+  wrap.appendChild(continueBtn);
 
   feedbackPanelEl.classList.remove("is-hidden");
 }
