@@ -727,7 +727,7 @@ var TRANSLATIONS_ES = {
     PRF_R02: { text: "Si tuvieras que apostar a que harás algo atrevido esta noche, ¿qué sería?", enHash: 4025008241 },
     PRF_R03: { text: "¿Preferirías saber exactamente qué viene después — o no tener ni idea?", enHash: 2430548830 },
     PRF_R04: { text: "¿Alguna vez has dicho que sí a algo antes de que tu cerebro tuviera tiempo de decir que no?", enHash: 2676665233 },
-    PRF_R05: { text: "Mira a {target}. ¿Sería del tipo que lleva un reto demasiado lejos — o no lo suficiente?", enHash: 2095270655 },
+    PRF_R05: { text: "Mira a {target}. ¿Sería el tipo que lleva un reto demasiado lejos — o no lo suficiente?", enHash: 2095270655 },
     REP001: { text: "¿Qué sería lo más atrevido que harías esta noche si nadie se enterara jamás?", enHash: 4055466153 },
     REP002: { text: "A ver, con sinceridad: ¿con quién de esta sala querrías quedarte atrapado en un elevador — y por qué?", enHash: 1300713676 },
     REP003: { text: "¿Qué es lo más coqueto que le has hecho a un completo desconocido?", enHash: 237413127 },
