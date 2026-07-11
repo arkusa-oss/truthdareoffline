@@ -2241,3 +2241,154 @@ body:has(#toastOverlay:not(.is-hidden)) .music-bar {
   padding: 4px 10px;
 }
 .intro-card { position: relative; }
+
+
+/* ============================================================
+   COVER PAGE - sci-fi redesign (intro page 1 only)
+   Animated gaseous orb, Hubble-nebula backdrop, chrome wordmark.
+   ============================================================ */
+.intro-overlay { position: relative; overflow: hidden; }
+
+.cover-nebula {
+  position: absolute; inset: -20%;
+  z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(38% 30% at 22% 28%, rgba(120, 60, 240, 0.42), transparent 70%),
+    radial-gradient(34% 28% at 78% 24%, rgba(240, 60, 170, 0.32), transparent 72%),
+    radial-gradient(46% 40% at 66% 78%, rgba(60, 120, 255, 0.30), transparent 74%),
+    radial-gradient(30% 26% at 30% 82%, rgba(255, 90, 60, 0.22), transparent 70%),
+    radial-gradient(60% 60% at 50% 50%, rgba(10, 8, 26, 0.0), rgba(4, 3, 14, 0.9) 100%);
+  filter: blur(14px) saturate(1.15);
+  animation: coverNebulaDrift 26s ease-in-out infinite alternate;
+}
+.cover-nebula::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.9), transparent 60%),
+              radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.7), transparent 60%),
+              radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.8), transparent 60%),
+              radial-gradient(1px 1px at 85% 65%, rgba(255,255,255,0.6), transparent 60%),
+              radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,0.7), transparent 60%),
+              radial-gradient(1px 1px at 12% 80%, rgba(255,255,255,0.6), transparent 60%);
+  animation: coverTwinkle 5s ease-in-out infinite alternate;
+}
+@keyframes coverNebulaDrift {
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1.05) rotate(0deg); }
+  100% { transform: translate3d(2%, 2%, 0) scale(1.12) rotate(4deg); }
+}
+@keyframes coverTwinkle { 0% { opacity: 0.35; } 100% { opacity: 0.85; } }
+
+.intro-card {
+  position: relative; z-index: 1;
+  background: radial-gradient(120% 90% at 50% 20%, rgba(8, 6, 22, 0.55), rgba(4, 3, 14, 0.78));
+  border-radius: 24px;
+  box-shadow: 0 0 60px rgba(80, 40, 160, 0.18) inset;
+  backdrop-filter: blur(2px);
+}
+
+.cover-orb {
+  position: relative;
+  width: clamp(120px, 22vw, 190px);
+  height: clamp(120px, 22vw, 190px);
+  margin: 4px auto 14px;
+  animation: coverOrbBreath 5.5s ease-in-out infinite;
+}
+@keyframes coverOrbBreath {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-6px) scale(1.035); }
+}
+.cover-orb-halo {
+  position: absolute; inset: -35%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(150, 90, 255, 0.45), rgba(90, 60, 220, 0.18) 45%, transparent 70%);
+  filter: blur(14px);
+  animation: coverHaloPulse 5.5s ease-in-out infinite;
+}
+@keyframes coverHaloPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.08); }
+}
+.cover-orb-body {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 38% 32%, #d9c8ff 0%, #8a5cff 24%, #4b2ad0 52%, #1a1140 82%);
+  box-shadow:
+    0 0 40px rgba(140, 90, 255, 0.55),
+    0 0 90px rgba(90, 50, 220, 0.35),
+    inset -14px -18px 40px rgba(0, 0, 0, 0.55),
+    inset 10px 12px 30px rgba(230, 210, 255, 0.35);
+}
+.cover-orb-gas { position: absolute; inset: -25%; border-radius: 50%; mix-blend-mode: screen; opacity: 0.85; }
+.cover-orb-gas-a {
+  background:
+    radial-gradient(40% 30% at 30% 35%, rgba(90, 220, 255, 0.55), transparent 60%),
+    radial-gradient(35% 28% at 70% 55%, rgba(255, 90, 200, 0.5), transparent 62%),
+    radial-gradient(30% 24% at 55% 75%, rgba(255, 150, 90, 0.4), transparent 60%);
+  filter: blur(6px);
+  animation: coverGasSpin 18s linear infinite;
+}
+.cover-orb-gas-b {
+  background:
+    radial-gradient(38% 30% at 65% 30%, rgba(150, 100, 255, 0.55), transparent 60%),
+    radial-gradient(30% 26% at 35% 60%, rgba(90, 160, 255, 0.5), transparent 62%);
+  filter: blur(8px);
+  animation: coverGasSpin 24s linear infinite reverse;
+}
+@keyframes coverGasSpin { to { transform: rotate(360deg); } }
+.cover-orb-sheen {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(28% 22% at 34% 26%, rgba(255,255,255,0.85), transparent 60%);
+  opacity: 0.7;
+}
+.cover-orb-ring {
+  position: absolute; inset: -14%;
+  border-radius: 50%;
+  border: 1px solid rgba(180, 210, 255, 0.35);
+  border-top-color: rgba(230, 240, 255, 0.85);
+  border-bottom-color: rgba(255, 150, 220, 0.5);
+  box-shadow: 0 0 18px rgba(160, 120, 255, 0.35);
+  animation: coverRingSpin 12s linear infinite;
+  transform: rotateX(72deg);
+}
+@keyframes coverRingSpin { to { transform: rotateX(72deg) rotate(360deg); } }
+
+.cover-wordmark {
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: clamp(1.4rem, 4.4vw, 2.6rem);
+  margin: 0 0 4px;
+  padding-left: 0.42em;
+  background: linear-gradient(180deg, #ffffff 0%, #cfd6ff 30%, #8f9bc9 50%, #eef2ff 62%, #b9c2e6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  position: relative;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,0.35)) drop-shadow(0 0 18px rgba(150, 120, 255, 0.4));
+}
+.cover-wordmark::after {
+  content: "Lyra\2019s Orb";
+  position: absolute; inset: 0;
+  padding-left: 0.42em;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.9) 50%, transparent 65%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  background-size: 250% 100%;
+  animation: coverChromeSweep 5s ease-in-out infinite;
+}
+@keyframes coverChromeSweep { 0% { background-position: 160% 0; } 55%,100% { background-position: -60% 0; } }
+
+.intro-card .rules-kicker { display: none; }
+
+.intro-card .rules-title {
+  font-family: "Rajdhani", "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(214, 224, 255, 0.92);
+  text-shadow: 0 0 20px rgba(120, 90, 220, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-nebula, .cover-nebula::after, .cover-orb, .cover-orb-halo,
+  .cover-orb-gas, .cover-orb-ring, .cover-wordmark::after { animation: none; }
+}
