@@ -1,8 +1,11 @@
-# Game logic and translations change often — never serve a stale copy.
-# HTML is already no-cache via meta; this covers the JS/CSS the game loads.
-/play/*.js
+# Game logic, markup, and translations change often — never serve a stale copy.
+# The <meta> Cache-Control tags in index.html are ignored by browsers/edges for
+# the document navigation itself, so a stale index.html can hide new code (e.g.
+# an old cover instead of the new splash). Pin no-cache at the edge for the whole
+# game folder — HTML included — and for the landing page.
+/play/*
   Cache-Control: no-cache, must-revalidate
-/play/*.css
+/
   Cache-Control: no-cache, must-revalidate
-/play/translations_es.js
+/index.html
   Cache-Control: no-cache, must-revalidate
