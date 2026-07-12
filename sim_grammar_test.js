@@ -21,6 +21,27 @@ function getArg(name, fallback) {
 var N_GAMES = parseInt(getArg('--games', '5'), 10);
 var MAX_TURNS = parseInt(getArg('--turns', '120'), 10);
 
+// ─── DETERMINISTIC RNG ───────────────────────────────────────────────────────
+// The engine and this driver both pull from Math.random for prompt/target
+// selection. Unseeded, every run walks a different path, so a rare bad prompt
+// makes CI flaky (pass/fail by luck). Seed it: same seed → same sequence → a
+// reproducible run. The sandbox shares this host Math (buildSandbox: Math:Math),
+// so overriding Math.random here covers engine picks too.
+// Control: --seed N (or SIM_SEED env). Each (mode, game) is reseeded from
+// BASE_SEED so games stay distinct AND reproducible.
+var BASE_SEED = parseInt(getArg('--seed', process.env.SIM_SEED || '1337'), 10);
+var _rngState = BASE_SEED >>> 0;
+function _reseed(n) { _rngState = n >>> 0; }
+function _mulberry32() {
+  _rngState = (_rngState + 0x6D2B79F5) | 0;
+  var t = _rngState;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
+Math.random = _mulberry32; // host + sandbox (Math is shared into the vm)
+function _strHash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h; }
+
 // ─── DOM STUBS ─────────────────────────────────────────────────────────────
 
 function makeEl(id) {
@@ -489,6 +510,8 @@ var summary = [];
 CONFIGS.forEach(function (config) {
   var totRendered = 0, totStalls = 0, totErrors = [], chapters = {};
   for (var i = 0; i < N_GAMES; i++) {
+    // Reseed per (mode, game): distinct paths, each reproducible from BASE_SEED.
+    _reseed((BASE_SEED ^ _strHash(config.name) ^ ((i + 1) * 0x9E3779B1)) >>> 0);
     var r = playGame(config);
     totRendered += r.rendered;
     totStalls += r.stalls;

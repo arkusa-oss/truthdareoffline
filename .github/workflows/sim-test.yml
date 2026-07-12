@@ -32,7 +32,19 @@ jobs:
           done
 
       - name: Run game simulation (grammar + engine checks)
-        run: node sim_grammar_test.js --games 5 --turns 150
+        # Deterministic seed sweep: each seed is a fixed, reproducible play-path.
+        # Broad coverage without flakiness — a failure names the exact seed to
+        # replay locally: node sim_grammar_test.js --seed <N> --games 5 --turns 150
+        run: |
+          fail=0
+          for s in $(seq 1 20); do
+            if ! node sim_grammar_test.js --seed "$s" --games 5 --turns 150 | tee /tmp/sim.out | grep -q '^PASS'; then
+              echo "::error::sim FAILED at seed $s — replay: node sim_grammar_test.js --seed $s --games 5 --turns 150"
+              sed -n '/══ ISSUES/,$p' /tmp/sim.out
+              fail=1
+            fi
+          done
+          exit $fail
 
       - name: Check translation freshness
         run: node check_translations.js
