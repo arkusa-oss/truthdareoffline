@@ -2414,30 +2414,51 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
   text-shadow: 0 0 20px rgba(120, 90, 220, 0.25);
 }
 
-/* ── WELCOME SPLASH — cinematic materialize sequence ───────────────────────
-   Timeline: nebula fades/scales in (0–2.6s) → orb emerges from center
-   (1.6–3.4s) → wordmark (3.2s) → tagline + Enter (3.8s / 4.1s). The orb's
-   looping breath/spin animations start only after their entrance finishes. */
+/* ── WELCOME SPLASH — orb/nebula artwork (poster now, video loop later) ──────
+   The visual fills the screen and fades/scales in (materialize); the wordmark,
+   tagline, and Enter fade up over it near the bottom, kept legible by a scrim. */
 .intro-splash {
   /* Keep the full-screen fixed cover from .rules-overlay — do NOT switch to
      relative, or the short splash stops covering the game behind it. */
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 45%, rgb(12, 8, 28), rgb(3, 2, 10));
+  background: #04030e;
 }
-.intro-splash .cover-nebula {
+.splash-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
   opacity: 0;
-  animation: coverNebulaIn 2.6s ease-out both,
-             coverNebulaDrift 26s ease-in-out 2.6s infinite alternate;
+  animation: coverVisualIn 2.6s ease-out both;
 }
-@keyframes coverNebulaIn {
-  0%   { opacity: 0; transform: scale(0.82); filter: blur(30px) saturate(0.8); }
-  100% { opacity: 1; transform: scale(1.05); filter: blur(14px) saturate(1.15); }
+.splash-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Scrim: darken the lower third + a soft vignette so the text reads over the art */
+.splash-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 95% at 50% 32%, transparent 42%, rgba(4, 3, 14, 0.55) 100%),
+    linear-gradient(to top, rgba(4, 3, 14, 0.94) 0%, rgba(4, 3, 14, 0.55) 24%, transparent 48%);
+  pointer-events: none;
+}
+@keyframes coverVisualIn {
+  0%   { opacity: 0; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .splash-stage {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(30px, 9vh, 96px);
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -2445,20 +2466,9 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
   text-align: center;
   padding: 20px;
 }
-.intro-splash .cover-orb {
-  opacity: 0;
-  margin: 0 auto 22px;
-  animation: coverOrbIn 1.8s cubic-bezier(0.16, 0.84, 0.28, 1) 1.6s both,
-             coverOrbBreath 5.5s ease-in-out 3.4s infinite;
-}
-@keyframes coverOrbIn {
-  0%   { opacity: 0; transform: scale(0.12); filter: brightness(2.6) blur(6px); }
-  60%  { opacity: 1; }
-  100% { opacity: 1; transform: scale(1); filter: brightness(1) blur(0); }
-}
 .intro-splash .cover-wordmark {
   opacity: 0;
-  animation: coverFadeUp 0.9s ease-out 3.2s both;
+  animation: coverFadeUp 0.9s ease-out 2.4s both;
 }
 .splash-tagline {
   opacity: 0;
@@ -2468,13 +2478,13 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
   font-style: italic;
   font-size: clamp(1rem, 2.4vw, 1.3rem);
   letter-spacing: 0.02em;
-  color: rgba(206, 214, 255, 0.82);
-  text-shadow: 0 0 18px rgba(120, 90, 220, 0.3);
-  animation: coverFadeUp 0.9s ease-out 3.8s both;
+  color: rgba(214, 220, 255, 0.9);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7), 0 0 18px rgba(120, 90, 220, 0.3);
+  animation: coverFadeUp 0.9s ease-out 3.0s both;
 }
 .splash-enter {
   opacity: 0;
-  animation: coverFadeUp 0.9s ease-out 4.1s both;
+  animation: coverFadeUp 0.9s ease-out 3.4s both;
 }
 @keyframes coverFadeUp {
   0%   { opacity: 0; transform: translateY(14px); }
@@ -2484,6 +2494,6 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
 @media (prefers-reduced-motion: reduce) {
   .cover-nebula, .cover-nebula::after, .cover-orb, .cover-orb-halo,
   .cover-orb-gas, .cover-orb-ring, .cover-wordmark::after { animation: none; }
-  .intro-splash .cover-nebula, .intro-splash .cover-orb,
-  .intro-splash .cover-wordmark, .splash-tagline, .splash-enter { opacity: 1; animation: none; }
+  .splash-visual, .intro-splash .cover-wordmark,
+  .splash-tagline, .splash-enter { opacity: 1; animation: none; }
 }

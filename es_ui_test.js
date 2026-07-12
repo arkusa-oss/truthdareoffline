@@ -68,8 +68,8 @@ assert('splash visible on load', splash && splash.classList.contains('is-hidden'
 assert('intro page 1 hidden on load', intro1 && intro1.classList.contains('is-hidden'), true);
 assert('splash tagline (es)', q('.splash-tagline'), '¿Otra galaxia? ¿Otra dimensión? Ni ella lo dice.');
 assert('splash enter (es)', byId('splashEnterBtn'), 'Entrar');
-assert('orb lives on splash only', doc.querySelectorAll('.cover-orb').length, 1);
-assert('orb is inside splash', !!(splash && splash.querySelector('.cover-orb')), true);
+assert('splash visual present', !!(splash && splash.querySelector('.splash-visual .splash-video')), true);
+assert('splash poster is the cover art', splash && splash.querySelector('.splash-video').getAttribute('poster'), 'orb-cover.jpg');
 
 // Static screen
 assert('setup kicker', q('.setup-kicker'), 'LYRA despierta');

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./style.css?v=22" />
+  <link rel="stylesheet" href="./style.css?v=23" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -40,24 +40,20 @@
     </header>
 
     <main class="center-stage">
-      <!-- INTRO PAGE 1 — the pitch -->
-      <!-- WELCOME SPLASH — the nebula materializes first, then the orb emerges -->
+      <!-- WELCOME SPLASH — orb + nebula artwork; swaps to a looping video when present -->
       <div id="introSplash" class="rules-overlay intro-splash">
-        <div class="cover-nebula" aria-hidden="true"></div>
+        <div class="splash-visual" aria-hidden="true">
+          <!-- poster shows the still until an orb-cover.webm/.mp4 loop is added -->
+          <video class="splash-video" autoplay muted loop playsinline preload="auto" poster="orb-cover.jpg">
+            <source src="orb-cover.webm" type="video/webm" />
+            <source src="orb-cover.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div class="cover-lang-switch">
           <button type="button" class="couple-type-btn lang-btn active" data-lang="en">English</button>
           <button type="button" class="couple-type-btn lang-btn" data-lang="es">Español</button>
         </div>
         <div class="splash-stage">
-          <div class="cover-orb" aria-hidden="true">
-            <span class="cover-orb-halo"></span>
-            <span class="cover-orb-body">
-              <span class="cover-orb-gas cover-orb-gas-a"></span>
-              <span class="cover-orb-gas cover-orb-gas-b"></span>
-              <span class="cover-orb-sheen"></span>
-            </span>
-            <span class="cover-orb-ring"></span>
-          </div>
           <div class="cover-wordmark">Lyra&#8217;s Orb</div>
           <p class="splash-tagline" data-i18n="splash.tagline">Another galaxy? Another dimension? Even she won&#8217;t say.</p>
           <button id="splashEnterBtn" type="button" class="rules-enter-btn splash-enter" data-i18n="splash.enter">Enter</button>

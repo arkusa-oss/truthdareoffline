@@ -28,6 +28,11 @@ for f in "${GAME_FILES[@]}"; do
   cp "$f" "site/play/$f"
 done
 
+# Cover media — the splash poster + optional video loop (copy whatever exists)
+for m in orb-cover.jpg orb-cover.webm orb-cover.mp4; do
+  [ -f "$m" ] && cp "$m" "site/play/$m"
+done
+
 # Audio files (only copies new/changed)
 rsync -a --delete audiofiles/ site/play/audiofiles/
 
