@@ -2948,8 +2948,10 @@ var TRANSLATIONS_ES = {
   // Tag the matching element with data-i18n="key". Empty for now; the
   // intro/rules pages will be translated into this table later.
   static: {
+    "splash.tagline": "¿Otra galaxia? ¿Otra dimensión? Ni ella lo dice.",
+    "splash.enter": "Entrar",
     "intro.title": "Un juego de Verdad o Reto para adultos: para amigos valientes, parejas curiosas y cualquiera que quiera que esta noche cuente.",
-    "intro.lead": "Lyra&#8217;s Orb no es un montón de cartas. Es un juego que <em>te aprende</em>. Un orbe llegado de un lugar lejano vino a estudiar lo más fascinante de los humanos &#8212; el deseo. Ella hace preguntas. Ella impone retos. Ella recuerda lo que le cuentas. Y mientras más juegas, más entreteje tus respuestas en la noche como desafíos personales que van subiendo de intensidad.",
+    "intro.lead": "Lyra&#8217;s Orb no es un montón de cartas. Es un juego que <em>te aprende</em>. Un orbe &#8212; de otra galaxia, o quizá de otra dimensión; ni ella lo dice &#8212; vino a estudiar lo más fascinante de los humanos: el deseo. Ella hace preguntas. Ella impone retos. Ella recuerda lo que le cuentas. Y mientras más juegas, más entreteje tus respuestas en la noche como desafíos personales que van subiendo de intensidad.",
     "intro.s1_title": "Dos formas de jugar",
     "intro.s1_body": "<strong>Modo Grupal</strong> &#8212; 3 o más jugadores. Lyra hace girar los reflectores, empareja a las personas y crea tensión por toda la sala. Ideal con 3&#8211;6 amigos que ya se caen bien.<br><br> <strong>Modo Pareja</strong> &#8212; solo ustedes dos. Lyra los guía por el autodescubrimiento, el humor y nuevas maneras de intimar &#8212; cosas que no han probado, conversaciones que no han tenido, caricias que no han explorado. No un repaso de su relación &#8212; sino una forma de profundizarla. Agrega exactamente dos jugadores y Lyra cambia al Modo Pareja automáticamente.",
     "intro.s2_title": "Cómo se desenvuelve la noche",

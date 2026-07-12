@@ -117,7 +117,11 @@ var LyraVoice = (function() {
 
     // 9. Sportsmanship reminder (callback — fires after 3+ consecutive passes/refusals)
     "Tonight you promised to be honest, to be brave, and to be good sports!": "L55",
-    "Tonight you promised to be honest, to be brave and to be good sports!": "L55"
+    "Tonight you promised to be honest, to be brave and to be good sports!": "L55",
+
+    // 10. Welcome splash (plays on the first tap of the cover)
+    "Welcome, humans... prepare to be initiated.": "L56",
+    "Welcome humans... prepare to be initiated!": "L56"
   };
 
   // Reverse map: clip ID → text (for preview/debug)

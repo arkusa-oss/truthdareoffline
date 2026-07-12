@@ -140,10 +140,23 @@ initCoupleTypeButtons();
   applyStaticTranslations();
 })();
 
+var introSplashEl = document.getElementById("introSplash");
+var splashEnterBtn = document.getElementById("splashEnterBtn");
 var introOverlayEl = document.getElementById("introOverlay");
 var introOverlay2El = document.getElementById("introOverlay2");
 var introContinueBtn = document.getElementById("introContinueBtn");
 var introContinueBtn2 = document.getElementById("introContinueBtn2");
+
+// Splash → Intro. The nebula+orb materialize via CSS; the first user gesture
+// (this tap) unlocks audio, so Lyra's welcome line plays here. Autoplay policy
+// blocks sound before a gesture, which is why the voice is tied to Enter.
+if (splashEnterBtn) {
+  splashEnterBtn.addEventListener("click", function() {
+    if (typeof LyraVoice !== "undefined" && LyraVoice.play) LyraVoice.play("L56");
+    if (introSplashEl) introSplashEl.classList.add("is-hidden");
+    if (introOverlayEl) introOverlayEl.classList.remove("is-hidden");
+  });
+}
 
 // Age gate: Continue stays disabled until the 18+ box is checked
 var ageConfirmInput = document.getElementById("ageConfirmInput");

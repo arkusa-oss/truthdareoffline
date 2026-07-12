@@ -41,13 +41,14 @@
 
     <main class="center-stage">
       <!-- INTRO PAGE 1 — the pitch -->
-      <div id="introOverlay" class="rules-overlay intro-overlay">
+      <!-- WELCOME SPLASH — the nebula materializes first, then the orb emerges -->
+      <div id="introSplash" class="rules-overlay intro-splash">
         <div class="cover-nebula" aria-hidden="true"></div>
-        <div class="rules-card intro-card">
-          <div class="cover-lang-switch">
-            <button type="button" class="couple-type-btn lang-btn active" data-lang="en">English</button>
-            <button type="button" class="couple-type-btn lang-btn" data-lang="es">Español</button>
-          </div>
+        <div class="cover-lang-switch">
+          <button type="button" class="couple-type-btn lang-btn active" data-lang="en">English</button>
+          <button type="button" class="couple-type-btn lang-btn" data-lang="es">Español</button>
+        </div>
+        <div class="splash-stage">
           <div class="cover-orb" aria-hidden="true">
             <span class="cover-orb-halo"></span>
             <span class="cover-orb-body">
@@ -58,11 +59,19 @@
             <span class="cover-orb-ring"></span>
           </div>
           <div class="cover-wordmark">Lyra&#8217;s Orb</div>
+          <p class="splash-tagline" data-i18n="splash.tagline">Another galaxy? Another dimension? Even she won&#8217;t say.</p>
+          <button id="splashEnterBtn" type="button" class="rules-enter-btn splash-enter" data-i18n="splash.enter">Enter</button>
+        </div>
+      </div>
+
+      <!-- INTRO PAGE 1 — the pitch (revealed after the splash) -->
+      <div id="introOverlay" class="rules-overlay intro-overlay is-hidden">
+        <div class="rules-card intro-card">
           <h2 class="rules-title" data-i18n="intro.title">An adult Truth or Dare game for brave friends, curious couples, and anyone who wants tonight to matter.</h2>
 
           <p class="rules-intro" data-i18n="intro.lead">
             Lyra&#8217;s Orb isn&#8217;t a stack of cards. It&#8217;s a game that <em>learns</em> you.
-            An orb from a far-away place has come to study the most fascinating thing about humans &#8212; desire.
+            An orb &#8212; from another galaxy, or maybe another dimension; even she won&#8217;t say &#8212; has come to study the most fascinating thing about humans: desire.
             She asks questions. She sets dares. She remembers what you tell her. And the more you play,
             the more she threads your answers back into the night as personal, escalating challenges.
           </p>

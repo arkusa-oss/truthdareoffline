@@ -60,6 +60,17 @@ ctx.__setLang('es');
 ctx.applyStaticTranslations();
 assert('GAME_LANG is es', ctx.GAME_LANG, 'es');
 
+// Welcome splash: shown first, intro page 1 starts hidden, copy is Spanish.
+var splash = doc.getElementById('introSplash');
+var intro1 = doc.getElementById('introOverlay');
+assert('splash present', !!splash, true);
+assert('splash visible on load', splash && splash.classList.contains('is-hidden'), false);
+assert('intro page 1 hidden on load', intro1 && intro1.classList.contains('is-hidden'), true);
+assert('splash tagline (es)', q('.splash-tagline'), '¿Otra galaxia? ¿Otra dimensión? Ni ella lo dice.');
+assert('splash enter (es)', byId('splashEnterBtn'), 'Entrar');
+assert('orb lives on splash only', doc.querySelectorAll('.cover-orb').length, 1);
+assert('orb is inside splash', !!(splash && splash.querySelector('.cover-orb')), true);
+
 // Static screen
 assert('setup kicker', q('.setup-kicker'), 'LYRA despierta');
 assert('setup title', q('.setup-title'), '¿Quién juega esta noche?');
