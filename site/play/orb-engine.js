@@ -62,6 +62,14 @@ function applyStaticTranslations() {
     if (stat && stat[key]) el.innerHTML = stat[key];
     else el.innerHTML = el.getAttribute('data-i18n-en');
   });
+  // Input placeholders: data-i18n-ph="key" swaps the placeholder attribute.
+  var phNodes = document.querySelectorAll('[data-i18n-ph]');
+  phNodes.forEach(function (el) {
+    if (el.getAttribute('data-i18n-ph-en') === null) el.setAttribute('data-i18n-ph-en', el.getAttribute('placeholder') || '');
+    var key = el.getAttribute('data-i18n-ph');
+    if (stat && stat[key]) el.setAttribute('placeholder', stat[key]);
+    else el.setAttribute('placeholder', el.getAttribute('data-i18n-ph-en'));
+  });
 }
 
 // Engine/UI string in the active language. `vars` fills {placeholders}.
