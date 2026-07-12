@@ -192,6 +192,43 @@ body {
   animation: ambientBreath 1.6s ease-in-out infinite;
 }
 
+/* Persistent nebula backdrop for the whole game. The orb/nebula artwork sits
+   behind everything, darkened for legibility, and is recolored per stage by a
+   mix-blend-mode:color layer driven by --orb-glow (which already runs cold->hot).
+   To go full-motion later: replace the ::before background with a <video> or an
+   image loop — the tint layer keeps working unchanged. */
+.cosmos-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #04030e;
+}
+.cosmos-bg::before {
+  content: "";
+  position: absolute;
+  inset: -5%;
+  background: url("orb-cover.jpg") center 32% / cover no-repeat;
+  /* darken so prompts/controls stay readable over the art */
+  filter: brightness(0.4) saturate(0.85);
+  animation: cosmosDrift 70s ease-in-out infinite alternate;
+}
+.cosmos-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--orb-glow);
+  mix-blend-mode: color;
+  opacity: 0.8;
+  /* smooth cosmos color morph as stages advance */
+  transition: background 1400ms ease;
+}
+@keyframes cosmosDrift {
+  0%   { transform: scale(1.04) translate(-1%, -0.5%); }
+  100% { transform: scale(1.1) translate(1.5%, 1%); }
+}
+
 .top-bar {
   position: relative;
   z-index: 2;
@@ -2496,4 +2533,5 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
   .cover-orb-gas, .cover-orb-ring, .cover-wordmark::after { animation: none; }
   .splash-visual, .intro-splash .cover-wordmark,
   .splash-tagline, .splash-enter { opacity: 1; animation: none; }
+  .cosmos-bg::before { animation: none; }
 }
