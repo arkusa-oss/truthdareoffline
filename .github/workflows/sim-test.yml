@@ -49,6 +49,11 @@ jobs:
       - name: Check translation freshness
         run: node check_translations.js
 
+      - name: Play-test Spanish UI (headless jsdom)
+        run: |
+          npm install --no-save jsdom
+          node es_ui_test.js
+
       - name: Verify deploy folder is in sync
         run: |
           ./deploy-sync.sh

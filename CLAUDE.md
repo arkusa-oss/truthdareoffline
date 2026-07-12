@@ -35,6 +35,12 @@ asked to remove more clothing; chains skip contradicting steps.
 ## Testing & Deploy
 - `node sim_grammar_test.js` mock-plays the real engine (grammar, escalation,
   undress continuity, chain integrity). Runs in CI on every push — keep it green.
+  RNG is seeded (`--seed N`, default 1337) so runs are deterministic; CI sweeps
+  seeds 1-20. A failure prints the exact seed to replay locally.
+- `node es_ui_test.js` headless-renders index.html in jsdom, forces GAME_LANG=es,
+  and asserts the setup screen (static data-i18n + dynamic T() strings) is Spanish
+  and English switch-back is lossless. Needs jsdom (`npm install --no-save jsdom`).
+- `npm test` runs sim + translation drift-check + Spanish UI test together.
 - Deploy: `./deploy-sync.sh` copies game files into site/play/, then commit+push.
   GitHub Actions tests, Cloudflare Pages auto-deploys from the repo (serves site/).
 - Music playlists are YouTube URLs in orb-templates.js MUSIC_THEMES; track curation

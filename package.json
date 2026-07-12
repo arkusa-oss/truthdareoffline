@@ -1,0 +1,15 @@
+{
+  "name": "lyras-orb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lyra's Orb — adult Truth or Dare party game (vanilla JS).",
+  "scripts": {
+    "test": "node sim_grammar_test.js && node check_translations.js && node es_ui_test.js",
+    "test:sim": "node sim_grammar_test.js",
+    "test:i18n": "node check_translations.js",
+    "test:ui": "node es_ui_test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}

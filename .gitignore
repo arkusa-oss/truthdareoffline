@@ -1,6 +1,10 @@
 # macOS
 .DS_Store
 
+# Node
+node_modules/
+package-lock.json
+
 # Backups and prewrite snapshots
 *.backup-*.js
 *.prewrite-*
