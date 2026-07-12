@@ -132,6 +132,9 @@ initCoupleTypeButtons();
       setGameLanguage(btn.dataset.lang);
       syncActive(btn.dataset.lang);
       applyStaticTranslations();  // swap intro/rules text when those are translated
+      // Dynamic setup strings are built in JS (T()), not tagged — re-render them.
+      if (typeof updateModeIndicator === "function") updateModeIndicator();
+      if (typeof renderSetupPlayerList === "function") renderSetupPlayerList();
     });
   });
   applyStaticTranslations();

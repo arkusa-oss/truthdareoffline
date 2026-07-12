@@ -429,21 +429,21 @@ function updateModeIndicator() {
 
   var coupleTypeEl = document.getElementById("setupCoupleType");
   if (count === 0) {
-    if (modeValueEl) modeValueEl.textContent = "Add players to begin";
+    if (modeValueEl) modeValueEl.textContent = T("setup.mode_empty", "Add players to begin");
     if (modeValueEl) modeValueEl.className = "setup-mode-value";
     if (seducerField) seducerField.style.display = "";
     if (coupleTypeEl) coupleTypeEl.style.display = "none";
   } else if (count === 1) {
-    if (modeValueEl) modeValueEl.textContent = "Add one more for Couple Mode, or more for Group Mode";
+    if (modeValueEl) modeValueEl.textContent = T("setup.mode_one", "Add one more for Couple Mode, or more for Group Mode");
     if (modeValueEl) modeValueEl.className = "setup-mode-value";
     if (seducerField) seducerField.style.display = "";
     if (coupleTypeEl) coupleTypeEl.style.display = "none";
   } else if (count === 2) {
-    if (modeValueEl) { modeValueEl.textContent = "Couple Mode"; modeValueEl.className = "setup-mode-value mode-couple"; }
+    if (modeValueEl) { modeValueEl.textContent = T("setup.mode_couple", "Couple Mode"); modeValueEl.className = "setup-mode-value mode-couple"; }
     if (seducerField) seducerField.style.display = "none";
     if (coupleTypeEl) coupleTypeEl.style.display = "";
   } else {
-    if (modeValueEl) { modeValueEl.textContent = "Group Mode (" + count + " players)"; modeValueEl.className = "setup-mode-value mode-group"; }
+    if (modeValueEl) { modeValueEl.textContent = T("setup.mode_group", "Group Mode ({n} players)", { n: count }); modeValueEl.className = "setup-mode-value mode-group"; }
     if (seducerField) seducerField.style.display = "";
     if (coupleTypeEl) coupleTypeEl.style.display = "none";
   }
@@ -498,7 +498,7 @@ function refreshPartnerOptions() {
 function renderSetupPlayerList() {
   if (!setupPlayerListEl) return;
   if (!gameState.players.length) {
-    setupPlayerListEl.innerHTML = '<div class="setup-player-row"><div class="setup-player-sub">No players added yet.</div></div>';
+    setupPlayerListEl.innerHTML = '<div class="setup-player-row"><div class="setup-player-sub">' + T("setup.list_empty", "No players added yet.") + '</div></div>';
     return;
   }
   setupPlayerListEl.innerHTML = "";
@@ -506,9 +506,11 @@ function renderSetupPlayerList() {
     var partner = player.partnerId != null ? gameState.players.find(function(p) { return p.id === player.partnerId; }) : null;
     var row = document.createElement("div");
     row.className = "setup-player-row";
-    var seducerIndicator = player.isSeducer ? '<span class="setup-seducer-badge">Seducer</span>' : '';
-    var rememberedIndicator = player.remembered ? '<span class="setup-remembered-badge" title="Lyra has played with you before">Lyra remembers</span>' : '';
-    row.innerHTML = '<div class="setup-player-meta"><div class="setup-player-name">' + player.name + rememberedIndicator + '</div><div class="setup-player-sub">' + player.gender + (partner ? ' &bull; Partner: ' + partner.name : '') + seducerIndicator + '</div></div><div class="setup-player-controls"><label class="setup-seducer-toggle"><input type="checkbox" data-player-id="' + player.id + '" class="setup-seducer-checkbox"' + (player.isSeducer ? ' checked' : '') + ' /> Seducer</label><button type="button" class="setup-remove-btn" data-player-id="' + player.id + '">Remove</button></div>';
+    var seducerIndicator = player.isSeducer ? '<span class="setup-seducer-badge">' + T("setup.badge_seducer", "Seducer") + '</span>' : '';
+    var rememberedIndicator = player.remembered ? '<span class="setup-remembered-badge" title="' + T("setup.remembers_title", "Lyra has played with you before") + '">' + T("setup.badge_remembers", "Lyra remembers") + '</span>' : '';
+    var genderLabel = T("setup.g_" + player.gender, player.gender);
+    var partnerLabel = partner ? ' &bull; ' + T("setup.partner_prefix", "Partner: ") + partner.name : '';
+    row.innerHTML = '<div class="setup-player-meta"><div class="setup-player-name">' + player.name + rememberedIndicator + '</div><div class="setup-player-sub">' + genderLabel + partnerLabel + seducerIndicator + '</div></div><div class="setup-player-controls"><label class="setup-seducer-toggle"><input type="checkbox" data-player-id="' + player.id + '" class="setup-seducer-checkbox"' + (player.isSeducer ? ' checked' : '') + ' /> ' + T("setup.toggle_seducer", "Seducer") + '</label><button type="button" class="setup-remove-btn" data-player-id="' + player.id + '">' + T("setup.btn_remove", "Remove") + '</button></div>';
     setupPlayerListEl.appendChild(row);
   });
   setupPlayerListEl.querySelectorAll(".setup-seducer-checkbox").forEach(function(checkbox) {

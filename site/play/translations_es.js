@@ -3035,6 +3035,24 @@ var TRANSLATIONS_ES = {
     "vote.continue": "Continuar",
     "vote.continue_n": "Continuar (faltan {n})",
     "judge.partner": "Tu pareja",
-    "judge.group": "El grupo"
+    "judge.group": "El grupo",
+
+    // Setup — mode indicator (dynamic)
+    "setup.mode_empty": "Agrega jugadores para comenzar",
+    "setup.mode_one": "Agrega uno más para Modo Pareja, o más para Modo Grupal",
+    "setup.mode_couple": "Modo Pareja",
+    "setup.mode_group": "Modo Grupal ({n} jugadores)",
+
+    // Setup — player list rows (dynamic)
+    "setup.list_empty": "Aún no hay jugadores.",
+    "setup.badge_seducer": "Seductor",
+    "setup.badge_remembers": "Lyra te recuerda",
+    "setup.remembers_title": "Lyra ya ha jugado contigo antes",
+    "setup.partner_prefix": "Pareja: ",
+    "setup.toggle_seducer": "Seductor",
+    "setup.btn_remove": "Quitar",
+    "setup.g_male": "Hombre",
+    "setup.g_female": "Mujer",
+    "setup.g_other": "Otro"
   }
 };
