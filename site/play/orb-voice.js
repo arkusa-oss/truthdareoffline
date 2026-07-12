@@ -14,6 +14,19 @@ var LyraVoice = (function() {
   var currentAudio = null;
   var basePath = "./audiofiles/";
 
+  // Voice clips are recorded per language. English lives in audiofiles/,
+  // Spanish in audiofiles/es/ (same clip IDs: L01.mp3 …). Add more langs by
+  // dropping audiofiles/<lang>/ and extending VOICE_LANGS.
+  var VOICE_LANGS = { en: "./audiofiles/", es: "./audiofiles/es/" };
+  function voiceBasePath() {
+    var lang = (typeof GAME_LANG !== "undefined") ? GAME_LANG : "en";
+    return VOICE_LANGS[lang] || basePath;
+  }
+  function voiceAvailable() {
+    var lang = (typeof GAME_LANG !== "undefined") ? GAME_LANG : "en";
+    return !!VOICE_LANGS[lang];
+  }
+
   // =========================
   // TEXT → CLIP MAPPING
   // =========================
@@ -132,10 +145,10 @@ var LyraVoice = (function() {
       return;
     }
 
-    // Voice clips are pre-recorded in English only. In another language,
-    // stay silent rather than clash with translated on-screen text.
-    // (Remove this guard once localized audio exists, e.g. audiofiles/es/.)
-    if (typeof GAME_LANG !== "undefined" && GAME_LANG !== "en") {
+    // Only play in languages we have recorded clips for (see VOICE_LANGS).
+    // In an unsupported language, stay silent rather than clash with the
+    // translated on-screen text.
+    if (!voiceAvailable()) {
       if (callback) callback();
       return;
     }
@@ -143,7 +156,7 @@ var LyraVoice = (function() {
     // Stop any currently playing clip
     stop();
 
-    var src = basePath + clipId + ".mp3";
+    var src = voiceBasePath() + clipId + ".mp3";
     var audio = new Audio(src);
     audio.volume = volume;
     currentAudio = audio;
@@ -284,7 +297,7 @@ var LyraVoice = (function() {
 
     // Check if a specific clip file exists (async)
     checkClip: function(clipId, callback) {
-      var audio = new Audio(basePath + clipId + ".mp3");
+      var audio = new Audio(voiceBasePath() + clipId + ".mp3");
       audio.oncanplaythrough = function() { callback(true); };
       audio.onerror = function() { callback(false); };
     }
