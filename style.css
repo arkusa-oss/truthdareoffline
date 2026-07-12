@@ -1603,16 +1603,24 @@ button {
 }
 .music-bar.is-hidden { display: none; }
 
-/* Hide the music bar whenever any modal overlay is visible.
-   The overlays live inside .center-stage which creates its own stacking
-   context (z-index: 2), so their internal z-index can't beat the music
-   bar which sits outside that context. Simpler to just suppress the bar
-   while any overlay is up. */
+/* Hide the bottom bars (music + game controls) whenever any modal overlay is
+   visible. The overlays live inside .center-stage which creates its own
+   stacking context (z-index: 2), so their internal z-index can't beat the bars
+   which sit outside that context — the Skip/Play/Reset controls would punch
+   through the splash/intro and overlap the age gate. Simpler to suppress the
+   bars while any overlay is up. */
+body:has(#introSplash:not(.is-hidden)) .music-bar,
 body:has(#introOverlay:not(.is-hidden)) .music-bar,
 body:has(#introOverlay2:not(.is-hidden)) .music-bar,
 body:has(#rulesOverlay:not(.is-hidden)) .music-bar,
 body:has(#setupOverlay:not(.is-hidden)) .music-bar,
-body:has(#toastOverlay:not(.is-hidden)) .music-bar {
+body:has(#toastOverlay:not(.is-hidden)) .music-bar,
+body:has(#introSplash:not(.is-hidden)) .controls-wrap,
+body:has(#introOverlay:not(.is-hidden)) .controls-wrap,
+body:has(#introOverlay2:not(.is-hidden)) .controls-wrap,
+body:has(#rulesOverlay:not(.is-hidden)) .controls-wrap,
+body:has(#setupOverlay:not(.is-hidden)) .controls-wrap,
+body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
   display: none;
 }
 
