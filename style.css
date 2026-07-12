@@ -2247,7 +2247,10 @@ body:has(#toastOverlay:not(.is-hidden)) .music-bar {
    COVER PAGE - sci-fi redesign (intro page 1 only)
    Animated gaseous orb, Hubble-nebula backdrop, chrome wordmark.
    ============================================================ */
-.intro-overlay { position: relative; overflow: hidden; }
+/* Full-screen fixed cover (inherited from .rules-overlay). overflow:hidden
+   clips the splash nebula; the info pages scroll internally if tall. */
+.intro-overlay { overflow: hidden; }
+.intro-overlay .rules-card { max-height: 100dvh; overflow-y: auto; }
 
 .cover-nebula {
   position: absolute; inset: -20%;
@@ -2393,7 +2396,10 @@ body:has(#toastOverlay:not(.is-hidden)) .music-bar {
    (1.6–3.4s) → wordmark (3.2s) → tagline + Enter (3.8s / 4.1s). The orb's
    looping breath/spin animations start only after their entrance finishes. */
 .intro-splash {
-  position: relative;
+  /* Keep the full-screen fixed cover from .rules-overlay — do NOT switch to
+     relative, or the short splash stops covering the game behind it. */
+  position: fixed;
+  inset: 0;
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 45%, rgb(12, 8, 28), rgb(3, 2, 10));
 }
