@@ -2043,14 +2043,31 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
 }
 .orb-title-bar::before { --dir: right; }
 .orb-title-bar::after  { --dir: left; }
+/* Matches the front-page wordmark (.cover-wordmark): Orbitron chrome + sweep. */
 .orb-title {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  font-size: clamp(2rem, 5vw, 3.1rem);
-  letter-spacing: 0.04em;
-  color: #f3e9ff;
-  text-shadow: 0 0 18px var(--orb-glow), 0 0 44px var(--orb-glow-deep);
+  position: relative;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+  padding-left: 0.32em;
   white-space: nowrap;
+  background: linear-gradient(180deg, #ffffff 0%, #cfd6ff 30%, #8f9bc9 50%, #eef2ff 62%, #b9c2e6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.35)) drop-shadow(0 0 18px var(--orb-glow-deep));
+}
+.orb-title::after {
+  content: "Lyra\2019s Orb";
+  position: absolute;
+  inset: 0;
+  padding-left: 0.32em;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.9) 50%, transparent 65%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  background-size: 250% 100%;
+  animation: coverChromeSweep 5s ease-in-out infinite;
 }
 
 /* --- Dare/Truth card --- */
@@ -2530,7 +2547,7 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
 
 @media (prefers-reduced-motion: reduce) {
   .cover-nebula, .cover-nebula::after, .cover-orb, .cover-orb-halo,
-  .cover-orb-gas, .cover-orb-ring, .cover-wordmark::after { animation: none; }
+  .cover-orb-gas, .cover-orb-ring, .cover-wordmark::after, .orb-title::after { animation: none; }
   .splash-visual, .intro-splash .cover-wordmark,
   .splash-tagline, .splash-enter { opacity: 1; animation: none; }
   .cosmos-bg::before { animation: none; }
