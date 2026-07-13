@@ -210,6 +210,15 @@ if (startGameBtn) {
     CUSTOM_PLAYLIST_URL = "";
     closeSetupOverlay();
     resetGame();
+    // Analytics: a new game begins in stage 1 (personal). No player data recorded.
+    if (window.OrbStats) {
+      OrbStats.startGame({
+        mode: gameState.gameMode,
+        lang: (typeof GAME_LANG !== "undefined") ? GAME_LANG : "en",
+        players: gameState.players.length
+      });
+      OrbStats.stage("personal", 0);
+    }
     // Initialize background music (reads the toggle state internally)
     OrbMusic.init("personal");
     // Start prefetching the first AI prompt while the opening toast shows

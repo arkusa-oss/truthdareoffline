@@ -26,7 +26,8 @@ jobs:
         run: |
           for f in prompts_v2.js couples_prompts_v2.js couples_prompts_early.js \
                    orb-data.js orb-templates.js orb-state.js orb-memory.js \
-                   orb-engine.js orb-ui.js orb-music.js orb-voice.js ai_orb.js atmosphere.js; do
+                   orb-engine.js orb-ui.js orb-music.js orb-voice.js ai_orb.js \
+                   atmosphere.js orb-analytics.js; do
             node --check "$f"
             echo "OK $f"
           done

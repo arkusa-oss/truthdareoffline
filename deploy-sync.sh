@@ -20,6 +20,7 @@ GAME_FILES=(
   orb-state.js
   orb-memory.js
   orb-engine.js
+  orb-analytics.js
   orb-music.js
   orb-ui.js
 )

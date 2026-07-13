@@ -150,6 +150,7 @@ function advanceChapter() {
     gameState.turnInChapter = 0;
     var newChapter = getCurrentChapter();
     document.body.className = "stage-" + newChapter;
+    if (window.OrbStats) OrbStats.stage(newChapter, gameState.turnCount);
     // Transition the atmosphere canvas to the new stage
     if (window.LyraAtmosphere) window.LyraAtmosphere.transitionToStage(newChapter);
     // Music bar label is now managed by OrbMusic — it updates the label
