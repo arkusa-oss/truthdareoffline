@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./style.css?v=25" />
+  <link rel="stylesheet" href="./style.css?v=26" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -31,6 +31,10 @@
   <!-- Analytics sink: paste your Cloudflare Worker URL to collect funnel events
        from all players. Empty = local-only (per-device). See worker/README.md. -->
   <script>window.ORB_STATS_ENDPOINT = "https://lyra-stats.ark-usa.workers.dev/";</script>
+
+  <!-- Feedback form: paste your Google Form (or any) URL to show a "Feedback"
+       link in-game. Empty = link stays hidden. -->
+  <script>window.ORB_FEEDBACK_URL = "";</script>
 </head>
 <body class="stage-personal">
   <div class="app-shell">
@@ -410,6 +414,9 @@
       </div>
     </footer>
   </div>
+
+  <!-- Playtest feedback link — shown only when ORB_FEEDBACK_URL is set -->
+  <a id="feedbackLink" class="feedback-link is-hidden" target="_blank" rel="noopener noreferrer">💬 Feedback</a>
 
   <script src="./prompts_v2.js"></script>
   <script src="./couples_prompts_v2.js"></script>

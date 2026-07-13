@@ -2552,3 +2552,34 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
   .splash-tagline, .splash-enter { opacity: 1; animation: none; }
   .cosmos-bg::before { animation: none; }
 }
+
+/* Playtest feedback link — subtle fixed pill, sits above overlays so testers
+   can reach it anytime; hidden on the splash and until a form URL is set. */
+.feedback-link {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: rgba(220, 224, 255, 0.8);
+  background: rgba(20, 16, 40, 0.66);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(150, 120, 255, 0.28);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+.feedback-link:hover {
+  color: #fff;
+  background: rgba(40, 30, 70, 0.8);
+  border-color: rgba(180, 150, 255, 0.5);
+}
+.feedback-link.is-hidden { display: none; }
+body:has(#introSplash:not(.is-hidden)) .feedback-link { display: none; }

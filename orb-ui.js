@@ -147,6 +147,13 @@ var introOverlay2El = document.getElementById("introOverlay2");
 var introContinueBtn = document.getElementById("introContinueBtn");
 var introContinueBtn2 = document.getElementById("introContinueBtn2");
 
+// Feedback link — only surfaced when a form URL is configured.
+var feedbackLink = document.getElementById("feedbackLink");
+if (feedbackLink && typeof window.ORB_FEEDBACK_URL === "string" && window.ORB_FEEDBACK_URL) {
+  feedbackLink.href = window.ORB_FEEDBACK_URL;
+  feedbackLink.classList.remove("is-hidden");
+}
+
 // Splash → Intro. The nebula+orb materialize via CSS; the first user gesture
 // (this tap) unlocks audio, so Lyra's welcome line plays here. Autoplay policy
 // blocks sound before a gesture, which is why the voice is tied to Enter.
