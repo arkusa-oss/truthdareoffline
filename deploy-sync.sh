@@ -34,6 +34,11 @@ for m in orb-cover.jpg orb-cover.webm orb-cover.mp4; do
   [ -f "$m" ] && cp "$m" "site/play/$m"
 done
 
+# PWA assets — manifest, service worker, icons
+for p in manifest.webmanifest sw.js icon-192.png icon-512.png apple-touch-icon.png; do
+  [ -f "$p" ] && cp "$p" "site/play/$p"
+done
+
 # Audio files (only copies new/changed)
 rsync -a --delete audiofiles/ site/play/audiofiles/
 
