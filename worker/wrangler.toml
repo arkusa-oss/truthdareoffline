@@ -7,4 +7,4 @@ compatibility_date = "2024-11-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "lyra-stats"
-database_id = "REPLACE_AFTER_CREATE"
+database_id = "eb8e3c2f-1b64-47b4-bed9-6eab2c966dd0"
