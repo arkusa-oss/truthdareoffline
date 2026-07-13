@@ -1,0 +1,10 @@
+name = "lyra-stats"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# D1 database binding. After `wrangler d1 create lyra-stats`, paste the printed
+# database_id below (replace REPLACE_AFTER_CREATE).
+[[d1_databases]]
+binding = "DB"
+database_name = "lyra-stats"
+database_id = "REPLACE_AFTER_CREATE"
