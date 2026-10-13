@@ -1,10 +1,10 @@
 // Lyra's Orb — service worker (installable PWA + offline shell)
 // Strategy, chosen to avoid the stale-cache problems we fought earlier:
-//   - HTML navigations: NETWORK-FIRST (always fresh online; cached fallback offline)
-//   - same-origin static (css/js/img/audio): STALE-WHILE-REVALIDATE (instant + self-heals)
+//   - HTML navigations and JS/CSS: NETWORK-FIRST (always fresh online; cached fallback offline)
+//   - other same-origin static (img/audio): STALE-WHILE-REVALIDATE (instant + self-heals)
 //   - cross-origin (Google Fonts, YouTube): PASSTHROUGH (never intercepted/cached)
 // Bump CACHE to force a clean re-cache on a breaking change.
-var CACHE = "lyra-shell-v2";
+var CACHE = "lyra-shell-v3";
 
 var CORE = [
   "./",
@@ -61,15 +61,15 @@ self.addEventListener("fetch", function (event) {
   // Never touch cross-origin (fonts, YouTube iframe/media, etc.)
   if (url.origin !== self.location.origin) return;
 
-  // HTML navigations: network-first so new deploys always win online.
-  if (req.mode === "navigate") {
+  // HTML navigations and code: network-first so new deploys always win online.
+  if (req.mode === "navigate" || /\.(?:js|css)$/.test(url.pathname)) {
     event.respondWith(
-      fetch(req).then(function (res) {
+      fetch(req, { cache: "no-cache" }).then(function (res) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(req, copy); });
         return res;
       }).catch(function () {
-        return caches.match(req).then(function (m) { return m || caches.match("./index.html"); });
+        return caches.match(req).then(function (m) { return m || (req.mode === "navigate" ? caches.match("./index.html") : Response.error()); });
       })
     );
     return;
@@ -88,3 +88,4 @@ self.addEventListener("fetch", function (event) {
     })
   );
 });
+

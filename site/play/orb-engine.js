@@ -33,7 +33,9 @@ function getTranslationTable() {
 }
 
 function setGameLanguage(lang) {
+  if (typeof LyraVoice !== "undefined" && LyraVoice.stop) LyraVoice.stop();
   GAME_LANG = lang || "en";
+  document.documentElement.lang = GAME_LANG;
   try { localStorage.setItem("orb_lang", GAME_LANG); } catch (e) {}
 }
 
@@ -3678,6 +3680,7 @@ function showToast(title, message, onDismiss, translationKey) {
     toastDismissBtn.removeEventListener("click", _toastDismissHandler);
   }
   _toastDismissHandler = function() {
+    if (typeof LyraVoice !== "undefined" && LyraVoice.stop) LyraVoice.stop();
     toastOverlayEl.classList.add("is-hidden");
     if (promptTextEl) promptTextEl.style.visibility = "";
     if (feedbackPanelEl) feedbackPanelEl.style.visibility = "";

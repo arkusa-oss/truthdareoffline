@@ -12,6 +12,7 @@ var LyraVoice = (function() {
   var enabled = true;
   var volume = 1.0;
   var currentAudio = null;
+  var pendingPlayback = null;
   var basePath = "./audiofiles/";
 
   // Voice clips are recorded per language. English lives in audiofiles/,
@@ -166,20 +167,25 @@ var LyraVoice = (function() {
     currentAudio = audio;
 
     audio.onended = function() {
+      if (currentAudio !== audio) return;
       currentAudio = null;
       if (callback) callback();
     };
 
     audio.onerror = function(e) {
       console.warn("LyraVoice: failed to play " + clipId + " (" + src + ")", e);
+      if (currentAudio !== audio) return;
       currentAudio = null;
       if (callback) callback();
     };
 
     // Small delay for dramatic timing
-    setTimeout(function() {
+    pendingPlayback = setTimeout(function() {
+      pendingPlayback = null;
+      if (currentAudio !== audio) return;
       audio.play().catch(function(err) {
         console.warn("LyraVoice: playback blocked for " + clipId, err.message);
+        if (currentAudio !== audio) return;
         currentAudio = null;
         if (callback) callback();
       });
@@ -244,7 +250,13 @@ var LyraVoice = (function() {
   }
 
   function stop() {
+    if (pendingPlayback !== null) {
+      clearTimeout(pendingPlayback);
+      pendingPlayback = null;
+    }
     if (currentAudio) {
+      currentAudio.onended = null;
+      currentAudio.onerror = null;
       try { currentAudio.pause(); currentAudio.currentTime = 0; } catch (e) {}
       currentAudio = null;
     }
@@ -281,7 +293,7 @@ var LyraVoice = (function() {
     stop: stop,
 
     // Enable/disable
-    setEnabled: function(on) { enabled = on; },
+    setEnabled: function(on) { enabled = on; if (!on) stop(); },
     isEnabled: function() { return enabled; },
 
     // Volume control (0.0 to 1.0)
@@ -307,3 +319,4 @@ var LyraVoice = (function() {
     }
   };
 })();
+
