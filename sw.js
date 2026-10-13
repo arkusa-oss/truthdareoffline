@@ -4,7 +4,7 @@
 //   - same-origin static (css/js/img/audio): STALE-WHILE-REVALIDATE (instant + self-heals)
 //   - cross-origin (Google Fonts, YouTube): PASSTHROUGH (never intercepted/cached)
 // Bump CACHE to force a clean re-cache on a breaking change.
-var CACHE = "lyra-shell-v1";
+var CACHE = "lyra-shell-v2";
 
 var CORE = [
   "./",

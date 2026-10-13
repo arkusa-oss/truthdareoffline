@@ -2659,7 +2659,8 @@ function recordFeedback(response) {
       }
       showToast(
         "Lyra remembers.",
-        "Tonight you promised to be honest, to be brave... and to be good sports."
+        "Tonight you promised to be honest, to be brave... and to be good sports.",
+        null, "toast.reminder"
       );
     }, 400);
   }
@@ -3655,14 +3656,19 @@ var TOAST_RANDOM = [
 var lastToastTurn = -99;
 
 var _toastDismissHandler = null;
-function showToast(title, message, onDismiss) {
+function showToast(title, message, onDismiss, translationKey) {
+  var spokenTitle = title;
+  if (translationKey) {
+    title = T(translationKey + ".title", title);
+    message = T(translationKey + ".message", message);
+  }
   if (!toastOverlayEl) { if (onDismiss) onDismiss(); return; }
   if (toastTitleEl) toastTitleEl.textContent = title;
   if (toastMessageEl) toastMessageEl.textContent = message;
   toastOverlayEl.classList.remove("is-hidden");
   // Lyra speaks the toast title aloud
   if (typeof LyraVoice !== "undefined" && LyraVoice.isEnabled()) {
-    LyraVoice.speak(title);
+    LyraVoice.speak(spokenTitle);
   }
   // Hide prompt text behind toast so it doesn't bleed through
   if (promptTextEl) promptTextEl.style.visibility = "hidden";
@@ -3700,12 +3706,12 @@ function maybeShowStageToast() {
   if (chapter === "suggestive" && !safewordToastShown) {
     safewordToastShown = true;
     showToast(TOAST_SAFEWORD.title, TOAST_SAFEWORD.message, function() {
-      showToast(toastData.title, toastData.message);
-    });
+      showToast(toastData.title, toastData.message, null, "toast." + chapter);
+    }, "toast.safeword");
     return true;
   }
 
-  showToast(toastData.title, toastData.message);
+  showToast(toastData.title, toastData.message, null, "toast." + chapter);
   return true;
 }
 
@@ -3718,7 +3724,7 @@ function maybeShowRandomToast() {
   if (Math.random() > 0.08) return false;
   var toast = randomFrom(TOAST_RANDOM);
   lastToastTurn = gameState.turnCount;
-  showToast(toast.title, toast.message);
+  showToast(toast.title, toast.message, null, "toast.random" + TOAST_RANDOM.indexOf(toast));
   return true;
 }
 

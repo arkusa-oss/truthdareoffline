@@ -2948,6 +2948,9 @@ var TRANSLATIONS_ES = {
   // Tag the matching element with data-i18n="key". Empty for now; the
   // intro/rules pages will be translated into this table later.
   static: {
+    "toast.kicker": "Lyra habla",
+    "toast.dismiss": "¡Salud!",
+    "setup.players": "Jugadores",
     "splash.tagline": "¿Otra galaxia? ¿Otra dimensión? Ni ella lo dice.",
     "splash.enter": "Entrar",
     "intro.title": "Un juego de Verdad o Reto para adultos: para amigos valientes, parejas curiosas y cualquiera que quiera que esta noche cuente.",
@@ -3018,6 +3021,29 @@ var TRANSLATIONS_ES = {
   // Engine/UI strings: key -> Spanish text.
   // {name}/{judge} placeholders are substituted by the engine.
   ui: {
+    "toast.opening.title": "Levanten sus copas.",
+    "toast.opening.message": "Antes de empezar — un brindis. Miren a las personas que los rodean. Esta noche prometen ser honestos, ser valientes y jugar con buena actitud. Lo que pase... queda entre nosotros.",
+    "toast.flirty.title": "Un brindis por la química.",
+    "toast.flirty.message": "Las cosas están por ponerse interesantes. Levanta tu copa — por la chispa entre desconocidos... y el fuego entre amigos.",
+    "toast.suggestive.title": "Por la tentación.",
+    "toast.suggestive.message": "Han sido valientes hasta ahora. Pero Lyra apenas está empezando. Levanta tu copa — por las cosas que aún no han dicho en voz alta.",
+    "toast.intimate.title": "Por la vulnerabilidad.",
+    "toast.intimate.message": "Las máscaras están cayendo. Levanta tu copa — por el valor que hace falta para dejar que alguien vea quién eres de verdad.",
+    "toast.erotic.title": "Por el deseo.",
+    "toast.erotic.message": "Ya no hay dónde esconderse. Lyra ve lo que quieres. Levanta tu copa — por el calor en esta sala... y por lo que viene.",
+    "toast.taboo.title": "Por la entrega.",
+    "toast.taboo.message": "Han llegado hasta aquí. No hay vuelta atrás. Levanta tu copa — por el límite... y la emoción de cruzarlo.",
+    "toast.safeword.title": "Una palabra, antes de seguir.",
+    "toast.safeword.message": "A partir de aquí, los retos se vuelven más atrevidos. Elijan juntos una palabra de seguridad, ahora. Algo gracioso que nadie diría por accidente: piña, medusa, pimentón. Si alguien dice esa palabra en cualquier momento de la noche, TODO se detiene, sin preguntas, sin juicios y sin tener que dar explicaciones. Pasar un reto también es siempre gratis — nadie tiene que justificarlo. Lo más valiente que puedes hacer esta noche es decir tu límite en voz alta. Ahora... elijan su palabra y sigan jugando.",
+    "toast.random0.title": "Lyra está complacida.",
+    "toast.random0.message": "Están jugando bien. Levanten sus copas — Lyra premia la valentía con otra ronda.",
+    "toast.random1.title": "Un momento de conexión.",
+    "toast.random1.message": "Mírense. De verdad. Ahora levanta tu copa — por esta noche y los recuerdos que están creando.",
+    "toast.random2.title": "Por los valientes.",
+    "toast.random2.message": "No todos seguirían aquí. Levanta tu copa — por quienes no se echaron atrás.",
+    "toast.reminder.title": "Lyra recuerda.",
+    "toast.reminder.message": "Esta noche prometieron ser honestos, ser valientes... y jugar con buena actitud.",
+
     // Vote & verdict overlays
     "vote.dare": "¿Qué tal lo hizo {name}? {judge} puntúa del 1 al 5.",
     "vote.truth": "¿{name} reveló lo suficiente? {judge} decide.",

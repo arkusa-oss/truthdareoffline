@@ -233,7 +233,7 @@ if (startGameBtn) {
       window.OrbAI.prefetch();
     }
     // Show opening toast
-    showToast(TOAST_OPENING.title, TOAST_OPENING.message);
+    showToast(TOAST_OPENING.title, TOAST_OPENING.message, null, "toast.opening");
   });
 }
 

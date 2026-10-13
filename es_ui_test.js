@@ -121,6 +121,33 @@ ctx.__gs.players = ctx.__gs.players.slice(0, 2);
 ctx.updateModeIndicator();
 assert('mode couple', byId('setupModeValue'), 'Modo Pareja');
 
+// Toasts use the selected language while keeping their dismissal callbacks.
+assert('toast kicker (es)', q('.toast-kicker'), 'Lyra habla');
+assert('toast dismiss (es)', byId('toastDismissBtn'), '¡Salud!');
+assert('player heading (es)', q('.setup-list-title'), 'Jugadores');
+var voiceTitle = null;
+ctx.LyraVoice = { isEnabled: function () { return true; }, speak: function (title) { voiceTitle = title; } };
+var dismissed = false;
+ctx.showToast(ctx.TOAST_OPENING.title, ctx.TOAST_OPENING.message, function () { dismissed = true; }, 'toast.opening');
+assert('opening toast title (es)', byId('toastTitle'), 'Levanten sus copas.');
+assertHas('opening toast message (es)', byId('toastMessage'), 'Antes de empezar');
+assert('voice retains clip lookup text', voiceTitle, ctx.TOAST_OPENING.title);
+doc.getElementById('toastDismissBtn').click();
+assert('toast dismissal callback', dismissed, true);
+assert('toast hidden after dismissal', doc.getElementById('toastOverlay').classList.contains('is-hidden'), true);
+Object.keys(ctx.TOAST_STAGE_MESSAGES).forEach(function (stage) {
+  var toast = ctx.TOAST_STAGE_MESSAGES[stage];
+  ctx.showToast(toast.title, toast.message, null, 'toast.' + stage);
+  assert('stage toast title ' + stage, byId('toastTitle'), ctx.TRANSLATIONS_ES.ui['toast.' + stage + '.title']);
+  assert('stage toast message ' + stage, byId('toastMessage'), ctx.TRANSLATIONS_ES.ui['toast.' + stage + '.message']);
+});
+ctx.showToast(ctx.TOAST_SAFEWORD.title, ctx.TOAST_SAFEWORD.message, null, 'toast.safeword');
+assertHas('safeword reminder (es)', byId('toastMessage'), 'TODO se detiene');
+ctx.TOAST_RANDOM.forEach(function (toast, i) {
+  ctx.showToast(toast.title, toast.message, null, 'toast.random' + i);
+  assert('random toast title ' + i, byId('toastTitle'), ctx.TRANSLATIONS_ES.ui['toast.random' + i + '.title']);
+});
+
 // ── English switch-back is lossless ──
 store.orb_lang = 'en';
 ctx.__setLang('en');
@@ -130,6 +157,11 @@ assert('en title restored', q('.setup-title'), 'Who is playing tonight?');
 assert('en placeholder restored', q('#playerNameInput', 'placeholder'), 'Enter player name');
 assert('en mode restored', byId('setupModeValue'), 'Couple Mode');
 assert('en start restored', byId('startGameBtn'), 'Start Game');
+
+ctx.showToast(ctx.TOAST_OPENING.title, ctx.TOAST_OPENING.message, null, 'toast.opening');
+assert('opening toast title restored (en)', byId('toastTitle'), ctx.TOAST_OPENING.title);
+assert('opening toast message restored (en)', byId('toastMessage'), ctx.TOAST_OPENING.message);
+assert('toast dismiss restored (en)', byId('toastDismissBtn'), 'Cheers!');
 
 // ── Report ──
 if (failures.length) {
