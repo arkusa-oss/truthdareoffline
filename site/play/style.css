@@ -2628,3 +2628,11 @@ body:has(#introSplash:not(.is-hidden)) .feedback-link { display: none; }
   .controls button#nextBtn.play-btn { min-width: 116px; font-size: 20px; }
   .controls .hist-nav-btn { min-width: 44px; }
 }
+
+/* Let the document scroll rather than clipping the bottom of long prompts. */
+body { overflow-y: auto; }
+.app-shell { display: block; padding-bottom: calc(var(--controls-height, 250px) + 24px); }
+.center-stage { max-height: none; overflow: visible; min-width: 0; }
+.center-stage > * { flex-shrink: 0; }
+.prompt-panel { width: 100%; min-width: 0; }
+.prompt-text { box-sizing: border-box; max-width: 100%; overflow-wrap: anywhere; }

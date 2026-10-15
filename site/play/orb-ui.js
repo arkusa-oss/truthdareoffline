@@ -620,3 +620,15 @@ buildOrbNameWheel();
   window.OrbVoteBubble = bubble;
 })();
 
+
+// Reserve the actual footer height, including wrapped buttons and music.
+(function () {
+  var footer = document.querySelector('.controls-wrap');
+  if (!footer) return;
+  function measureControls() {
+    document.documentElement.style.setProperty('--controls-height', footer.getBoundingClientRect().height + 'px');
+  }
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measureControls).observe(footer);
+  window.addEventListener('resize', measureControls);
+  measureControls();
+})();

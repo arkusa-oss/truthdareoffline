@@ -148,6 +148,12 @@ ctx.TOAST_RANDOM.forEach(function (toast, i) {
   assert('random toast title ' + i, byId('toastTitle'), ctx.TRANSLATIONS_ES.ui['toast.random' + i + '.title']);
 });
 
+var restaurantPrompt = vm.runInContext('PROFILING_PROMPTS.find(function (p) { return p.id === "CQ_16"; })', ctx);
+var restaurantText = ctx.injectPromptText(restaurantPrompt, 'Ana', 'Hans');
+assertHas('restaurant quiz renders in Spanish', restaurantText, 'restaurante');
+assertHas('restaurant quiz retains partner name', restaurantText, 'Hans');
+assert('restaurant quiz does not fall back to English', restaurantText.indexOf('go-to order'), -1);
+
 // ── English switch-back is lossless ──
 store.orb_lang = 'en';
 ctx.__setLang('en');
@@ -170,3 +176,4 @@ if (failures.length) {
   process.exit(1);
 }
 console.log('PASS: Spanish UI renders correctly (static + dynamic), English switch-back lossless.');
+

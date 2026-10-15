@@ -38,7 +38,7 @@ vm.createContext(sandbox);
 
 // English text by id (v2 personal/playful replaced by the early file at runtime)
 var english = {};
-sandbox.PROMPTS.forEach(function (p) { english[p.id] = p.text; });
+sandbox.PROMPTS.concat(sandbox.PROFILING_PROMPTS).forEach(function (p) { english[p.id] = p.text; });
 sandbox.CSV_COUPLES_PROMPTS.forEach(function (p) {
   if (p.chapter !== 'personal' && p.chapter !== 'playful') english[p.id] = p.text;
 });
@@ -79,3 +79,6 @@ if (stale.length) {
 } else {
   console.log('No stale translations.');
 }
+
+var missingProfiles = sandbox.PROFILING_PROMPTS.filter(function (p) { return !t.prompts[p.id]; });
+if (missingProfiles.length) { console.error("Missing profile translations: " + missingProfiles.map(function (p) { return p.id; }).join(", ")); process.exitCode = 1; }
