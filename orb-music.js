@@ -227,6 +227,11 @@ var OrbMusic = (function() {
     }, stepMs);
   }
 
+  function musicDescription(entry, chapter) {
+    var theme = MUSIC_THEMES[SELECTED_MUSIC_THEME] ? SELECTED_MUSIC_THEME : "latin";
+    return T("music.sub." + theme + "." + chapter, entry.sub);
+  }
+
   function showMusicBar(chapter) {
     var bar = document.getElementById("musicBar");
     var stageEl = document.getElementById("musicBarStage");
@@ -234,8 +239,8 @@ var OrbMusic = (function() {
     if (!bar || !stageEl || !subEl) return;
 
     var entry = getActivePlaylistMap()[chapter] || getActivePlaylistMap().personal;
-    stageEl.textContent = entry.label;
-    subEl.textContent = muted ? T("music.paused", "Music paused") : entry.sub;
+    stageEl.textContent = entry.label.replace(/^Stage\b/, T("music.stage", "Stage"));
+    subEl.textContent = muted ? T("music.paused", "Music paused") : musicDescription(entry, chapter);
     bar.classList.remove("is-hidden");
 
     updateMuteButton();
@@ -388,7 +393,7 @@ var OrbMusic = (function() {
       var subEl = document.getElementById("musicBarSub");
       if (subEl) {
         var entry = getActivePlaylistMap()[currentChapter] || getActivePlaylistMap().personal;
-        subEl.textContent = muted ? T("music.paused", "Music paused") : entry.sub;
+        subEl.textContent = muted ? T("music.paused", "Music paused") : musicDescription(entry, currentChapter);
       }
     },
 

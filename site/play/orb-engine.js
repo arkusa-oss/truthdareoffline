@@ -3593,17 +3593,17 @@ function resetGame() {
 
   if (playerLabelEl && playerLabelEl.style.display !== "none") playerLabelEl.textContent = "";
   if (promptTextEl) {
-    promptTextEl.textContent = "Lyra awaits...";
+    promptTextEl.textContent = T("game.awaits", "Lyra awaits...");
     promptTextEl.style.opacity = "1";
     promptTextEl.style.color = "rgba(230, 210, 255, 0.95)";
     promptTextEl.style.textShadow = "0 0 24px rgba(200, 160, 255, 0.45), 0 0 60px rgba(140, 100, 220, 0.35)";
     promptTextEl.style.cursor = "pointer";
     promptTextEl.style.animation = "none";
     promptTextEl.setAttribute("role", "button");
-    promptTextEl.setAttribute("title", "Click to begin");
+    promptTextEl.setAttribute("title", T("game.click_begin", "Click to begin"));
     if (!promptTextEl._lyraAwaitsClick) {
       promptTextEl._lyraAwaitsClick = function() {
-        if (promptTextEl.textContent !== "Lyra awaits...") return;
+        if (promptTextEl.textContent !== T("game.awaits", "Lyra awaits...")) return;
         var btn = document.getElementById("nextBtn");
         if (btn && !btn.disabled) btn.click();
       };
