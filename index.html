@@ -43,8 +43,6 @@
     <div class="cosmos-bg" aria-hidden="true"></div>
     <div class="ambient-bg"></div>
 
-    <!-- Player cards — rendered in the four corners during gameplay -->
-    <div id="playerCards" class="player-cards" aria-hidden="true"></div>
 
     <!-- Stage/Heat hidden from players — internal tracking only -->
     <header class="top-bar" style="display: none;">
@@ -332,6 +330,9 @@
           </div>
         </div>
       </div>
+
+      <!-- Player cards have their own row, clear of prompts at every size. -->
+      <div id="playerCards" class="player-cards"></div>
 
       <!-- Ornate title -->
       <div class="orb-title-bar" id="orbTitleBar">

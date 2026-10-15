@@ -1855,27 +1855,24 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
    ============================================================ */
 
 /* --- Player corner cards --- */
+/* Keep cards in document flow so long prompts and zoom cannot collide. */
 .player-cards {
-  position: fixed;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
+  position: relative;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  padding: 20px 14px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
 }
 .player-cards:empty { display: none; }
-.pc-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 14px;
-  height: 64vh;
+.pc-col { display: contents; }
+.player-cards .player-card {
   width: clamp(120px, 17vw, 188px);
+  box-sizing: border-box;
 }
-.pc-col-right { align-items: flex-end; }
-/* push the 2nd card in each column toward the bottom corner */
-.pc-col .player-card:nth-child(2) { margin-top: auto; }
 
 .player-card {
   display: flex;
@@ -2012,7 +2009,7 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
 }
 
 @media (max-width: 620px) {
-  .pc-col { width: clamp(96px, 30vw, 130px); height: 58vh; }
+  .player-cards .player-card { width: clamp(96px, 38vw, 160px); }
   .pc-avatar { width: 38px; height: 38px; font-size: 15px; }
   .pc-name { font-size: 13px; }
   .pc-sub { font-size: 10px; }

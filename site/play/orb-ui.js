@@ -192,6 +192,8 @@ if (introContinueBtn2) {
 // Music bar starts hidden; OrbMusic.init() will show it if enabled
 if (startGameBtn) {
   startGameBtn.addEventListener("click", function() {
+    // Ignore a second tap after the first has already started the game.
+    if (setupOverlayEl && setupOverlayEl.classList.contains("is-hidden")) return;
     // If a name is sitting in the input un-added, add it now — people type
     // the last player and hit Start without pressing "Add Player"
     if (playerNameInputEl && playerNameInputEl.value.trim()) {
@@ -617,3 +619,4 @@ buildOrbNameWheel();
   }
   window.OrbVoteBubble = bubble;
 })();
+

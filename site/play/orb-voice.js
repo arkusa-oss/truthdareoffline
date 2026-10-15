@@ -158,11 +158,14 @@ var LyraVoice = (function() {
       return;
     }
 
+    var src = voiceBasePath() + clipId + ".mp3";
+    // Repeated UI events must not restart pending or active narration.
+    if (currentAudio && currentAudio._lyraSource === src) return;
+
     // Stop any currently playing clip
     stop();
-
-    var src = voiceBasePath() + clipId + ".mp3";
     var audio = new Audio(src);
+    audio._lyraSource = src;
     audio.volume = volume;
     currentAudio = audio;
 

@@ -12,10 +12,15 @@ vm.createContext(ctx);
 vm.runInContext(fs.readFileSync('orb-voice.js', 'utf8'), ctx);
 function flush() { var pending = Array.from(timers.values()); timers.clear(); pending.forEach(function (fn) { fn(); }); }
 ctx.LyraVoice.play('L01');
+ctx.LyraVoice.play('L01');
+assert.equal(clips.length, 1, 'duplicate pending request uses one audio instance');
 var staleEnd = clips[0].onended;
 ctx.LyraVoice.stop(); ctx.GAME_LANG = 'es'; ctx.LyraVoice.play('L01');
 staleEnd(); flush();
 assert.equal(clips[0].starts, 0, 'cancelled English audio never starts');
+assert.equal(clips[1].starts, 1);
+ctx.LyraVoice.play('L01'); flush();
+assert.equal(clips.length, 2, 'duplicate active request must not replay');
 assert.equal(clips[1].starts, 1);
 assert.equal(clips[1].src, './audiofiles/es/L01.mp3');
 ctx.LyraVoice.stop();
