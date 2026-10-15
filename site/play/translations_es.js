@@ -2948,6 +2948,13 @@ var TRANSLATIONS_ES = {
   // Tag the matching element with data-i18n="key". Empty for now; the
   // intro/rules pages will be translated into this table later.
   static: {
+    "controls.play": "Jugar",
+    "controls.skip": "Saltar",
+    "controls.reset": "Reiniciar",
+    "controls.yes": "Sí",
+    "controls.no": "No",
+    "controls.pass": "Pasar",
+    "music.playing": "Música sonando",
     "toast.kicker": "Lyra habla",
     "toast.dismiss": "¡Salud!",
     "setup.players": "Jugadores",
@@ -3021,6 +3028,12 @@ var TRANSLATIONS_ES = {
   // Engine/UI strings: key -> Spanish text.
   // {name}/{judge} placeholders are substituted by the engine.
   ui: {
+    "player.everyone": "TODOS",
+    "card.group": "Grupo",
+    "card.truth": "Verdad",
+    "card.dare": "Reto",
+    "player.score": "Puntos",
+    "music.paused": "Música en pausa",
     "toast.opening.title": "Levanten sus copas.",
     "toast.opening.message": "Antes de empezar — un brindis. Miren a las personas que los rodean. Esta noche prometen ser honestos, ser valientes y jugar con buena actitud. Lo que pase... queda entre nosotros.",
     "toast.flirty.title": "Un brindis por la química.",

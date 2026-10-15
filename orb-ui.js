@@ -329,7 +329,7 @@ buildOrbNameWheel();
       + '<div class="pc-avatar" style="background:' + grad + ';">' + escHtml(initials(p.name)) + '</div>'
       + '<div class="pc-info">'
       + '<div class="pc-name">' + escHtml(p.name) + roleHtml + '</div>'
-      + '<div class="pc-score">Score: ' + score + streakHtml + '</div>'
+      + '<div class="pc-score">' + T("player.score", "Score") + ': ' + score + streakHtml + '</div>'
       + starsHtml
       + '</div></div>';
   }
@@ -442,9 +442,9 @@ buildOrbNameWheel();
     var isGroup = prompt.type === "group";
     var pt = prompt.promptType;
     var label = "Lyra", cls = "";
-    if (isGroup) { label = "Group"; cls = "is-group"; }
-    else if (pt === "dare") { label = "Dare"; cls = "is-dare"; }
-    else if (pt === "truth") { label = "Truth"; cls = "is-truth"; }
+    if (isGroup) { label = T("card.group", "Group"); cls = "is-group"; }
+    else if (pt === "dare") { label = T("card.dare", "Dare"); cls = "is-dare"; }
+    else if (pt === "truth") { label = T("card.truth", "Truth"); cls = "is-truth"; }
     if (tagEl) { tagEl.textContent = label; tagEl.className = "pcard-tag" + (cls ? " " + cls : ""); }
 
     var intensity = prompt.intensity || 4;

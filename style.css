@@ -2580,3 +2580,51 @@ body:has(#toastOverlay:not(.is-hidden)) .controls-wrap {
 }
 .feedback-link.is-hidden { display: none; }
 body:has(#introSplash:not(.is-hidden)) .feedback-link { display: none; }
+
+/* Raised metallic gameplay controls, stacked above the music indicator. */
+.controls-wrap {
+  bottom: 0;
+  padding: 14px 12px max(14px, env(safe-area-inset-bottom));
+  gap: 12px;
+}
+.controls-wrap .music-bar {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  flex: 0 0 auto;
+  max-width: min(92vw, 560px);
+}
+.controls-wrap .music-bar:hover { transform: none; }
+.controls { gap: 10px; flex-wrap: wrap; }
+.controls button, .feedback-panel button {
+  min-height: 52px;
+  padding: 12px 22px;
+  font-size: 18px;
+  color: #f4f6ff;
+  border: 1px solid #a6acc5;
+  border-bottom: 3px solid #242b45;
+  background: linear-gradient(180deg, #a6abc0 0%, #59627f 12%, #333d58 48%, #182239 51%, #4b5671 100%);
+  box-shadow: inset 0 1px 1px #f5f7ff, inset 0 -2px 3px #11182c, 0 5px 10px #0008;
+  text-shadow: 0 1px 2px #000;
+}
+.controls button#nextBtn.play-btn {
+  min-width: 168px;
+  min-height: 60px;
+  font-size: 22px;
+  border-color: #d3b8ed;
+  background: linear-gradient(180deg, #e1c8fa 0%, #a679c3 12%, #73488e 48%, #45275f 51%, #9164ae 100%);
+}
+.controls button#skipBtn {
+  background: linear-gradient(180deg, #a6abc0 0%, #59627f 12%, #333d58 48%, #182239 51%, #4b5671 100%);
+}
+.controls button:hover, .controls button#nextBtn.play-btn:hover { filter: brightness(1.16); }
+.controls button:active, .feedback-panel button:active { transform: translateY(2px); }
+.controls button:focus-visible, .feedback-panel button:focus-visible { outline: 3px solid #e2c8ff; outline-offset: 4px; }
+.app-shell { padding-bottom: 250px; }
+.center-stage { max-height: calc(100dvh - 250px); }
+@media (max-width: 620px) {
+  .controls button { min-width: 66px; padding: 10px 12px; font-size: 16px; }
+  .controls button#nextBtn.play-btn { min-width: 116px; font-size: 20px; }
+  .controls .hist-nav-btn { min-width: 44px; }
+}

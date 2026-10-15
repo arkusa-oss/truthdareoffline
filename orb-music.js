@@ -235,7 +235,7 @@ var OrbMusic = (function() {
 
     var entry = getActivePlaylistMap()[chapter] || getActivePlaylistMap().personal;
     stageEl.textContent = entry.label;
-    subEl.textContent = muted ? "Music paused" : entry.sub;
+    subEl.textContent = muted ? T("music.paused", "Music paused") : entry.sub;
     bar.classList.remove("is-hidden");
 
     updateMuteButton();
@@ -388,7 +388,7 @@ var OrbMusic = (function() {
       var subEl = document.getElementById("musicBarSub");
       if (subEl) {
         var entry = getActivePlaylistMap()[currentChapter] || getActivePlaylistMap().personal;
-        subEl.textContent = muted ? "Music paused" : entry.sub;
+        subEl.textContent = muted ? T("music.paused", "Music paused") : entry.sub;
       }
     },
 

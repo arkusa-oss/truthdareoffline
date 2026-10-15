@@ -1877,7 +1877,7 @@ function renderPrompt(prompt, player, target) {
   }
 
   if (playerLabelEl && playerLabelEl.style.display !== "none") {
-    playerLabelEl.textContent = prompt.type === "group" ? "EVERYONE" : (player || "");
+    playerLabelEl.textContent = prompt.type === "group" ? T("player.everyone", "EVERYONE") : (player || "");
   }
 }
 
@@ -2389,7 +2389,7 @@ function resolvePromptFlow(prompt, player, target) {
     var displayText = injectPromptText(prompt, player, target);
     gameState.promptHistory.push({
       text: displayText,
-      player: (prompt.type === "group") ? "EVERYONE" : (player || ""),
+      player: (prompt.type === "group") ? T("player.everyone", "EVERYONE") : (player || ""),
       target: target || null,
       chapter: getCurrentChapter(),
       role: prompt.role,
@@ -2408,9 +2408,9 @@ function resolvePromptFlow(prompt, player, target) {
       requestAnimationFrame(function() { showFeedbackPanel(prompt); });
     }
     if (playerLabelEl && playerLabelEl.style.display !== "none") {
-      playerLabelEl.textContent = (prompt.type === "group") ? "EVERYONE" : player;
+      playerLabelEl.textContent = (prompt.type === "group") ? T("player.everyone", "EVERYONE") : player;
     }
-    setOrbRevealName((prompt.type === "group") ? "EVERYONE" : player, "final");
+    setOrbRevealName((prompt.type === "group") ? T("player.everyone", "EVERYONE") : player, "final");
   }
 
   gameState.lastResolvedTarget = target || null;
