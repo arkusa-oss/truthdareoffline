@@ -42,6 +42,8 @@ function setGameLanguage(lang) {
 // Prompt text in the active language, falling back to English.
 function getPromptText(prompt) {
   if (!prompt) return "";
+  // Story beats resolve language + story placeholders before rendering
+  if (prompt._textResolved) return prompt.text || "";
   var table = getTranslationTable();
   if (table && prompt.id && table.prompts && table.prompts[prompt.id] && table.prompts[prompt.id].text) {
     return table.prompts[prompt.id].text;
@@ -478,6 +480,8 @@ function clearSetupInputs() {
   if (playerNameInputEl) playerNameInputEl.value = "";
   if (playerGenderInputEl) playerGenderInputEl.value = "male";
   if (playerPartnerInputEl) playerPartnerInputEl.value = "";
+  var objectInput = document.getElementById("playerObjectInput");
+  if (objectInput) objectInput.value = "";
   if (addPlayerBtn) addPlayerBtn.classList.remove("is-ready");
 }
 
@@ -513,7 +517,8 @@ function renderSetupPlayerList() {
     var rememberedIndicator = player.remembered ? '<span class="setup-remembered-badge" title="' + T("setup.remembers_title", "Lyra has played with you before") + '">' + T("setup.badge_remembers", "Lyra remembers") + '</span>' : '';
     var genderLabel = T("setup.g_" + player.gender, player.gender);
     var partnerLabel = partner ? ' &bull; ' + T("setup.partner_prefix", "Partner: ") + partner.name : '';
-    row.innerHTML = '<div class="setup-player-meta"><div class="setup-player-name">' + player.name + rememberedIndicator + '</div><div class="setup-player-sub">' + genderLabel + partnerLabel + seducerIndicator + '</div></div><div class="setup-player-controls"><label class="setup-seducer-toggle"><input type="checkbox" data-player-id="' + player.id + '" class="setup-seducer-checkbox"' + (player.isSeducer ? ' checked' : '') + ' /> ' + T("setup.toggle_seducer", "Seducer") + '</label><button type="button" class="setup-remove-btn" data-player-id="' + player.id + '">' + T("setup.btn_remove", "Remove") + '</button></div>';
+    var objectLabel = player.object ? ' &bull; ' + T("setup.object_prefix", "Brought: ") + escapeHTML(player.object) : '';
+    row.innerHTML = '<div class="setup-player-meta"><div class="setup-player-name">' + player.name + rememberedIndicator + '</div><div class="setup-player-sub">' + genderLabel + partnerLabel + objectLabel + seducerIndicator + '</div></div><div class="setup-player-controls"><label class="setup-seducer-toggle"><input type="checkbox" data-player-id="' + player.id + '" class="setup-seducer-checkbox"' + (player.isSeducer ? ' checked' : '') + ' /> ' + T("setup.toggle_seducer", "Seducer") + '</label><button type="button" class="setup-remove-btn" data-player-id="' + player.id + '">' + T("setup.btn_remove", "Remove") + '</button></div>';
     setupPlayerListEl.appendChild(row);
   });
   setupPlayerListEl.querySelectorAll(".setup-seducer-checkbox").forEach(function(checkbox) {
@@ -562,8 +567,12 @@ function addPlayerFromSetup() {
   var seducerCheckbox = document.getElementById("playerSeducerInput");
   var isSeducer = seducerCheckbox && seducerCheckbox.checked;
 
+  // Mystery object (story mode): something the player brought to the table
+  var objectInput = document.getElementById("playerObjectInput");
+  var mysteryObject = objectInput ? objectInput.value.trim().slice(0, 40) : "";
+
   var pronouns = getPronouns(gender);
-  var newPlayer = { id: getNextPlayerId(), name: name, gender: gender, pronouns: pronouns, partnerId: partnerId || null, partner: null, isSeducer: isSeducer || false, score: 0, streak: 0 };
+  var newPlayer = { id: getNextPlayerId(), name: name, gender: gender, pronouns: pronouns, partnerId: partnerId || null, partner: null, isSeducer: isSeducer || false, score: 0, streak: 0, object: mysteryObject || null };
   if (partnerId) {
     var partnerObj = gameState.players.find(function(p) { return p.id === partnerId; });
     if (partnerObj) newPlayer.partner = partnerObj.name;
@@ -3623,7 +3632,11 @@ function resetGame() {
 
 function closeRulesOverlay() {
   if (rulesOverlayEl) { rulesOverlayEl.classList.add("is-hidden"); }
-  // Show setup overlay
+  // Story mode: the prep ritual (props, limits) comes before player setup
+  if (typeof OrbStory !== "undefined" && OrbStory.openPrep && document.getElementById("storyOverlay")) {
+    OrbStory.openPrep();
+    return;
+  }
   openSetupOverlay();
 }
 
@@ -3692,6 +3705,11 @@ function showToast(title, message, onDismiss, translationKey) {
 function maybeShowStageToast() {
   var chapter = getCurrentChapter();
   var toastData = TOAST_STAGE_MESSAGES[chapter];
+  // Story mode: the chapter's narrative title + Lyra line replace the stock toast.
+  // Already language-resolved, so no translationKey is passed for it.
+  var storyToast = (typeof OrbStory !== "undefined" && OrbStory.isActive()) ? OrbStory.chapterToast(chapter) : null;
+  var toastKey = storyToast ? null : "toast." + chapter;
+  if (storyToast) toastData = storyToast;
   if (!toastData) return false;
   // Only show once per stage transition
   if (gameState.turnInChapter !== 0) return false;
@@ -3709,12 +3727,12 @@ function maybeShowStageToast() {
   if (chapter === "suggestive" && !safewordToastShown) {
     safewordToastShown = true;
     showToast(TOAST_SAFEWORD.title, TOAST_SAFEWORD.message, function() {
-      showToast(toastData.title, toastData.message, null, "toast." + chapter);
+      showToast(toastData.title, toastData.message, null, toastKey);
     }, "toast.safeword");
     return true;
   }
 
-  showToast(toastData.title, toastData.message, null, "toast." + chapter);
+  showToast(toastData.title, toastData.message, null, toastKey);
   return true;
 }
 

@@ -75,6 +75,11 @@ const gameState = {
   // Seducer role system
   seducerName: null,
 
+  // Narrative memory (orb-story.js): tonight's story, props, limits, mystery
+  // objects, fired beats, moments for the finale. Wiped every reset — never
+  // persisted (LyraMemory holds who players ARE; this holds what happened).
+  narrative: null,
+
   lastPrompt: null,
   promptHistory: [],    // [{ text, player, target, chapter, role, promptType, turn }]
   historyIndex: -1,     // -1 = viewing current prompt, >= 0 = browsing history

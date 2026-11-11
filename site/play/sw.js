@@ -4,7 +4,7 @@
 //   - other same-origin static (img/audio): STALE-WHILE-REVALIDATE (instant + self-heals)
 //   - cross-origin (Google Fonts, YouTube): PASSTHROUGH (never intercepted/cached)
 // Bump CACHE to force a clean re-cache on a breaking change.
-var CACHE = "lyra-shell-v4";
+var CACHE = "lyra-shell-v5";
 
 var CORE = [
   "./",
@@ -27,6 +27,7 @@ var CORE = [
   "./orb-state.js",
   "./orb-memory.js",
   "./orb-engine.js",
+  "./orb-story.js",
   "./orb-analytics.js",
   "./orb-music.js",
   "./orb-ui.js"

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./style.css?v=29" />
+  <link rel="stylesheet" href="./style.css?v=30" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -192,6 +192,11 @@
         </div>
       </div>
 
+      <!-- STORY PREP RITUAL — Lyra's list of things to have ready (orb-story.js renders the card) -->
+      <div id="storyOverlay" class="rules-overlay story-overlay is-hidden">
+        <div class="rules-card intro-card story-card"></div>
+      </div>
+
       <!-- TOAST OVERLAY — shown at game start and during gameplay -->
       <!-- TOAST — full-screen Lyra speaks -->
       <div id="toastOverlay" class="toast-overlay is-hidden">
@@ -241,6 +246,18 @@
               <select id="playerPartnerInput">
                 <option value="" data-i18n="setup.partner_none">None</option>
               </select>
+            </div>
+
+            <div class="setup-field">
+              <label for="playerObjectInput" data-i18n="setup.object">Mystery object (optional)</label>
+              <input
+                id="playerObjectInput"
+                type="text"
+                maxlength="40"
+                placeholder="Something from your pocket or the house"
+                data-i18n-ph="setup.object_ph"
+                autocomplete="off"
+              />
             </div>
 
             <div class="setup-field">
@@ -432,6 +449,7 @@
   <script src="./orb-state.js"></script>
   <script src="./orb-memory.js"></script>
   <script src="./orb-engine.js"></script>
+  <script src="./orb-story.js"></script>
   <script src="./orb-analytics.js"></script>
   <script src="./orb-music.js"></script>
   <script src="./orb-ui.js"></script>

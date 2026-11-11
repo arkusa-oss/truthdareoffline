@@ -43,7 +43,7 @@ window.scrollTo = function () {};
 
 var ctx = dom.getInternalVMContext();
 var FILES = ['prompts_v2.js', 'couples_prompts_v2.js', 'couples_prompts_early.js',
-  'translations_es.js', 'orb-data.js', 'orb-templates.js', 'orb-state.js', 'orb-memory.js', 'orb-engine.js'];
+  'translations_es.js', 'orb-data.js', 'orb-templates.js', 'orb-state.js', 'orb-memory.js', 'orb-engine.js', 'orb-story.js'];
 FILES.forEach(function (f) {
   try { vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx, { filename: f }); }
   catch (e) { failures.push('LOAD ERROR ' + f + ': ' + e.message); }

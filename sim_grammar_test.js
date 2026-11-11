@@ -174,7 +174,8 @@ var LOAD_ORDER = [
   'orb-templates.js',
   'orb-state.js',
   'orb-memory.js',
-  'orb-engine.js'
+  'orb-engine.js',
+  'orb-story.js'
 ];
 
 // const/let at a script's top level do NOT become properties of the vm global,
@@ -203,6 +204,7 @@ recordPromptCompletion = function (prompt, response) {
 };
 globalThis.__game = {
   gameState: gameState,
+  OrbStory: (typeof OrbStory !== "undefined") ? OrbStory : null,
   nextTurn: nextTurn,
   recordFeedback: recordFeedback,
   finalizePromptAfterFeedback: finalizePromptAfterFeedback,
@@ -351,11 +353,22 @@ function playGame(config) {
       id: i + 1, name: p.name, gender: p.gender,
       pronouns: g.getPronouns(p.gender),
       partnerId: p.partnerId || null, partner: p.partner || null,
-      isSeducer: !!p.isSeducer, remembered: false
+      isSeducer: !!p.isSeducer, remembered: false,
+      object: p.object || null
     };
   });
   g.gameState.gameMode = config.players.length === 2 ? 'couple' : 'group';
   if (config.coupleType) g.gameState.coupleType = config.coupleType;
+
+  // Story mode: like the prep screen would — pick the world, mark props
+  // ready/missing, set host limits. Beats then flow through the real engine.
+  if (g.OrbStory) {
+    g.OrbStory.selectStory(config.story || null);
+    if (config.story) {
+      (config.missingProps || []).forEach(function (id) { g.OrbStory.setProp(id, false); });
+      (config.limits || []).forEach(function (id) { g.OrbStory.setLimit(id, true); });
+    }
+  }
 
   g.resetGame();
   // resetGame re-applies coupleType default? (it shouldn't reset it — verify holds)
@@ -441,11 +454,38 @@ function playGame(config) {
     lastRenderCount = rendered.length;
   }
 
+  // Story audit: beats must only fire in their own chapter, never twice,
+  // never for a missing prop or a host limit, and every {object} must resolve.
+  var beats = 0;
+  if (config.story) {
+    var seenBeat = {};
+    var nar = g.gameState.narrative || {};
+    rendered.forEach(function (r) {
+      var p = r.prompt;
+      if (!p || !p._storyBeat) return;
+      beats++;
+      if (seenBeat[p.id]) issues.push({ type: 'story-beat-repeat', text: r.text, id: p.id, mode: config.name, chapter: p.chapter });
+      seenBeat[p.id] = 1;
+      if (p.prop && (config.missingProps || []).indexOf(p.prop) >= 0) {
+        issues.push({ type: 'story-missing-prop-served', text: r.text, id: p.id, mode: config.name, chapter: p.chapter });
+      }
+      (p.limits || []).forEach(function (l) {
+        if ((config.limits || []).indexOf(l) >= 0) issues.push({ type: 'story-limit-violated', text: '[' + l + '] ' + r.text, id: p.id, mode: config.name, chapter: p.chapter });
+      });
+      if (p.object && !p._object) issues.push({ type: 'story-object-unresolved', text: r.text, id: p.id, mode: config.name, chapter: p.chapter });
+    });
+    // Story resetGame must not leak: narrative belongs to tonight only
+    if (!nar.storyId) issues.push({ type: 'story-state-bug', text: 'storyId lost during the night', mode: config.name });
+    // Finale must build without throwing (it renders into the DOM stub)
+    try { g.OrbStory.showFinale(); } catch (e) { errors.push('finale: ' + e.message); }
+  }
+
   return {
     issues: issues,
     rendered: rendered.length,
     stalls: stalls,
     errors: errors,
+    beats: beats,
     finalChapter: g.getCurrentChapter(),
     turnCount: g.gameState.turnCount
   };
@@ -499,6 +539,40 @@ var CONFIGS = [
       { name: 'Leo', gender: 'male' },
       { name: 'Sam', gender: 'other' }
     ]
+  },
+  // ── Story mode (The Forbidden Banquet) ──
+  {
+    name: 'story-group-4',
+    maxTurns: MAX_TURNS,
+    story: 'banquet',
+    players: [
+      { name: 'Hans', gender: 'male', partner: 'Grecia', partnerId: 2, object: 'silver key' },
+      { name: 'Grecia', gender: 'female', partner: 'Hans', partnerId: 1, object: 'red lipstick' },
+      { name: 'Miro', gender: 'female', isSeducer: true, object: 'old photograph' },
+      { name: 'Leo', gender: 'male' }
+    ]
+  },
+  {
+    name: 'story-group-3-limits',
+    maxTurns: MAX_TURNS,
+    story: 'banquet',
+    missingProps: ['ice', 'napkins'],
+    limits: ['blindfold', 'food'],
+    players: [
+      { name: 'Ana', gender: 'female', object: 'pocket watch' },
+      { name: 'Leo', gender: 'male' },
+      { name: 'Sam', gender: 'other' }
+    ]
+  },
+  {
+    name: 'story-couple-MF',
+    coupleType: 'established',
+    maxTurns: MAX_TURNS,
+    story: 'banquet',
+    players: [
+      { name: 'Hans', gender: 'male', partner: 'Grecia', partnerId: 2, object: 'guitar pick' },
+      { name: 'Grecia', gender: 'female', partner: 'Hans', partnerId: 1 }
+    ]
   }
 ];
 
@@ -508,21 +582,27 @@ var allIssues = [];
 var summary = [];
 
 CONFIGS.forEach(function (config) {
-  var totRendered = 0, totStalls = 0, totErrors = [], chapters = {};
+  var totRendered = 0, totStalls = 0, totErrors = [], chapters = {}, totBeats = 0;
   for (var i = 0; i < N_GAMES; i++) {
     // Reseed per (mode, game): distinct paths, each reproducible from BASE_SEED.
     _reseed((BASE_SEED ^ _strHash(config.name) ^ ((i + 1) * 0x9E3779B1)) >>> 0);
     var r = playGame(config);
     totRendered += r.rendered;
+    totBeats += r.beats || 0;
     totStalls += r.stalls;
     totErrors = totErrors.concat(r.errors);
     chapters[r.finalChapter] = (chapters[r.finalChapter] || 0) + 1;
     r.issues.forEach(function (is) { is.config = config.name; allIssues.push(is); });
   }
+  // A story game that never serves a beat means the hook is dead — fail loudly
+  if (config.story && !totBeats) {
+    allIssues.push({ type: 'story-no-beats', text: 'no story beats rendered across ' + N_GAMES + ' games', config: config.name });
+  }
   summary.push({
     config: config.name,
     games: N_GAMES,
     prompts: totRendered,
+    beats: totBeats,
     stalls: totStalls,
     errors: totErrors,
     finalChapters: chapters
@@ -534,6 +614,7 @@ CONFIGS.forEach(function (config) {
 console.log('══ SIM SUMMARY ══');
 summary.forEach(function (s) {
   console.log('\n' + s.config + ': ' + s.games + ' games, ' + s.prompts + ' prompts rendered, ' +
+    (s.beats ? s.beats + ' story beats, ' : '') +
     s.stalls + ' stalled turns, ' + s.errors.length + ' errors');
   console.log('  final chapters: ' + JSON.stringify(s.finalChapters));
   if (s.errors.length) {

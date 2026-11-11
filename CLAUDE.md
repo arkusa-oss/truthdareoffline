@@ -50,6 +50,11 @@ asked to remove more clothing; chains skip contradicting steps.
 - orb-engine.js: prompt selection, chain system, profiling, memory
 - orb-data.js: all prompt data, chains, profiling prompts, callbacks, revelations
 - orb-state.js: gameState object and DOM references
+- orb-story.js: story worlds (The Forbidden Banquet), prep ritual (props +
+  host limits), mystery objects, narrative memory (gameState.narrative, tonight
+  only), story beats that obey the ladder, finale. Loads after orb-engine.js and
+  wraps selectPrompt/recordFeedback/resetGame. Beats carry `chapter` + `prop` +
+  `limits`; sim audits them (story-* issue types).
 - orb-voice.js: pre-recorded MP3 voice system (LyraVoice)
 - orb-music.js: YouTube IFrame API background music with 4 genre themes
 - ai_orb.js: optional AI Director (Claude API / Ollama)

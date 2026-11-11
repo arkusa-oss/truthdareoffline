@@ -32,7 +32,7 @@ vm.createContext(sandbox);
 // build PROMPTS/COUPLES_PROMPTS; load the full runtime pool so every
 // translatable id is known (not just the CSV-imported ones).
 ['prompts_v2.js', 'couples_prompts_v2.js', 'couples_prompts_early.js',
- 'orb-data.js', 'orb-templates.js', 'translations_es.js'].forEach(function (f) {
+ 'orb-data.js', 'orb-templates.js', 'orb-story.js', 'translations_es.js'].forEach(function (f) {
   vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8').replace(/^const /gm, 'var '), sandbox, { filename: f });
 });
 
@@ -43,6 +43,8 @@ sandbox.CSV_COUPLES_PROMPTS.forEach(function (p) {
   if (p.chapter !== 'personal' && p.chapter !== 'playful') english[p.id] = p.text;
 });
 sandbox.COUPLES_PROMPTS_EARLY.forEach(function (p) { english[p.id] = p.text; });
+// Story beats (orb-story.js) — translated by id like any other prompt
+(sandbox.STORY_BEATS || []).forEach(function (p) { english[p.id] = p.text; });
 // Engine-defined minigames (both modes) live in orb-engine.js source
 var engSrc = fs.readFileSync(__dirname + '/orb-engine.js', 'utf8');
 var reMini = /\{ id: "((?:C?MINI|DANCE)_\d+)"[\s\S]*?text: "((?:[^"\\]|\\.)*)"/g, mMini;
