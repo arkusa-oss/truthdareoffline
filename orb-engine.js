@@ -1196,7 +1196,12 @@ function clothingContradiction(prompt, actorName) {
     var partner = others.length === 1 ? others[0] : null;
     return !!(partner && gameState.memory.fullyUndressed[partner]);
   }
-  return false;
+  // Group mode: chooseTarget prefers dressed players, but if EVERY other
+  // player is already fully undressed there is nobody valid to target —
+  // the prompt itself contradicts the room, so reject it here.
+  var candidates = getOtherPlayerNames(actorName);
+  var anyDressed = candidates.some(function(name) { return !gameState.memory.fullyUndressed[name]; });
+  return candidates.length > 0 && !anyDressed;
 }
 
 // Record clothing state when an undress prompt is actually completed.

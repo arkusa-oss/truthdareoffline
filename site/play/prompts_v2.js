@@ -8009,7 +8009,7 @@ const CSV_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 5.5,
-    "text": "Open your mouth and read it aloud — the flirtiest page of the diary you'd never show anyone. Every word. Don't skip the good parts.",
+    "text": "Open your phone. Read aloud the flirtiest message you've sent or received this month — every word, name included. Don't skip the good parts.",
     "target": "other"
   },
   {

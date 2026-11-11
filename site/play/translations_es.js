@@ -2007,7 +2007,7 @@ var TRANSLATIONS_ES = {
     GRP0821: { text: "Alguien te miró — de verdad te miró — y dijo algo que aterrizó en tu pecho y se quedó. ¿Cuáles fueron esas palabras?", enHash: 2648250699 },
     GRP0822: { text: "Fuera de límites. Intocable. Todo contra lo que tu buen juicio te advertía. Y los deseaste de todas formas. ¿Quién era?", enHash: 2845514625 },
     GRP0823: { text: "Clava los ojos en {target}. Quince segundos. Sin risas, sin titubeos, sin apartar la mirada. Deja que vean lo que realmente hay ahí.", enHash: 2435040258 },
-    GRP0824: { text: "Abre la boca y léelo en voz alta — la página más coqueta del diario que nunca le mostrarías a nadie. Cada palabra. No te saltes las partes buenas.", enHash: 3479216182 },
+    GRP0824: { text: "Abre tu teléfono. Lee en voz alta el mensaje más coqueto que hayas enviado o recibido este mes — cada palabra, con nombre incluido. No te saltes las partes buenas.", enHash: 625552493 },
     GRP0825: { text: "Elige a alguien. Finjan que nunca se han conocido. Tienes hasta que te den un beso para hacer que lo deseen. El reloj empieza ahora.", enHash: 2164687875 },
     GRP0826: { text: "Búscala en tu teléfono — la canción que pondrías cuando quieres que alguien deje de pensar con claridad. Deja que la sala escuche lo que has guardado para ti.", enHash: 1508965592 },
     GRP0827: { text: "Actúalo. Cada segundo nervioso de tu primer beso — la duda, el acercamiento, el momento en que pasó. Lo queremos todo.", enHash: 634324454 },
