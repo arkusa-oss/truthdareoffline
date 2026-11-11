@@ -65,7 +65,7 @@ var BRIDGE_TEMPLATES = {
       "{third}, no more watching. Get between {actor} and {target}. Let whatever happens, happen."
     ] },
     { step: 2, promptType: "dare", intensity: 9.5, text: "{actor}, kiss {third}. Then {target}, kiss {third}. Take your time." },
-    { step: 3, promptType: "dare", intensity: 9.8, text: "{third}, the room is yours. Place {actor}'s hands wherever you want them on your body. Then place {target}'s hands somewhere different. Hold the tableau until the next spin." }
+    { step: 3, promptType: "dare", intensity: 9.8, text: "{third}, the room is yours. Place {actor}'s hands wherever you want on your body. Then place {target}'s hands somewhere different. Hold the tableau until the next spin." }
   ]
 };
 

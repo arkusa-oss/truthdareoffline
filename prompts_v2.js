@@ -6089,7 +6089,7 @@ const CSV_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 4.5,
-    "text": "Close your eyes. Keep them closed. {target} is going to feed you something from the table, and you will not know what it is until it touches your lips.",
+    "text": "Close your eyes and keep both closed. {target} is going to feed you something from the table, and you will not know what it is until it touches your lips.",
     "target": "other"
   },
   {
@@ -8779,7 +8779,7 @@ const CSV_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 6.5,
-    "text": "Tell {target} honestly: have you ever let your eyes linger somewhere they had no invitation — someone mid-change, unaware? What did you do with what you saw?",
+    "text": "Tell {target} honestly: have you ever let your eyes linger somewhere your eyes had no invitation — someone mid-change, unaware? What did you do with what you saw?",
     "target": "other"
   },
   {
@@ -10149,7 +10149,7 @@ const CSV_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 6.5,
-    "text": "Hands behind your back. Keep them there. Let {target} feed you something slowly — you take it from their fingers with nothing but your mouth.",
+    "text": "Hands behind your back, and keep both there. Let {target} feed you something slowly — you take it from their fingers with nothing but your mouth.",
     "target": "other"
   },
   {

@@ -1422,7 +1422,7 @@ var DANCE_AND_CLOSENESS_PROMPTS = [
 
   // ---- EROTIC / Quiet Storm stage ----
   { id: "DNC040", chapter: "erotic", role: "interaction", type: "directed", promptType: "dare", intensity: 7.5,
-    text: "{actor}, give {target} a private slow dance — hips close, hands wherever they're welcome. Let it last.", target: "other" },
+    text: "{actor}, give {target} a private slow dance — hips close, hands wherever you're welcome. Let it last.", target: "other" },
   { id: "DNC041", chapter: "erotic", role: "build", type: "directed", promptType: "dare", intensity: 8,
     text: "{actor}, straddle {target}'s lap and move slowly to the music. They keep their hands at their sides unless you invite them to move.", target: "other" },
 

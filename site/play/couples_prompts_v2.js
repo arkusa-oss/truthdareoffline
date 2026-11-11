@@ -1740,7 +1740,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, five minutes. Music. Hands. Breath. Words whispered where they land hardest. Pour out everything you have been withholding. {target} is ready. You are ready. Begin.",
+    "text": "{actor}, five minutes. Music. Hands. Breath. Words whispered into the softest places. Pour out everything you have been withholding. {target} is ready. You are ready. Begin.",
     "target": "other"
   },
   {
@@ -1890,7 +1890,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 5,
-    "text": "There is a way you long to be touched — a pressure, a pace, a place — that you have never quite found the words to ask for. Find them now. {target} is listening.",
+    "text": "There is a way you long to be touched — a pressure, a pace, a place — that you have never quite found the words to ask for. Find those words now. {target} is listening.",
     "target": "self"
   },
   {
@@ -2460,7 +2460,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7,
-    "text": "{actor}, take {target}'s hands. Place them on your body — exactly where the ache is. Don't explain. Don't apologize. Just guide them there and let them feel what you've been carrying.",
+    "text": "{actor}, take {target}'s hands. Place those hands on your body — exactly where the ache is. Don't explain. Don't apologize. Just guide {target}'s hands there and let {target_him} feel what you've been carrying.",
     "target": "other"
   },
   {
@@ -2870,7 +2870,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 6,
-    "text": "{actor}, there are limits you carry that {target} has never fully heard. Not because you hid them — because you never found the words. Find them now. Speak one out loud.",
+    "text": "{actor}, there are limits you carry that {target} has never fully heard. Not because you hid anything — because you never found the words. Find the words now. Speak one out loud.",
     "target": "self"
   },
   {
@@ -3610,7 +3610,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7,
-    "text": "{actor}, take {target}'s hands in yours. Work them slowly — palm, each finger, every knuckle — for three full minutes. People forget hands hold tension too. You won't forget.",
+    "text": "{actor}, take {target}'s hands in yours. Work each hand slowly — palm, each finger, every knuckle — for three full minutes. People forget hands hold tension too. You won't forget.",
     "target": "other"
   },
   {
@@ -3880,7 +3880,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, take {target}'s hands between yours. Hold them there, warming them, for a full minute. Then guide their hands — slowly — to their own face. Let them feel what you feel when you touch them.",
+    "text": "{actor}, take {target}'s hands between yours. Hold those hands there, warming each one, for a full minute. Then guide {target}'s hands — slowly — to {target_his} own face. Let {target_him} feel what you feel when you touch them.",
     "target": "other"
   },
   {
@@ -3890,7 +3890,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7,
-    "text": "{actor}, kneel in front of {target}. Take their hands and press them flat against your chest, over your heart. Don't speak. Don't move. Let them feel what they do to you.",
+    "text": "{actor}, kneel in front of {target}. Take {target}'s hands and press both flat against your chest, over your heart. Don't speak. Don't move. Let them feel what they do to you.",
     "target": "other"
   },
   {
@@ -4080,7 +4080,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, press your mouth to {target}'s and stay there. Your hands move down their back — slow, steady, setting the pace. The kiss doesn't break. Your hands decide the rhythm. Let them.",
+    "text": "{actor}, press your mouth to {target}'s and stay there. Your hands move down their back — slow, steady, setting the pace. The kiss doesn't break. Your hands set the rhythm. Follow your hands.",
     "target": "other"
   },
   {
@@ -8390,7 +8390,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 5.5,
-    "text": "{actor}, tell {target} exactly what you want breathed into your ear right now. The precise words. Don't soften them.",
+    "text": "{actor}, tell {target} exactly what you want breathed into your ear right now. The precise words. No softening.",
     "target": "other"
   },
   {
@@ -8410,7 +8410,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 4,
-    "text": "{actor}, give {target} a long, deliberate once-over. Don't rush it. When you're done, confess exactly where your eyes stopped — and why they stuck.",
+    "text": "{actor}, give {target} a long, deliberate once-over. Don't rush it. When you're done, confess exactly where your eyes stopped — and what held your eyes there.",
     "target": "other"
   },
   {
@@ -9450,7 +9450,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 6.5,
-    "text": "{actor}, take {target}'s hands. Move them. Place them exactly where you want them on your body — and hold them there.",
+    "text": "{actor}, take {target}'s hands. Move each one. Place both exactly where you want {target_his} touch on your body — and hold {target_him} there.",
     "target": "other"
   },
   {
@@ -9560,7 +9560,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 8,
-    "text": "{actor}, close your eyes. Picture {target}'s hands on you. They move. Where do they go first — and where do they linger? Open your eyes and tell {target} what you saw.",
+    "text": "{actor}, close your eyes. Picture {target}'s hands on you, moving. Where do those hands go first — and where do those hands linger? Open your eyes and tell {target} what you saw.",
     "target": "other"
   },
   {

@@ -109,7 +109,7 @@ var STORY_BEATS = [
   { id: "BQ_I02", story: "banquet", chapter: "intimate", prop: "fruit", limits: ["food"], role: "peak", type: "directed", promptType: "dare", intensity: 7.5,
     text: "{target}, bare one shoulder. {actor}, place a piece of fruit on it and eat it without using your hands. Slowly. Then kiss the spot it was resting on." },
   { id: "BQ_I03", story: "banquet", chapter: "intimate", prop: "sweet", limits: ["food"], role: "action", type: "directed", promptType: "dare", intensity: 7.5,
-    text: "{actor}, trace something sweet along {target}'s neck. Then kiss it off — all of it. {target}, keep your hands exactly where they are." },
+    text: "{actor}, dab something sweet on {target}'s neck. Kiss it off, slowly. {target}, hands still." },
   { id: "BQ_I04", story: "banquet", chapter: "intimate", prop: "ice", role: "build", type: "directed", promptType: "dare", intensity: 7,
     text: "{actor}, hold an ice cube in your mouth and kiss {target} — a real kiss — until it's gone. {target}, you may not pull away first." },
   { id: "BQ_I05", story: "banquet", chapter: "intimate", object: true, role: "build", type: "directed", promptType: "dare", intensity: 7,
