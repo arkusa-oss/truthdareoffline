@@ -743,7 +743,7 @@ const CHAIN_PROMPTS = [
     intensity: 8.5, text: "Everyone answers: what is your favorite sex toy? If you don't have one — what would you want?",
     target: "group", chain_id: "taboo_toys", chain_step: 1 },
   { id: "ARC_L2", chapter: "taboo", role: "build", type: "group", promptType: "dare",
-    intensity: 9, text: "Whoever was most honest — go get your toy. Show the group. No shame — Lyra rewards bravery.",
+    intensity: 9, text: "Host — bring out one toy from the house. Just one; tonight it belongs to the group. Nothing in the house? A scarf, an ice cube or a feather will do. Whoever was most honest holds it first.",
     target: "group", chain_id: "taboo_toys", chain_step: 2 },
   { id: "ARC_L3", chapter: "taboo", role: "action", type: "directed", promptType: "dare",
     intensity: 9, text: "Take the toy and slowly run it along {target}'s arm, then their neck, then their collarbone. Watch their reaction.",

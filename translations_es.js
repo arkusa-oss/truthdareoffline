@@ -146,7 +146,7 @@ var TRANSLATIONS_ES = {
     ARC_K3: { text: "Ahora besa a la segunda. Las mismas reglas — lento y deliberado. El grupo está juzgando.", enHash: 1767773372 },
     ARC_K4: { text: "Sé honesto — ¿quién besó mejor? Y el perdedor tiene que intentarlo de nuevo. Con más ganas esta vez.", enHash: 1479726958 },
     ARC_L1: { text: "Todos responden: ¿cuál es tu juguete sexual favorito? Si no tienes uno — ¿cuál querrías?", enHash: 864029264 },
-    ARC_L2: { text: "Quien haya sido más honesto — ve por tu juguete. Muéstralo al grupo. Sin vergüenza — Lyra premia la valentía.", enHash: 1753672316 },
+    ARC_L2: { text: "Anfitrión — saca un juguete de la casa. Solo uno; esta noche es del grupo. ¿No hay ninguno? Una bufanda, un cubo de hielo o una pluma sirven. Quien fue más honesto lo sostiene primero.", enHash: 3996341215 },
     ARC_L3: { text: "Toma el juguete y deslízalo despacio por el brazo de {target}, luego por su cuello, luego por su clavícula. Observa su reacción.", enHash: 4126444148 },
     ARC_L4: { text: "Usa el juguete para provocar a {target} — recórrelo despacio por su pecho. Deja que sienta la anticipación.", enHash: 3751174183 },
     ARC_L5: { text: "Pasa el juguete al siguiente jugador. Ahora es su turno — úsalo con alguien más. Lyra quiere ver a todos retorcerse.", enHash: 442021616 },

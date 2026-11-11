@@ -785,9 +785,14 @@ function chooseTarget(actorName, prompt) {
 
   // Undress prompts aimed at the target: skip players already fully undressed
   var undressInfo = getPromptUndressInfo(prompt);
-  if (undressInfo && (undressInfo.subject === "target" || undressInfo.subject === "both") && gameState.memory.fullyUndressed) {
-    var dressed = others.filter(function(name) { return !gameState.memory.fullyUndressed[name]; });
+  if (undressInfo && (undressInfo.subject === "target" || undressInfo.subject === "both")) {
+    var dressed = others.filter(function(name) { return !undressBlockedFor(prompt, name, undressInfo); });
     if (dressed.length) others = dressed;
+    // Spread exposure: only the least-exposed candidates (within one layer)
+    var leastRemoved = 999;
+    others.forEach(function(name) { leastRemoved = Math.min(leastRemoved, removedItems(name).length); });
+    var spread = others.filter(function(name) { return removedItems(name).length <= leastRemoved + 1; });
+    if (spread.length) others = spread;
   }
 
   // Count how many times each player has been targeted recently (last 10)
@@ -1019,10 +1024,10 @@ function findChainContinuation() {
     }
     if (!prompt) break;
     var uInfo = getPromptUndressInfo(prompt);
-    if (uInfo && gameState.memory.fullyUndressed) {
+    if (uInfo) {
       var uNames = uInfo.subject === "both" ? [active.actor, active.target]
         : [uInfo.subject === "actor" ? active.actor : active.target];
-      var uBlocked = uNames.some(function (n) { return n && gameState.memory.fullyUndressed[n]; });
+      var uBlocked = uNames.some(function (n) { return n && undressBlockedFor(prompt, n, uInfo); });
       if (uBlocked) {
         prompt = null;
         active.step += 1; // skip this step, try the next
@@ -1151,13 +1156,15 @@ function getPromptUndressInfo(prompt) {
   // "take off your shirt" and the split form "take the top off your back" both count
   if (!/\b(undress|strip|take off|takes off|peel off|slip out of|remove)\b|\btakes?\s+(?:the|your|their|\{target\}'s)\s+(?:top|shirt|blouse|bra|pants|trousers|dress|skirt|underwear|shoes?|socks?)\s+off\b/.test(t)) return null;
   // ...and reference a garment / nudity (so "remove the blindfold" doesn't match).
-  if (!/\b(undress|strip|naked|nude|layer|clothes|clothing|shirt|top|bra|pants|trousers|dress|skirt|underwear|underthings|piece|garment|shoe|sock)\b/.test(t)) return null;
+  if (!/\b(undress|strip|naked|nude|layer|clothes|clothing|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|underthings|piece|garment|shoes?|socks?|belt|jewelry|bracelet)\b/.test(t)) return null;
   // Who gets undressed? "{actor}, undress {target}" / "make {target} strip" -> the target.
   // "you and {target} each remove..." -> both. Otherwise the actor.
   var subject = "actor";
   if (/\b(each|both)\b[^.]{0,40}\b(remove|take off|strip|undress)|\b(remove|take off|strip|undress)\b[^.]{0,25}\beach\b/.test(t)) {
     subject = "both";
-  } else if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)/.test(t)) {
+  } else if (/\b(piece|item|article|layer)\s+of\s+(your|my)\b|\b(remove|take off|strip|peel off)\b[^.]{0,25}\byour\s+(own\s+)?(clothing|clothes|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|shoes?|socks?|belt)\b/.test(t)) {
+    subject = "actor"; // "let {target} remove one piece of YOUR clothing" — the actor loses the layer
+  } else if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)|\b(remove|take off|strip|peel off)\b[^.]{0,30}\{target\}'s/.test(t)) {
     subject = "target";
   }
   // Does it reach full nudity?
@@ -1178,57 +1185,230 @@ function undressSubjectName(prompt, actorName) {
   return others.length === 1 ? others[0] : null;
 }
 
-// True if showing this prompt would contradict a player's known clothing state.
-// Couples-only: target is the single partner, so the subject is deterministic.
+// =========================
+// WARDROBE — Lyra remembers exactly what came off
+// =========================
+// Generic undress prompts ("remove one piece of clothing", "one layer") are
+// resolved at serve time to a NAMED item from the player's remaining wardrobe,
+// gated by the escalation ladder (CLAUDE.md): accessories/outer layer from
+// suggestive, garments from intimate, bra/underwear from erotic. Removed items
+// are recorded by name in gameState.memory.clothingRemoved[name] (the spinner
+// already writes the same item keys), so later prompts never ask for a layer
+// that is already gone, and exposure is spread across players.
+var WARDROBE = [
+  { item: "shoes",     en: "shoes",                       es: "zapatos",             esPlural: true,  floor: 4 },
+  { item: "socks",     en: "socks",                       es: "calcetines",          esPlural: true,  floor: 4, requires: "shoes" },
+  { item: "jewelry",   en: "watch, jewelry or bracelet",  es: "reloj o joyas",       esPlural: false, floor: 4 },
+  { item: "belt",      en: "belt",                        es: "cinturón",            esPlural: false, floor: 4 },
+  { item: "top",       en: "top",                         es: "camiseta o blusa",    esPlural: false, floor: 5 },
+  { item: "pants",     en: "pants, skirt or shorts",      es: "pantalón o falda",    esPlural: false, floor: 5 },
+  { item: "bra",       en: "bra",                         es: "sostén",              esPlural: false, floor: 6, gender: "female", requires: "top" },
+  { item: "underwear", en: "underwear",                   es: "ropa interior",       esPlural: false, floor: 6, requires: "pants", final: true }
+];
+// Specific garments named in prompt text -> wardrobe item (detected on the English source)
+var GARMENT_WORDS = [
+  { re: /\b(underwear|panties|boxers|briefs|thong|knickers)\b/, item: "underwear" },
+  { re: /\bbra\b/, item: "bra" },
+  { re: /\b(pants|trousers|skirt|shorts|jeans|dress)\b/, item: "pants" },
+  { re: /\b(shirt|top|blouse|t-shirt|sweater|hoodie)\b/, item: "top" },
+  { re: /\bbelt\b/, item: "belt" },
+  { re: /\bsocks?\b/, item: "socks" },
+  { re: /\bshoes?\b/, item: "shoes" },
+  { re: /\b(jewelry|jewellery|bracelet|necklace|earrings?|wristwatch)\b/, item: "jewelry" }
+];
+// Generic phrasing that gets a concrete item substituted in (display text, per language)
+var GENERIC_UNDRESS_EN = /\b(one|a|an|another|single)\s+(piece|item|article|layer)(?:\s+of\s+(your(?:\s+own)?|their|\{target\}'s|my)\s+clothing|\s+of\s+clothing)?\b(?!\s+at a time)/i;
+var GENERIC_UNDRESS_ES = /\b(una|otra)\s+(prenda|capa)(?:\s+de\s+(tu|su)\s+ropa|\s+de\s+ropa)?\b(?!\s+a la vez)/i;
+
+function chapterNumber(chapter) {
+  var i = CHAPTER_ORDER.indexOf(chapter || getCurrentChapter());
+  return i < 0 ? 1 : i + 1;
+}
+function removedItems(name) {
+  return (gameState.memory && gameState.memory.clothingRemoved && gameState.memory.clothingRemoved[name]) || [];
+}
+function isFullyUndressed(name) {
+  if (gameState.memory && gameState.memory.fullyUndressed && gameState.memory.fullyUndressed[name]) return true;
+  return removedItems(name).indexOf("underwear") >= 0;
+}
+function wardrobeFor(name) {
+  var p = getPlayerByName(name);
+  var gender = p ? p.gender : "other";
+  var removed = removedItems(name);
+  return WARDROBE.filter(function(w) {
+    if (w.gender && w.gender !== gender) return false;
+    if (removed.indexOf(w.item) >= 0) return false;
+    if (w.requires && removed.indexOf(w.requires) < 0) return false;
+    return true;
+  });
+}
+// Next item Lyra would ask for: the most stage-appropriate layer still on.
+// Highest floor allowed at this chapter wins (intimate asks for a top before
+// going back for socks); ties keep wardrobe order.
+function nextWardrobeItem(name, chapter) {
+  var num = chapterNumber(chapter);
+  var avail = wardrobeFor(name).filter(function(w) { return w.floor <= num; });
+  if (!avail.length) return null;
+  var best = avail[0];
+  avail.forEach(function(w) { if (w.floor > best.floor) best = w; });
+  return best;
+}
+function specificGarment(prompt) {
+  var t = (prompt && prompt.text || "").toLowerCase();
+  for (var i = 0; i < GARMENT_WORDS.length; i++) {
+    if (GARMENT_WORDS[i].re.test(t)) return GARMENT_WORDS[i].item;
+  }
+  return null;
+}
+function wardrobeEntry(item) {
+  for (var i = 0; i < WARDROBE.length; i++) if (WARDROBE[i].item === item) return WARDROBE[i];
+  return null;
+}
+// Is an undress prompt impossible for this player right now?
+function undressBlockedFor(prompt, name, info) {
+  if (!name) return false;
+  info = info || getPromptUndressInfo(prompt);
+  if (!info) return false;
+  if (isFullyUndressed(name)) return true;
+  var garment = specificGarment(prompt);
+  if (garment) {
+    var entry = wardrobeEntry(garment);
+    if (!entry) return false;
+    if (removedItems(name).indexOf(garment) >= 0) return true;
+    if (entry.gender) { var pl = getPlayerByName(name); if (pl && pl.gender !== entry.gender) return true; }
+    if (entry.floor > chapterNumber()) return true; // ladder: too early for this garment
+    return false;
+  }
+  if (info.makesFull) return false;
+  return !nextWardrobeItem(name, getCurrentChapter());
+}
+function undressSubjects(prompt, actorName, targetName, info) {
+  info = info || getPromptUndressInfo(prompt);
+  if (!info) return [];
+  if (info.subject === "actor") return [actorName];
+  var resolved = targetName || ((gameState.lastResolvedTarget && gameState.lastResolvedTarget !== actorName) ? gameState.lastResolvedTarget : null);
+  if (!resolved) { var others = getOtherPlayerNames(actorName); resolved = others.length === 1 ? others[0] : null; }
+  if (info.subject === "both") return [actorName].concat(resolved ? [resolved] : []);
+  return resolved ? [resolved] : [];
+}
+
+// True if showing this prompt would contradict a player's known clothing state
+// (or the escalation ladder). Actor-subject: check the actor. Target-subject:
+// couples know the partner; group mode needs at least one valid candidate.
 function clothingContradiction(prompt, actorName) {
   var info = getPromptUndressInfo(prompt);
   if (!info) return false;
-  if (!gameState.memory.fullyUndressed) return false;
-  // Actor-subject (and both-subject) prompts: check the actor. Target-subject:
-  // in couples the partner is known; in group mode the target isn't chosen
-  // yet, so chooseTarget filters fully-undressed candidates instead.
   if (info.subject === "actor" || info.subject === "both") {
-    if (gameState.memory.fullyUndressed[actorName]) return true;
+    if (undressBlockedFor(prompt, actorName, info)) return true;
     if (info.subject === "actor") return false;
   }
-  if (isCouplesMode()) {
-    var others = getOtherPlayerNames(actorName);
-    var partner = others.length === 1 ? others[0] : null;
-    return !!(partner && gameState.memory.fullyUndressed[partner]);
-  }
-  // Group mode: chooseTarget prefers dressed players, but if EVERY other
-  // player is already fully undressed there is nobody valid to target —
-  // the prompt itself contradicts the room, so reject it here.
   var candidates = getOtherPlayerNames(actorName);
-  var anyDressed = candidates.some(function(name) { return !gameState.memory.fullyUndressed[name]; });
-  return candidates.length > 0 && !anyDressed;
+  if (!candidates.length) return false;
+  var anyOk = candidates.some(function(name) { return !undressBlockedFor(prompt, name, info); });
+  return !anyOk;
+}
+
+// EXPOSURE SPREAD: don't keep undressing the same player. True when the actor
+// would lose a layer but is already more exposed than the least-exposed player,
+// or just lost one within the last two turns.
+function undressOverexposed(prompt, actorName) {
+  var info = getPromptUndressInfo(prompt);
+  if (!info || info.subject === "target") return false;
+  var mine = removedItems(actorName).length;
+  var least = 999;
+  gameState.players.forEach(function(p) { least = Math.min(least, removedItems(p.name).length); });
+  if (mine > least) return true;
+  var last = gameState.memory && gameState.memory.lastUndress;
+  if (last && last.name === actorName && gameState.turnCount - last.turn <= 2) return true;
+  return false;
+}
+
+// Resolve a generic undress prompt to named items for display. Returns a copy
+// (text resolved in the active language, `_undressItems` = { name: item }) or
+// the original prompt when nothing needs resolving.
+function specifyUndressPrompt(prompt, actorName, targetName) {
+  var info = getPromptUndressInfo(prompt);
+  if (!info || info.makesFull) return prompt;
+  if (specificGarment(prompt)) return prompt;
+  var subjects = undressSubjects(prompt, actorName, targetName, info).filter(Boolean);
+  if (!subjects.length) return prompt;
+  var chapter = getCurrentChapter();
+  var items = {};
+  for (var i = 0; i < subjects.length; i++) {
+    var w = nextWardrobeItem(subjects[i], chapter);
+    if (!w) return prompt; // nothing valid: selection should have blocked this; leave text alone
+    items[subjects[i]] = w;
+  }
+  var es = GAME_LANG === "es";
+  var text = getPromptText(prompt);
+  function label(w) { return es ? w.es : w.en; }
+  function poss(who, w, explicitPoss) {
+    // explicitPoss: "your"/"their"/"{target}'s"/"my" (en) or "tu"/"su" (es) found in the phrase
+    if (es) {
+      var pl = w.esPlural;
+      if (explicitPoss === "su") return (pl ? "sus " : "su ") + w.es;
+      if (explicitPoss === "tu" || who === actorName) return (pl ? "tus " : "tu ") + w.es;
+      return (pl ? "los " : (w.es.match(/^(ropa|camiseta|falda)/) ? "la " : "el ")) + w.es + " de {target}";
+    }
+    if (explicitPoss === "{target}'s") return "{target}'s " + w.en;
+    if (explicitPoss === "their") return "their " + w.en;
+    if (explicitPoss === "my") return "my " + w.en;
+    if (explicitPoss && /^your/.test(explicitPoss)) return "your " + w.en;
+    if (who === actorName) return "your " + w.en;
+    return "{target}'s " + w.en;
+  }
+  var re = es ? GENERIC_UNDRESS_ES : GENERIC_UNDRESS_EN;
+  var m = re.exec(text);
+  if (info.subject === "both") {
+    // Two people, two items: keep the sentence, add Lyra's choice.
+    var a = items[subjects[0]], b = subjects[1] ? items[subjects[1]] : null;
+    if (b) {
+      text += es
+        ? " Lyra elige: {actor}, " + (a.esPlural ? "tus " : "tu ") + a.es + ". {target}, " + (b.esPlural ? "tus " : "tu ") + b.es + "."
+        : " Lyra chooses: {actor}, your " + a.en + ". {target}, your " + b.en + ".";
+    } else if (m) {
+      text = text.replace(re, poss(subjects[0], a, m[3] || null));
+    }
+  } else if (m) {
+    text = text.replace(re, poss(subjects[0], items[subjects[0]], m[3] || null));
+  } else {
+    // Undress prompt without a generic phrase or named garment ("peel off something"):
+    // append the choice so the record and the words agree.
+    var w0 = items[subjects[0]];
+    text += es ? " Lyra elige: " + (w0.esPlural ? "tus " : "tu ") + w0.es + "." : " Lyra chooses: your " + w0.en + ".";
+  }
+  var copy = {};
+  Object.keys(prompt).forEach(function(k) { copy[k] = prompt[k]; });
+  copy.text = text;
+  copy._textResolved = true;
+  copy._undressItems = {};
+  Object.keys(items).forEach(function(n) { copy._undressItems[n] = items[n].item; });
+  return copy;
 }
 
 // Record clothing state when an undress prompt is actually completed.
-// Works in both modes; group mode also tracks spinner outcomes separately.
 function recordClothingFromPrompt(prompt, actorName) {
   var info = getPromptUndressInfo(prompt);
   if (!info) return;
-  var names = [];
-  if (info.subject === "both") {
-    names.push(actorName);
-    // resolve the partner/last target directly
-    var resolved = (gameState.lastResolvedTarget && gameState.lastResolvedTarget !== actorName)
-      ? gameState.lastResolvedTarget
-      : (getOtherPlayerNames(actorName).length === 1 ? getOtherPlayerNames(actorName)[0] : null);
-    if (resolved) names.push(resolved);
-  } else {
-    var single = undressSubjectName(prompt, actorName);
-    if (single) names.push(single);
-  }
-  names.forEach(function (name) {
+  if (!gameState.memory.fullyUndressed) gameState.memory.fullyUndressed = {};
+  var subjects = undressSubjects(prompt, actorName, null, info).filter(Boolean);
+  var garment = specificGarment(prompt);
+  subjects.forEach(function(name) {
     if (!gameState.memory.clothingRemoved[name]) gameState.memory.clothingRemoved[name] = [];
-    gameState.memory.clothingRemoved[name].push("layer");
-    // Full strip, or 3+ layers shed, marks the player fully undressed.
-    if (info.makesFull || gameState.memory.clothingRemoved[name].length >= 3) {
-      if (!gameState.memory.fullyUndressed) gameState.memory.fullyUndressed = {};
+    var list = gameState.memory.clothingRemoved[name];
+    var item = (prompt._undressItems && prompt._undressItems[name]) || garment || null;
+    if (info.makesFull) {
+      wardrobeFor(name).forEach(function(w) { if (list.indexOf(w.item) < 0) list.push(w.item); });
       gameState.memory.fullyUndressed[name] = true;
+    } else if (item) {
+      if (list.indexOf(item) < 0) list.push(item);
+      if (item === "underwear") gameState.memory.fullyUndressed[name] = true;
+    } else {
+      var w = nextWardrobeItem(name, getCurrentChapter()) || wardrobeFor(name)[0];
+      if (w) list.push(w.item); else gameState.memory.fullyUndressed[name] = true;
     }
+    if (!wardrobeFor(name).length) gameState.memory.fullyUndressed[name] = true;
+    gameState.memory.lastUndress = { name: name, turn: gameState.turnCount || 0 };
   });
 }
 
@@ -1275,6 +1455,7 @@ function selectPromptByRole(chapter, role) {
       !wasRecentlyUsedPrompt(p.id) &&
       promptMatchesGender(p, actor) &&
       !clothingContradiction(p, actor) &&
+      !undressOverexposed(p, actor) &&
       (pref === "mixed" || !p.promptType || p.promptType === pref) &&
       !(skipGroup && p.type === "group") &&
       coupleTypeOk(p);
@@ -1291,7 +1472,7 @@ function selectPromptByRole(chapter, role) {
   // Relax type preference
   pool = getPromptPool().filter(function(p) {
     return p.chapter === chapter && p.role === role && !p.chain_id && !p.triggerTheme && !wasRecentlyUsedPrompt(p.id) && promptMatchesGender(p, actor) &&
-      !clothingContradiction(p, actor) &&
+      !clothingContradiction(p, actor) && !undressOverexposed(p, actor) &&
       !(skipGroup && p.type === "group") &&
       coupleTypeOk(p);
   });
@@ -2200,11 +2381,27 @@ function doOneSpin(callback) {
   spinner.spinsLeft -= 1;
   spinner.currentResults.push(outcome);
 
-  // Track clothing removal in memory
+  // Track clothing removal in memory. Generic outcomes ("one item") resolve
+  // to the player's next wardrobe item so Lyra remembers exactly what came off.
   if (outcome.category === "clothing" && outcome.item) {
     var player = spinner.player;
     if (!gameState.memory.clothingRemoved[player]) gameState.memory.clothingRemoved[player] = [];
-    gameState.memory.clothingRemoved[player].push(outcome.item);
+    var genericItem = /\b(item|stripped|swapped)\b/.test(outcome.item);
+    if (genericItem) {
+      var w = nextWardrobeItem(player, getCurrentChapter()) || wardrobeFor(player)[0];
+      if (w) {
+        outcome = Object.assign({}, outcome, {
+          item: w.item,
+          text: outcome.text.replace(/\bone item\b/i, "your " + w.en).replace(/\ban item of (your )?clothing\b/i, "your " + w.en)
+        });
+      }
+    }
+    if (gameState.memory.clothingRemoved[player].indexOf(outcome.item) < 0) gameState.memory.clothingRemoved[player].push(outcome.item);
+    if (outcome.item === "underwear" || !wardrobeFor(player).length) {
+      if (!gameState.memory.fullyUndressed) gameState.memory.fullyUndressed = {};
+      gameState.memory.fullyUndressed[player] = true;
+    }
+    gameState.memory.lastUndress = { name: player, turn: gameState.turnCount || 0 };
   }
 
   // Remove this exact outcome from pool to avoid duplicates in same spin session
@@ -3292,6 +3489,10 @@ function nextTurn() {
     }
 
     gameState.currentPlayer = selected.actor || player;
+    // Wardrobe: "remove one piece of clothing" becomes "remove your socks"
+    try {
+      selected.prompt = specifyUndressPrompt(selected.prompt, gameState.currentPlayer, selected.target || null);
+    } catch (e) { console.warn("[Orb] wardrobe resolve failed", e); }
     gameState.lastPrompt = selected.prompt;
     gameState.awaitingResolution = true;
     if (nextBtn) nextBtn.disabled = true;

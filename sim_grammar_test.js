@@ -277,6 +277,17 @@ function playGame(config) {
   // so we catch the engine failing to prevent contradictions.
   var simClothing = {};   // player -> layers removed count
   var simFullyBare = {};  // player -> true once fully undressed
+  var simItems = {};      // player -> { item: true } named garments seen removed
+  // Wardrobe size per gender (engine WARDROBE): a player can lose this many named layers
+  function wardrobeSize(name) { var p = config.players.find(function (x) { return x.name === name; }); return (p && p.gender === 'female') ? 8 : 7; }
+  var GARMENT_RE = [
+    { re: /\b(underwear|panties|boxers|briefs|thong)\b/i, item: 'underwear' }, { re: /\bbra\b/i, item: 'bra' },
+    { re: /\b(pants|trousers|skirt|shorts|jeans|dress)\b/i, item: 'pants' }, { re: /\b(shirt|top|blouse|t-shirt|sweater|hoodie)\b/i, item: 'top' },
+    { re: /\bbelt\b/i, item: 'belt' }, { re: /\bsocks?\b/i, item: 'socks' }, { re: /\bshoes?\b/i, item: 'shoes' },
+    { re: /\b(jewelry|jewellery|bracelet|necklace)\b/i, item: 'jewelry' }
+  ];
+  function garmentIn(text) { for (var i = 0; i < GARMENT_RE.length; i++) if (GARMENT_RE[i].re.test(text)) return GARMENT_RE[i].item; return null; }
+  var GENERIC_UNDRESS = /\b(one|a|an|another|single)\s+(piece|item|article|layer)(?:\s+of\s+(?:your(?:\s+own)?|their|my|[A-Z][a-z]+'s?)\s+clothing|\s+of\s+clothing)?\b(?!\s+at a time)/i;
   var chainSeq = {};      // chain_id -> [steps in render order]
   var UNDRESS_FLOOR = { personal: 1, playful: 1, flirty: 1, suggestive: 1, intimate: 5, erotic: 6, taboo: 7 };
   var STAGE_NUM = { personal: 1, playful: 2, flirty: 3, suggestive: 4, intimate: 5, erotic: 6, taboo: 7 };
@@ -301,6 +312,7 @@ function playGame(config) {
 
     // ── UNDRESS PROGRESSION AUDIT ──
     var uInfo = g.getPromptUndressInfo(prompt);
+    if (uInfo && process.env.UNDRESS_TRACE) console.error('[undress]', config.name, prompt.chapter, '|', text.replace(/\n/g, ' '));
     if (uInfo) {
       var subjects = uInfo.subject === 'both' ? [player, target].filter(Boolean)
         : [uInfo.subject === 'actor' ? player : (target || null)].filter(Boolean);
@@ -313,6 +325,24 @@ function playGame(config) {
       var stageNum = STAGE_NUM[prompt.chapter] || 0;
       if (uInfo.makesFull && stageNum < STAGE_NUM.erotic) {
         issues.push({ type: 'full-undress-too-early', text: text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+      }
+      // Wardrobe: Lyra must name the item ("your socks"), never leave "one piece of clothing"
+      if (!uInfo.makesFull && GENERIC_UNDRESS.test(text) && !/Lyra (chooses|elige):/.test(text)) {
+        issues.push({ type: 'undress-unspecified', text: text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+      }
+      // Wardrobe: the same named garment must never be asked of the same player twice
+      var namedItem = garmentIn(text);
+      if (namedItem && !/Lyra chooses: [A-Z][a-z]+, your/.test(text)) {
+        subjects.forEach(function (s) {
+          if (simItems[s] && simItems[s][namedItem]) {
+            issues.push({ type: 'undress-item-repeat', text: '[' + s + ' already lost ' + namedItem + '] ' + text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+          }
+        });
+      }
+      // Ladder: garments only from intimate, bra/underwear only from erotic
+      var ITEM_FLOOR = { shoes: 4, socks: 4, jewelry: 4, belt: 4, top: 5, pants: 5, bra: 6, underwear: 6 };
+      if (namedItem && ITEM_FLOOR[namedItem] && stageNum < ITEM_FLOOR[namedItem]) {
+        issues.push({ type: 'undress-item-too-early', text: text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
       }
     }
 
@@ -431,9 +461,12 @@ function playGame(config) {
             var subjs = ui.subject === 'both'
               ? [g.gameState.currentPlayer, g.gameState.lastResolvedTarget].filter(Boolean)
               : [ui.subject === 'actor' ? g.gameState.currentPlayer : g.gameState.lastResolvedTarget].filter(Boolean);
+            var doneText = sandbox.document.getElementById('promptText').textContent;
+            var doneItem = garmentIn(doneText);
             subjs.forEach(function (subj) {
               simClothing[subj] = (simClothing[subj] || 0) + 1;
-              if (ui.makesFull || simClothing[subj] >= 3) simFullyBare[subj] = true;
+              if (doneItem && !/Lyra chooses:/.test(doneText)) { simItems[subj] = simItems[subj] || {}; simItems[subj][doneItem] = true; }
+              if (ui.makesFull || doneItem === 'underwear' || simClothing[subj] >= wardrobeSize(subj)) simFullyBare[subj] = true;
             });
           }
         }
