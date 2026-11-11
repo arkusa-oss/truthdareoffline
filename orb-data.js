@@ -861,7 +861,7 @@ const CHAIN_PROMPTS = [
     intensity: 7.5, text: "Now the orb turns. {actor}, kiss {jealousPlayer}. Not their partner — them. A real kiss. Let's see how the whole room shifts.",
     target: "other", chain_id: "jealousy_test_deep", chain_step: 4, _jealousyChain: true, _kissJealousPlayer: true },
   { id: "JLY_I05", chapter: "intimate", role: "peak", type: "directed", promptType: "dare",
-    intensity: 7.5, text: "{target}, your partner just got kissed by the seducer. Your move. Kiss {jealousPlayer} like you're reclaiming what's yours.",
+    intensity: 7.5, text: "{target}, your partner just got kissed by {actor}. Your move. Kiss {jealousPlayer} like you're reclaiming what's yours.",
     target: "other", chain_id: "jealousy_test_deep", chain_step: 5, _jealousyChain: true, _reclaimKiss: true },
 
   // =============================================

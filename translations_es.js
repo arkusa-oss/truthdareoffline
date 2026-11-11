@@ -2908,7 +2908,7 @@ var TRANSLATIONS_ES = {
     JLY_I02: { text: "{actor}, besa a {target} en los labios. Un beso suave... inocente, pero nada rápido. {jealousPlayer}, tú vas a mirar.", enHash: 1002069593 },
     JLY_I03: { text: "{jealousPlayer}... ¿qué acaba de pasar detrás de tu mirada? Dile la verdad a la sala. El orbe ya lo sabe.", enHash: 3502847087 },
     JLY_I04: { text: "Ahora el orbe gira. {actor}, besa a {jealousPlayer}. No a su pareja... a esa persona. Un beso de verdad. Veamos cómo cambia toda la sala.", enHash: 3399150288 },
-    JLY_I05: { text: "{target}, el seductor acaba de besar a tu pareja. Tu turno. Besa a {jealousPlayer} como si estuvieras reclamando lo que es tuyo.", enHash: 3782635330 },
+    JLY_I05: { text: "{target}, {actor} acaba de besar a tu pareja. Tu turno. Besa a {jealousPlayer} como si estuvieras reclamando lo que es tuyo.", enHash: 761017735 },
     JLY_S01: { text: "Lyra recuerda que alguien aquí dijo que no es de los que se ponen celosos. Vamos a comprobarlo. {actor}, acércate más a {target}. Que se note.", enHash: 2194318266 },
     JLY_S02: { text: "{actor}, susurra algo al oído de {target}. Que parezca un secreto. El orbe observa el rostro de {jealousPlayer}.", enHash: 3544186550 },
     JLY_S03: { text: "{jealousPlayer}... el orbe te ve. ¿Cómo se sintió eso? ¿Sigues sin sentir celos?", enHash: 1688042140 },

@@ -341,7 +341,7 @@ function playGame(config) {
     // the source text had {target} and the target player is gendered
     if (target && prompt && /\{target\}/.test(prompt.text)) {
       var tp = g.gameState.players.find(function (p) { return p.name === target; });
-      if (tp && (tp.gender === 'male' || tp.gender === 'female') && /\b(?:they|their|them|themselves)\b/i.test(text)) {
+      if (tp && (tp.gender === 'male' || tp.gender === 'female') && /\b(?:they|their|theirs|them|themselves)\b/i.test(text)) {
         issues.push({ type: 'leftover-neutral-pronoun', text: text, id: prompt.id, mode: config.name, chapter: ctx.chapter });
       }
     }

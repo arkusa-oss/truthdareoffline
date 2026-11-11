@@ -7394,11 +7394,11 @@ const CSV_PROMPTS = [
   },
   {
     "id": "GRP0745",
-    "chapter": "flirty",
+    "chapter": "intimate",
     "role": "build",
     "type": "directed",
     "promptType": "dare",
-    "intensity": 5.3,
+    "intensity": 7,
     "text": "Take the top off your back and give it to {target}. Put on theirs. Right here, right now. Everyone watches while you work it out.",
     "target": "other"
   },

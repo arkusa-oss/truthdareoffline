@@ -2635,7 +2635,8 @@ body { overflow-y: auto; }
 .center-stage { max-height: none; overflow: visible; min-width: 0; }
 .center-stage > * { flex-shrink: 0; }
 .prompt-panel { width: 100%; min-width: 0; }
-.prompt-text { box-sizing: border-box; max-width: 100%; overflow-wrap: anywhere; }
+.prompt-text { box-sizing: border-box; max-width: min(980px, 88vw, 100%); overflow-wrap: anywhere; }
+.center-stage { max-width: 100vw; }
 
 /* ============================================================
    STORY MODE — prep ritual (props + limits) and finale

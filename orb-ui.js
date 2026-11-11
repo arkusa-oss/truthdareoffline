@@ -322,7 +322,8 @@ buildOrbNameWheel();
     var score = p.score || 0;
     var streak = p.streak || 0;
     var starN = Math.min(5, Math.floor(score / 300));
-    var roleHtml = p.isSeducer ? '<span class="pc-role">Seducer</span>' : "";
+    // The seducer stays a mystery to the table — no badge on the in-game card
+    var roleHtml = "";
     var streakHtml = streak >= 2 ? ' <span class="pc-streak">🔥×' + streak + '</span>' : "";
     var starsHtml = starN ? '<div class="pc-stars">' + repeatChar("★", starN) + '</div>' : "";
     return '<div class="player-card" data-name="' + escHtml(p.name) + '">'

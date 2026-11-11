@@ -1148,7 +1148,8 @@ function getPromptUndressInfo(prompt) {
   if (!prompt || prompt.promptType !== "dare" || !prompt.text) return null;
   var t = prompt.text.toLowerCase();
   // Must describe an act of undressing...
-  if (!/\b(undress|strip|take off|takes off|peel off|slip out of|remove)\b/.test(t)) return null;
+  // "take off your shirt" and the split form "take the top off your back" both count
+  if (!/\b(undress|strip|take off|takes off|peel off|slip out of|remove)\b|\btakes?\s+(?:the|your|their|\{target\}'s)\s+(?:top|shirt|blouse|bra|pants|trousers|dress|skirt|underwear|shoes?|socks?)\s+off\b/.test(t)) return null;
   // ...and reference a garment / nudity (so "remove the blindfold" doesn't match).
   if (!/\b(undress|strip|naked|nude|layer|clothes|clothing|shirt|top|bra|pants|trousers|dress|skirt|underwear|underthings|piece|garment|shoe|sock)\b/.test(t)) return null;
   // Who gets undressed? "{actor}, undress {target}" / "make {target} strip" -> the target.
@@ -1860,6 +1861,9 @@ function injectPromptText(text, player, target) {
         out = out.replace(/\b([Tt])hey'd\b/g, function(m, t) { return (t === "T" ? capitalize(subj) : subj) + "'d"; });
         // Standalone "they" (not followed by a verb, e.g. end of sentence)
         out = out.replace(/\b[Tt]hey\b/g, function(m) { return m[0] === "T" ? capitalize(subj) : subj; });
+        // "theirs" → his/hers (must run before the bare "their" rule reads it)
+        var possPron = g === "male" ? "his" : "hers";
+        out = out.replace(/\b[Tt]heirs\b/g, function(m) { return m[0] === "T" ? capitalize(possPron) : possPron; });
         out = out.replace(/\b[Tt]heir\b/g, function(m) { return m[0] === "T" ? capitalize(poss) : poss; });
         var reflexive = g === "male" ? "himself" : "herself";
         out = out.replace(/\b[Tt]hemselves\b/g, function(m) { return m[0] === "T" ? capitalize(reflexive) : reflexive; });
