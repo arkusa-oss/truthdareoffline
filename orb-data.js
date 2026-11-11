@@ -719,21 +719,21 @@ const CHAIN_PROMPTS = [
   // Two players dress/undress a third — sensual escalation
   // Self-contained: starts with leg reveal so no prerequisites needed
   // =============================================
-  { id: "ARC_K2_1", chapter: "taboo", role: "setup", type: "group", promptType: "truth",
-    intensity: 8.5, text: "Everyone — who in this room has the best legs? Be honest. The Orb already knows.",
-    target: "group", chain_id: "taboo_stockings", chain_step: 1 },
-  { id: "ARC_K2_2", chapter: "taboo", role: "build", type: "group", promptType: "dare",
-    intensity: 9, text: "The winner — stand in the center. If your legs aren't showing yet, fix that. The other two — enjoy the view for a moment.",
-    target: "group", chain_id: "taboo_stockings", chain_step: 2 },
-  { id: "ARC_K2_3", chapter: "taboo", role: "action", type: "group", promptType: "dare",
-    intensity: 9, text: "Each of you take a stocking. Slowly roll them up — one leg each. From ankle to thigh. Take your time. Eye contact with the center.",
-    target: "group", chain_id: "taboo_stockings", chain_step: 3 },
-  { id: "ARC_K2_4", chapter: "taboo", role: "build", type: "group", promptType: "dare",
-    intensity: 9.2, text: "Center player — close your eyes. The other two — slowly peel the stockings back off. One inch at a time. Let your fingers linger on the skin underneath.",
-    target: "group", chain_id: "taboo_stockings", chain_step: 4 },
-  { id: "ARC_K2_5", chapter: "taboo", role: "peak", type: "group", promptType: "dare",
-    intensity: 9.5, text: "Stockings off. Now each of you — kiss one of their legs. Start at the ankle. Work your way up. Stop where you dare.",
-    target: "group", chain_id: "taboo_stockings", chain_step: 5 },
+  { id: "ARC_K2_1", chapter: "taboo", role: "setup", type: "directed", promptType: "truth",
+    intensity: 8.5, text: "{actor}, look at {target}. Tell the room, honestly — what is it about her legs? Be specific. She's listening.",
+    target: "other", target_gender: "female", chain_id: "taboo_stockings", chain_step: 1 },
+  { id: "ARC_K2_2", chapter: "taboo", role: "build", type: "directed", promptType: "dare",
+    intensity: 9, text: "{target}, stand in the center. If your legs aren't showing yet, fix that. {actor}, pick one more player to help you — you each get a stocking.",
+    target: "other", target_gender: "female", chain_id: "taboo_stockings", chain_step: 2 },
+  { id: "ARC_K2_3", chapter: "taboo", role: "action", type: "directed", promptType: "dare",
+    intensity: 9, text: "{actor} and your helper — one leg each. Slowly roll the stocking up {target}'s leg, from ankle to thigh. Take your time. Eyes on her.",
+    target: "other", target_gender: "female", chain_id: "taboo_stockings", chain_step: 3 },
+  { id: "ARC_K2_4", chapter: "taboo", role: "build", type: "directed", promptType: "dare",
+    intensity: 9.2, text: "{target}, close your eyes. {actor} and your helper — peel the stockings back off. One inch at a time. Let your fingers linger on the skin underneath.",
+    target: "other", target_gender: "female", chain_id: "taboo_stockings", chain_step: 4 },
+  { id: "ARC_K2_5", chapter: "taboo", role: "peak", type: "directed", promptType: "dare",
+    intensity: 9.5, text: "Stockings off. {actor} and your helper — each of you kiss one of {target}'s legs. Start at the ankle. Work your way up. Stop where you dare.",
+    target: "other", target_gender: "female", chain_id: "taboo_stockings", chain_step: 5 },
 
   // =============================================
   // TABOO ARC L: The Toy Path

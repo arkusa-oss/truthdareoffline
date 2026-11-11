@@ -332,7 +332,7 @@ function playGame(config) {
       }
       // Wardrobe: the same named garment must never be asked of the same player twice
       var namedItem = garmentIn(text);
-      if (namedItem && !/Lyra chooses: [A-Z][a-z]+, your/.test(text)) {
+      if (namedItem && !/Lyra chooses: [A-Z][a-z]+, your/.test(text) && !prompt._undressChoices) {
         subjects.forEach(function (s) {
           if (simItems[s] && simItems[s][namedItem]) {
             issues.push({ type: 'undress-item-repeat', text: '[' + s + ' already lost ' + namedItem + '] ' + text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
@@ -424,8 +424,22 @@ function playGame(config) {
 
   var turns = 0;
   var lastRenderCount = 0;
+  var pendingUndress = null;
+  function settlePendingUndress() {
+    if (!pendingUndress) return;
+    var items = pendingUndress.prompt._undressItems;
+    if (!items) return; // picker still open
+    pendingUndress.subjs.forEach(function (subj) {
+      var it = items[subj];
+      simClothing[subj] = (simClothing[subj] || 0) + 1;
+      if (it) { simItems[subj] = simItems[subj] || {}; simItems[subj][it] = true; }
+      if (pendingUndress.makesFull || it === 'underwear' || simClothing[subj] >= wardrobeSize(subj)) simFullyBare[subj] = true;
+    });
+    pendingUndress = null;
+  }
   while (turns < config.maxTurns) {
     turns++;
+    settlePendingUndress();
     try {
       if (!g.gameState.awaitingResolution) {
         g.nextTurn();
@@ -434,7 +448,7 @@ function playGame(config) {
       // Interactive overlays (voting, penalty spinner): auto-click through
       // them like a real player. Buttons live under the feedback panel stub.
       var uiGuard = 0;
-      while ((g.gameState.votingActive || g.gameState.spinner || g.gameState.verdictActive) && uiGuard++ < 30) {
+      while ((g.gameState.votingActive || g.gameState.spinner || g.gameState.verdictActive || g.gameState.undressChoiceActive) && uiGuard++ < 30) {
         var panel = sandbox.document.getElementById('feedbackPanel');
         var buttons = [];
         (function collect(el) {
@@ -447,6 +461,7 @@ function playGame(config) {
         if (!buttons.length) break;
         buttons[Math.floor(Math.random() * buttons.length)].click();
         drainTimers(1000);
+        settlePendingUndress();
       }
 
       if (g.gameState.awaitingResolution) {
@@ -462,12 +477,17 @@ function playGame(config) {
               ? [g.gameState.currentPlayer, g.gameState.lastResolvedTarget].filter(Boolean)
               : [ui.subject === 'actor' ? g.gameState.currentPlayer : g.gameState.lastResolvedTarget].filter(Boolean);
             var doneText = sandbox.document.getElementById('promptText').textContent;
-            var doneItem = garmentIn(doneText);
-            subjs.forEach(function (subj) {
-              simClothing[subj] = (simClothing[subj] || 0) + 1;
-              if (doneItem && !/Lyra chooses:/.test(doneText)) { simItems[subj] = simItems[subj] || {}; simItems[subj][doneItem] = true; }
-              if (ui.makesFull || doneItem === 'underwear' || simClothing[subj] >= wardrobeSize(subj)) simFullyBare[subj] = true;
-            });
+            if (prompt._undressChoices) {
+              // Choice dare: the picker decides which layer came off — ledger it after the click
+              pendingUndress = { prompt: prompt, subjs: subjs, makesFull: ui.makesFull };
+            } else {
+              var doneItem = /Lyra chooses:/.test(doneText) ? null : garmentIn(doneText);
+              subjs.forEach(function (subj) {
+                simClothing[subj] = (simClothing[subj] || 0) + 1;
+                if (doneItem) { simItems[subj] = simItems[subj] || {}; simItems[subj][doneItem] = true; }
+                if (ui.makesFull || doneItem === 'underwear' || simClothing[subj] >= wardrobeSize(subj)) simFullyBare[subj] = true;
+              });
+            }
           }
         }
         // recordFeedback finalizes internally (which auto-queues the next turn) —

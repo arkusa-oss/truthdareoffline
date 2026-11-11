@@ -1151,6 +1151,9 @@ function themeAwareRandom(pool) {
 // =========================
 function getPromptUndressInfo(prompt) {
   if (!prompt || prompt.promptType !== "dare" || !prompt.text) return null;
+  // Resolved copies keep the analysis of the ORIGINAL text ("…one piece of
+  // your clothing" says who undresses; "…your socks" alone no longer does)
+  if (prompt._undressInfo) return prompt._undressInfo;
   var t = prompt.text.toLowerCase();
   // Must describe an act of undressing...
   // "take off your shirt" and the split form "take the top off your back" both count
@@ -1162,7 +1165,7 @@ function getPromptUndressInfo(prompt) {
   var subject = "actor";
   if (/\b(each|both)\b[^.]{0,40}\b(remove|take off|strip|undress)|\b(remove|take off|strip|undress)\b[^.]{0,25}\beach\b/.test(t)) {
     subject = "both";
-  } else if (/\b(piece|item|article|layer)\s+of\s+(your|my)\b|\b(remove|take off|strip|peel off)\b[^.]{0,25}\byour\s+(own\s+)?(clothing|clothes|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|shoes?|socks?|belt)\b/.test(t)) {
+  } else if (/\b(piece|item|article|layer)\s+of\s+(your|my)\b|\b(remove|take off|strip|peel off)\b[^.]{0,25}\byour\s+(own\s+)?(clothing|clothes|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|shoes?|socks?|belt|jewelry)\b/.test(t)) {
     subject = "actor"; // "let {target} remove one piece of YOUR clothing" — the actor loses the layer
   } else if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)|\b(remove|take off|strip|peel off)\b[^.]{0,30}\{target\}'s/.test(t)) {
     subject = "target";
@@ -1198,10 +1201,10 @@ function undressSubjectName(prompt, actorName) {
 var WARDROBE = [
   { item: "shoes",     en: "shoes",                       es: "zapatos",             esPlural: true,  floor: 4 },
   { item: "socks",     en: "socks",                       es: "calcetines",          esPlural: true,  floor: 4, requires: "shoes" },
-  { item: "jewelry",   en: "watch, jewelry or bracelet",  es: "reloj o joyas",       esPlural: false, floor: 4 },
+  { item: "jewelry",   en: "jewelry",                     es: "joyas",               esPlural: true,  floor: 4 },
   { item: "belt",      en: "belt",                        es: "cinturón",            esPlural: false, floor: 4 },
-  { item: "top",       en: "top",                         es: "camiseta o blusa",    esPlural: false, floor: 5 },
-  { item: "pants",     en: "pants, skirt or shorts",      es: "pantalón o falda",    esPlural: false, floor: 5 },
+  { item: "top",       en: "top",                         es: "camiseta",            esPlural: false, floor: 5 },
+  { item: "pants",     en: "pants/skirt",                 es: "pantalón/falda",      esPlural: false, floor: 5 },
   { item: "bra",       en: "bra",                         es: "sostén",              esPlural: false, floor: 6, gender: "female", requires: "top" },
   { item: "underwear", en: "underwear",                   es: "ropa interior",       esPlural: false, floor: 6, requires: "pants", final: true }
 ];
@@ -1242,17 +1245,21 @@ function wardrobeFor(name) {
     return true;
   });
 }
-// Next item Lyra would ask for: the most stage-appropriate layer still on.
-// Highest floor allowed at this chapter wins (intimate asks for a top before
-// going back for socks); ties keep wardrobe order.
-function nextWardrobeItem(name, chapter) {
+// Items Lyra may ask for at this chapter, least exposing first (wardrobe
+// order). Exposure — and heat — rise one layer at a time: shoes before socks,
+// belt before top, never a bra while the shoes are still on.
+function wardrobeChoices(name, chapter) {
   var num = chapterNumber(chapter);
-  var avail = wardrobeFor(name).filter(function(w) { return w.floor <= num; });
-  if (!avail.length) return null;
-  var best = avail[0];
-  avail.forEach(function(w) { if (w.floor > best.floor) best = w; });
-  return best;
+  return wardrobeFor(name).filter(function(w) { return w.floor <= num; });
 }
+// Lyra's pick: the next layer in order.
+function nextWardrobeItem(name, chapter) {
+  var avail = wardrobeChoices(name, chapter);
+  return avail.length ? avail[0] : null;
+}
+// From erotic on, the one doing the removing chooses among the next three.
+var UNDRESS_CHOICE_FROM = 6;
+function undressChoiceAllowed(chapter) { return chapterNumber(chapter) >= UNDRESS_CHOICE_FROM; }
 function specificGarment(prompt) {
   var t = (prompt && prompt.text || "").toLowerCase();
   for (var i = 0; i < GARMENT_WORDS.length; i++) {
@@ -1323,6 +1330,17 @@ function undressOverexposed(prompt, actorName) {
   return false;
 }
 
+// Who physically removes the layer: the target when the text hands them the
+// action ("let {target} remove…", "{target} takes off…"), otherwise the actor.
+function undressRemover(prompt, actorName, subjectName) {
+  var t = (prompt.text || "").toLowerCase();
+  if (subjectName === actorName) {
+    if (/\blet \{target\}|\{target\}[^.]{0,20}\b(remove|take|peel|strip|undress)/.test(t)) return gameState.lastResolvedTarget || actorName;
+    return actorName;
+  }
+  return actorName;
+}
+
 // Resolve a generic undress prompt to named items for display. Returns a copy
 // (text resolved in the active language, `_undressItems` = { name: item }) or
 // the original prompt when nothing needs resolving.
@@ -1341,6 +1359,20 @@ function specifyUndressPrompt(prompt, actorName, targetName) {
   }
   var es = GAME_LANG === "es";
   var text = getPromptText(prompt);
+  // Erotic+: single subject gets up to three layers to choose from; whoever
+  // removes the clothing picks, and a "which one came off?" step records it.
+  var choices = null;
+  if (info.subject !== "both" && undressChoiceAllowed(chapter)) {
+    var opts = wardrobeChoices(subjects[0], chapter).slice(0, 3);
+    if (opts.length > 1) choices = opts;
+  }
+  // "your jewelry, belt or top" (possessive once in English; Spanish repeats it for agreement)
+  function listOf(opts, possEn, possEsFn) {
+    var parts = opts.map(function(w) { return es ? possEsFn(w) : w.en; });
+    var orWord = es ? " o " : " or ";
+    var joined = parts.length > 1 ? parts.slice(0, -1).join(", ") + orWord + parts[parts.length - 1] : parts[0];
+    return es ? joined : possEn + " " + joined;
+  }
   function label(w) { return es ? w.es : w.en; }
   function poss(who, w, explicitPoss) {
     // explicitPoss: "your"/"their"/"{target}'s"/"my" (en) or "tu"/"su" (es) found in the phrase
@@ -1359,6 +1391,28 @@ function specifyUndressPrompt(prompt, actorName, targetName) {
   }
   var re = es ? GENERIC_UNDRESS_ES : GENERIC_UNDRESS_EN;
   var m = re.exec(text);
+  if (choices) {
+    var who = subjects[0];
+    var explicit = m ? (m[3] || null) : null;
+    var possEn = (explicit === "{target}'s") ? "{target}'s" : (explicit === "their") ? "their" : (explicit === "my") ? "my"
+      : (explicit && /^your/.test(explicit)) ? "your" : (who === actorName ? "your" : "{target}'s");
+    var possEs = function(w) {
+      var tuyo = (explicit === "tu") || (!explicit && who === actorName);
+      if (explicit === "su") return (w.esPlural ? "sus " : "su ") + w.es;
+      if (tuyo) return (w.esPlural ? "tus " : "tu ") + w.es;
+      return (w.esPlural ? "los " : (w.es.match(/^(ropa|camiseta|falda)/) ? "la " : "el ")) + w.es + " de {target}";
+    };
+    var list = listOf(choices, possEn, possEs);
+    if (m) text = text.replace(re, list);
+    else text += es ? " Lyra ofrece: " + list + "." : " Lyra offers: " + list + ".";
+    var copyC = {};
+    Object.keys(prompt).forEach(function(k) { copyC[k] = prompt[k]; });
+    copyC.text = text;
+    copyC._textResolved = true;
+    copyC._undressInfo = info;
+    copyC._undressChoices = { name: who, items: choices.map(function(w) { return w.item; }), chooser: undressRemover(prompt, actorName, who) };
+    return copyC;
+  }
   if (info.subject === "both") {
     // Two people, two items: keep the sentence, add Lyra's choice.
     var a = items[subjects[0]], b = subjects[1] ? items[subjects[1]] : null;
@@ -1381,6 +1435,7 @@ function specifyUndressPrompt(prompt, actorName, targetName) {
   Object.keys(prompt).forEach(function(k) { copy[k] = prompt[k]; });
   copy.text = text;
   copy._textResolved = true;
+  copy._undressInfo = info;
   copy._undressItems = {};
   Object.keys(items).forEach(function(n) { copy._undressItems[n] = items[n].item; });
   return copy;
@@ -2849,7 +2904,43 @@ function finalizePromptAfterFeedback(response) {
   setTimeout(function() { nextTurn(); }, 350);
 }
 
+// "Which one came off?" — after a choice-undress dare is DONE, the remover
+// taps the item so Lyra's wardrobe memory stays exact.
+function startUndressChoice(response) {
+  var prompt = gameState.lastPrompt;
+  var ch = prompt._undressChoices;
+  gameState.undressChoiceActive = true;
+  clearFeedbackButtons();
+  setLegacyFeedbackButtonsHidden(true);
+  var wrap = getFeedbackPanelButtonsWrap();
+  if (!wrap) { gameState.undressChoiceActive = false; prompt._undressChoices = null; recordFeedback(response); return; }
+  if (promptTextEl) {
+    promptTextEl.textContent = T("undress.which", "{chooser} — which one came off?", { chooser: capitalize(ch.chooser || ch.name) });
+    promptTextEl.style.opacity = "1";
+  }
+  var es = GAME_LANG === "es";
+  ch.items.forEach(function(item) {
+    var w = wardrobeEntry(item);
+    var label = w ? (es ? w.es : w.en) : item;
+    wrap.appendChild(createFeedbackButton(label.charAt(0).toUpperCase() + label.slice(1), "done", function() {
+      if (gameState.undressChoiceActive !== true) return;
+      gameState.undressChoiceActive = false;
+      prompt._undressItems = {};
+      prompt._undressItems[ch.name] = item;
+      prompt._undressChoices = null;
+      recordFeedback(response);
+    }));
+  });
+  feedbackPanelEl.classList.remove("is-hidden");
+}
+
 function recordFeedback(response) {
+  // Choice-undress dare completed: ask which layer came off before anything else
+  if ((response === "done" || response === "answered") && gameState.lastPrompt &&
+      gameState.lastPrompt._undressChoices && !gameState.undressChoiceActive) {
+    startUndressChoice(response);
+    return;
+  }
   // Don't hide panel yet — voting or penalty may need to reuse it.
   // Just clear the current buttons so they can't be double-clicked.
   clearFeedbackButtons();
@@ -3764,6 +3855,7 @@ function resetGame() {
   gameState.vulnerability = {};
   gameState.votingActive = false;
   gameState.verdictActive = false;
+  gameState.undressChoiceActive = false;
   gameState.lastVotedTurn = -99;
   gameState.lastMinigameTurn = -99;
   gameState.lastDanceTurn = -99;

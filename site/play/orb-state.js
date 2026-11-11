@@ -44,6 +44,7 @@ const gameState = {
   vulnerability: {},       // { "Hans": 3, "Grecia": 5 } — how open a player has been
   votingActive: false,
   verdictActive: false,
+  undressChoiceActive: false, // "which one came off?" picker is open
   lastVotedTurn: -99,
   lastMinigameTurn: -99,
   lastDanceTurn: -99,
