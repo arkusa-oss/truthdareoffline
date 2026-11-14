@@ -225,7 +225,15 @@
       signal: ctrl ? ctrl.signal : undefined
     }).then(function(res) {
       clearTimeout(timer);
-      return res.json().then(function(j) { j._status = res.status; return j; });
+      // A non-JSON answer means the route isn't deployed yet (the stats worker
+      // answers "ok" to any POST) — treat it as not configured for the night.
+      return res.text().then(function(txt) {
+        var j;
+        try { j = JSON.parse(txt); } catch (e) { j = null; }
+        if (!j || typeof j !== "object" || typeof j.ok === "undefined") j = { ok: false, error: "not_configured", _status: 503 };
+        else j._status = res.status;
+        return j;
+      });
     }).then(function(j) {
       if (!j.ok) {
         var err = new Error(j.error || ("http " + j._status));

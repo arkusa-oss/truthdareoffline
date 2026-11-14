@@ -45,7 +45,8 @@ asked to remove more clothing; chains skip contradicting steps.
 - `node es_ui_test.js` headless-renders index.html in jsdom, forces GAME_LANG=es,
   and asserts the setup screen (static data-i18n + dynamic T() strings) is Spanish
   and English switch-back is lossless. Needs jsdom (`npm install --no-save jsdom`).
-- `npm test` runs sim + translation drift-check + Spanish UI test together.
+- `npm test` runs sim + translation drift-check + Spanish UI test + voice test + AI author test.
+  Worker route test: `cd worker && npm install && npm test`.
 - Deploy: `./deploy-sync.sh` copies game files into site/play/, then commit+push.
   GitHub Actions tests, Cloudflare Pages auto-deploys from the repo (serves site/).
 - Music playlists are YouTube URLs in orb-templates.js MUSIC_THEMES; track curation
@@ -62,5 +63,11 @@ asked to remove more clothing; chains skip contradicting steps.
   `limits`; sim audits them (story-* issue types).
 - orb-voice.js: pre-recorded MP3 voice system (LyraVoice)
 - orb-music.js: YouTube IFrame API background music with 4 genre themes
-- ai_orb.js: optional AI Director (Claude API / Ollama)
+- ai_orb.js: Lyra's Mind — AI Author. Sends the night's context to the Worker
+  route `/ai/turn` (worker/src/ai.js holds the Anthropic key; the browser never
+  sees one), validates the returned prompt against the ladder/wardrobe/roster
+  and falls back to the curated pool. Loads AFTER orb-story.js (it wraps engine
+  functions). Config: `window.ORB_AI_ENDPOINT` in index.html; player toggle +
+  access code on the setup screen. Tests: `node ai_author_test.js` (jsdom, fake
+  worker) and `cd worker && node test_ai.mjs` (fake model).
 - prompts_v2.js / couples_prompts_v2.js: CSV-imported prompt pools

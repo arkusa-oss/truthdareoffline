@@ -31,7 +31,7 @@ w.fetch = function (url, opts) {
   var body = JSON.parse(opts.body);
   calls.push(body);
   var r = replies.length ? replies.shift() : { status: 200, json: { ok: true, prompt: { text: 'Background prefetch: name a song that still gets you.', promptType: 'truth', target: null, intensity: 2, lyraLine: null, memoryNotes: [] } } };
-  return Promise.resolve({ status: r.status || 200, json: function () { return Promise.resolve(r.json); } });
+  return Promise.resolve({ status: r.status || 200, json: function () { return Promise.resolve(r.json); }, text: function () { return Promise.resolve(JSON.stringify(r.json)); } });
 };
 function reply(prompt) { replies.push({ status: 200, json: { ok: true, prompt: prompt, usage: { input: 1000, output: 60 } } }); }
 
@@ -72,12 +72,18 @@ function promptText() { return d.getElementById('promptText').textContent; }
   // Turn 1: whoever the engine picks — if it matches the prefetch actor the prefetched prompt is used
   // (we made it a "PLACEHOLDER" so we can tell). Otherwise a fresh request goes out; answer it.
   var fresh = { text: 'Tell the table the last lie you told and who believed it.', promptType: 'truth', target: null, intensity: 2.5, lyraLine: null, memoryNotes: [] };
-  reply(fresh);
-  d.getElementById('nextBtn').click();
-  for (var waited = 0; waited < 8000 && !(ctx.__gs.awaitingResolution && !/thinking|pensando/.test(promptText()) && promptText().length > 5); waited += 100) await tick(100); // roulette + reveal
-  var t1 = promptText();
-  var usedPrefetch = /Prefetched:/.test(t1);
-  check('turn 1 shows an AI prompt (prefetched or fresh)', usedPrefetch || t1.indexOf('last lie you told') >= 0, t1);
+  // Story beats keep priority over Lyra's writing, so a beat may take turn 1 — play on until an AI prompt shows (max 4 turns)
+  var t1 = '', usedPrefetch = false, aiShown = false;
+  for (var attempt = 0; attempt < 4 && !aiShown; attempt++) {
+    reply(fresh);
+    if (!ctx.__gs.awaitingResolution) d.getElementById('nextBtn').click();
+    for (var waited = 0; waited < 8000 && !(ctx.__gs.awaitingResolution && !/thinking|pensando/.test(promptText()) && promptText().length > 5); waited += 100) await tick(100); // roulette + reveal
+    t1 = promptText();
+    usedPrefetch = /Prefetched:/.test(t1);
+    aiShown = !!(ctx.__gs.lastPrompt && ctx.__gs.lastPrompt._ai);
+    if (!aiShown) { ctx.recordFeedback('done'); await tick(600); }
+  }
+  check('an AI prompt shows within the first turns', aiShown && (usedPrefetch || t1.indexOf('last lie you told') >= 0 || /Background prefetch/.test(t1)), t1);
   var actor1 = ctx.__gs.currentPlayer;
   check('AI prompt flagged _ai', !!(ctx.__gs.lastPrompt && ctx.__gs.lastPrompt._ai));
   check('actor header matches engine rotation', !!actor1);
