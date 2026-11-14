@@ -44,7 +44,7 @@ sandbox.CSV_COUPLES_PROMPTS.forEach(function (p) {
 });
 sandbox.COUPLES_PROMPTS_EARLY.forEach(function (p) { english[p.id] = p.text; });
 // Story beats (orb-story.js) — translated by id like any other prompt
-(sandbox.STORY_BEATS || []).forEach(function (p) { english[p.id] = p.text; });
+(sandbox.STORY_BEATS || []).concat(sandbox.STORY_THREAD_PROMPTS || []).forEach(function (p) { english[p.id] = p.text; });
 // Engine-defined minigames (both modes) live in orb-engine.js source
 var engSrc = fs.readFileSync(__dirname + '/orb-engine.js', 'utf8');
 var reMini = /\{ id: "((?:C?MINI|DANCE)_\d+)"[\s\S]*?text: "((?:[^"\\]|\\.)*)"/g, mMini;

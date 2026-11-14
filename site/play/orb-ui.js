@@ -228,14 +228,22 @@ if (startGameBtn) {
       });
       OrbStats.stage("personal", 0);
     }
-    // Initialize background music (reads the toggle state internally)
-    OrbMusic.init("personal");
-    // Lyra starts writing the first prompt while the opening toast shows
-    if (typeof window.OrbAI !== "undefined" && window.OrbAI.prefetch) {
-      try { window.OrbAI.prefetch(); } catch (e) {}
+    function beginNight() {
+      // Initialize background music (reads the toggle state internally)
+      OrbMusic.init("personal");
+      // Lyra starts writing the first prompt while the opening toast shows
+      if (typeof window.OrbAI !== "undefined" && window.OrbAI.prefetch) {
+        try { window.OrbAI.prefetch(); } catch (e) {}
+      }
+      // Show opening toast
+      showToast(TOAST_OPENING.title, TOAST_OPENING.message, null, "toast.opening");
     }
-    // Show opening toast
-    showToast(TOAST_OPENING.title, TOAST_OPENING.message, null, "toast.opening");
+    // Theme arrival ritual (guest check-in, Lyra's dress question) runs first when the world has one
+    if (typeof OrbStory !== "undefined" && OrbStory.runArrival) {
+      OrbStory.runArrival(beginNight);
+    } else {
+      beginNight();
+    }
   });
 }
 

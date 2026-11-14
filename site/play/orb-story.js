@@ -43,8 +43,127 @@ var STORY_WORLDS = {
       taboo:      { title: "The Surrender",    line: "The last course. Blindfolded, bound, and hungry. Let someone else decide what you taste." }
     },
     finale: { title: "The Revelation", sub: "What the banquet revealed." }
+  },
+
+  // THE SECRET BANQUET — the Forbidden Banquet's beats plus a host checklist,
+  // a guest check-in, Lyra's private dress question and a stockings thread.
+  // Everything theme-specific lives in this object: a new theme is a new entry.
+  secret_banquet: {
+    id: "secret_banquet",
+    name: "The Secret Banquet",
+    tagline: "Masks · Lace · A question Lyra won't explain",
+    invite: "An adult, flirty Truth-or-Dare night. Lyra sets the table; you decide how far it goes. Every prompt can be passed for a sip or a swap. Nothing else will be explained in advance.",
+    intro: "Before we begin, I need a few things. Fruit. Something sweet. Something sour. Scarves. Masks. Ice. A glass for each of you. And one object nobody here has ever seen before. Don't ask why.",
+    allReady: "Everything is in place. The table is set. Tonight, every taste will cost you a truth — and every truth will cost you more.",
+    someMissing: "Gather what you can. Missing something? Don't worry. I have other ways to surprise you.",
+    beatsFrom: "banquet",
+    lyraPersona: {
+      tone: "playful, curious, mysterious; suggestive and never crude",
+      note: "Lyra only owns robes. Human clothing fascinates her. She never explains why she asks what she asks."
+    },
+    hostChecklist: [
+      { id: "setting", title: "Setting", items: [
+        { id: "dim_light", label: "Dim lighting or candles" },
+        { id: "table", label: "A long table or cushions on the floor" },
+        { id: "playlist", label: "Slow instrumental playlist" },
+        { id: "blankets", label: "Throw blankets" }
+      ] },
+      { id: "food", title: "Food", items: [
+        { id: "strawberries", label: "Strawberries, grapes, figs", prop: "fruit", flag: "has_fruit" },
+        { id: "citrus", label: "Citrus segments, pomegranate or lychee", prop: "sour", flag: "has_sour" },
+        { id: "jellies", label: "Jellies or panna cotta" },
+        { id: "chocolate", label: "Dark chocolate, chocolate-dipped fruit", prop: "sweet", flag: "has_sweet" },
+        { id: "cheese", label: "Cheese, honey, crackers" },
+        { id: "bites", label: "Finger-feed bites" }
+      ] },
+      { id: "drinks", title: "Drinks", items: [
+        { id: "wine", label: "Wine or champagne" },
+        { id: "soft", label: "A non-alcoholic option", key: true },
+        { id: "water", label: "Water", key: true },
+        { id: "glasses", label: "A glass for each guest", prop: "glass", flag: "has_glasses" },
+        { id: "cups", label: "Small tasting cups" }
+      ] },
+      { id: "props", title: "Props", items: [
+        { id: "masks", label: "Masks — one per guest", flag: "has_masks", key: true },
+        { id: "blindfolds", label: "Blindfolds — one per guest", prop: "scarf", flag: "has_blindfolds", key: true },
+        { id: "scarves", label: "Silk scarves", flag: "has_scarves" },
+        { id: "feathers", label: "Feathers", flag: "has_feathers" },
+        { id: "ice", label: "A bowl of ice", prop: "ice", flag: "has_ice" },
+        { id: "napkins", label: "Napkins or wipes", prop: "napkins", flag: "has_napkins" },
+        { id: "robes", label: "Robes or wraps (optional)", flag: "has_robes" },
+        { id: "spare_stockings", label: "Spare stockings (optional)", flag: "spare_stockings_available" }
+      ] },
+      { id: "setup", title: "Setup", items: [
+        { id: "device", label: "Device placed where everyone can see and hear", key: true },
+        { id: "pause_word", label: "An agreed pause word or signal", key: true },
+        { id: "towels", label: "Trash bag and towels" }
+      ] }
+    ],
+    arrivalCheck: {
+      gateTitle: "Before Lyra opens the door",
+      gateLine: "Each guest taps their own name to confirm: 18 or older, here by choice, and in for an adult, flirty night. Any prompt can be passed for a sip or a swap.",
+      imIn: "I'm in",
+      handoff: "Pass the device to {name}.",
+      itsMe: "It's me",
+      question: "I hear humans wear... lingerie? Such a curious word. I only own robes. Tell me, {name} — what are you wearing tonight?",
+      privacy: "Only you see this screen. Lyra never checks. Honor system.",
+      remember: "I'll remember that.",
+      done: "That's all of it",
+      tags: [
+        { id: "top", label: "Top layer", wardrobe: ["top"] },
+        { id: "bottom", label: "Bottom layer", wardrobe: ["pants"] },
+        { id: "bra", label: "Bra or bralette", wardrobe: ["bra"] },
+        { id: "underwear", label: "Underwear", wardrobe: ["underwear"] },
+        { id: "lingerie", label: "Lingerie set", wardrobe: ["bra", "underwear"] },
+        { id: "stockings", label: "Stockings or tights", wardrobe: ["stockings"] },
+        { id: "socks", label: "Socks", wardrobe: ["socks"] },
+        { id: "shoes", label: "Shoes", wardrobe: ["shoes"] },
+        { id: "jewelry", label: "Jewelry", wardrobe: ["jewelry"] },
+        { id: "watch", label: "Watch", wardrobe: ["jewelry"] },
+        { id: "belt", label: "Belt or tie", wardrobe: ["belt"] },
+        { id: "rather_not_say", label: "Rather not say", exclusive: true }
+      ]
+    },
+    threads: {
+      stockings: {
+        askOnce: { chapters: ["flirty", "suggestive"],
+          text: "No stockings tonight, {actor}? Then let's pretend. Or does the host have a spare pair?",
+          handed: "Handed a pair", pretend: "We'll pretend" }
+      }
+    },
+    chapters: null,  // filled below (shared with the Forbidden Banquet)
+    props: null,
+    finale: { title: "The Revelation", sub: "What the secret banquet revealed." }
   }
 };
+STORY_WORLDS.secret_banquet.chapters = STORY_WORLDS.banquet.chapters;
+STORY_WORLDS.secret_banquet.props = STORY_WORLDS.banquet.props;
+
+// Thread prompts (theme content, not logic). `needs` gates them:
+//   stockings_on     — target (or actor, for type self) is wearing stockings
+//   stockings_spare  — target lacks stockings and the host ticked spare stockings
+//   tag:<id>         — actor declared that tag in the dress check
+// `_onDone` names a follow-up the engine applies when the dare is completed.
+var STORY_THREAD_PROMPTS = [
+  { id: "SB_ST01", story: "secret_banquet", chapter: "intimate", needs: "stockings_on", subject: "actor", targetGender: "female", role: "build", type: "directed", promptType: "dare", intensity: 7,
+    text: "{actor}, take your stockings off slowly, one leg at a time. {target} picks the song. Nobody else moves." },
+  { id: "SB_ST02", story: "secret_banquet", chapter: "intimate", needs: "stockings_on", subject: "target", targetGender: "female", role: "action", type: "directed", promptType: "dare", intensity: 7.5,
+    text: "{actor}, roll one of {target}'s stockings down — thigh to ankle, slowly. Stop at the knee once, just to be cruel." },
+  { id: "SB_ST03", story: "secret_banquet", chapter: "erotic", needs: "stockings_on", subject: "target", targetGender: "female", role: "peak", type: "directed", promptType: "dare", intensity: 8.5,
+    text: "{target}, your stockings come off tonight, but not by your hands. {actor} takes one. {target} chooses who takes the other." },
+  { id: "SB_ST04", story: "secret_banquet", chapter: "suggestive", needs: "stockings_spare", subject: "target", targetGender: "female", role: "build", type: "directed", promptType: "dare", intensity: 6,
+    text: "{target}, the host has a pair for you. Put them on, slowly, while {actor} holds the second one and watches.", _onDone: "stockings_on" },
+  { id: "SB_TG01", story: "secret_banquet", chapter: "flirty", needs: "tag:lingerie", subject: "actor", role: "build", type: "directed", promptType: "truth", intensity: 4.5,
+    text: "{actor}, you said lace. Tell {target}, honestly — who was it for tonight?" },
+  { id: "SB_TG02", story: "secret_banquet", chapter: "suggestive", needs: "tag:lingerie", subject: "actor", role: "action", type: "directed", promptType: "dare", intensity: 6,
+    text: "{actor}, you mentioned a set. Let {target} see one strap. One. Then it stays a rumor." },
+  { id: "SB_TG03", story: "secret_banquet", chapter: "playful", needs: "tag:rather_not_say", subject: "actor", role: "interaction", type: "directed", promptType: "truth", intensity: 3,
+    text: "{actor} wouldn't tell Lyra what's under there. {target}, one guess. {actor} answers only yes or no." },
+  { id: "SB_TG04", story: "secret_banquet", chapter: "flirty", needs: "tag:rather_not_say", subject: "actor", role: "build", type: "directed", promptType: "dare", intensity: 4.5,
+    text: "{actor}, the mystery guest. Whisper to {target} one true thing about what you're wearing. {target} keeps the secret — or doesn't." },
+  { id: "SB_TG05", story: "secret_banquet", chapter: "flirty", needs: "tag:stockings", subject: "actor", role: "interaction", type: "directed", promptType: "dare", intensity: 4.5,
+    text: "{actor}, you said stockings. Cross your legs toward {target} and let them notice. Say nothing." }
+];
 
 // Beats: curated story prompts. `prop` gates on prop readiness; `limits`
 // lists host limits that disable the beat (food / blindfold / alcohol).
@@ -155,6 +274,7 @@ var OrbStory = (function() {
     return {
       storyId: null,
       props: {},          // propId -> true (ready) / false (missing)
+      flags: {},          // host checklist flags: has_blindfolds, has_masks, spare_stockings_available, ...
       limits: {},         // { food: true, blindfold: true, alcohol: true }
       objects: [],        // [{ owner, name, usedIn: [turn, ...] }]
       beatsFired: {},     // beatId -> turn
@@ -188,6 +308,87 @@ var OrbStory = (function() {
 
   function setProp(propId, ready) { narrative().props[propId] = !!ready; }
   function setLimit(limitId, on) { narrative().limits[limitId] = !!on; }
+  function setFlag(flagId, on) { if (!narrative().flags) narrative().flags = {}; narrative().flags[flagId] = !!on; }
+  function hasFlag(flagId) { var f = narrative().flags || {}; return !!f[flagId]; }
+  // The world whose curated beats this story plays (Secret Banquet reuses the Banquet's)
+  function beatsStoryId() { var st = activeStory(); return st ? (st.beatsFrom || st.id) : null; }
+
+  // ---------- dress check → wardrobe ----------
+  var DRESS_TAG_ITEMS = { top: ["top"], bottom: ["pants"], bra: ["bra"], underwear: ["underwear"], lingerie: ["bra", "underwear"],
+    stockings: ["stockings"], socks: ["socks"], shoes: ["shoes"], jewelry: ["jewelry"], watch: ["jewelry"], belt: ["belt"] };
+  var DECLARABLE = ["shoes", "socks", "jewelry", "belt", "top", "pants", "bra", "underwear"];
+
+  // Store a guest's tags and shape their wardrobe from them. "rather_not_say"
+  // is exclusive: it keeps the default full wardrobe and marks the mystery.
+  function setClothingTags(name, tags) {
+    var p = getPlayerByName(name);
+    if (!p) return;
+    tags = (tags || []).slice();
+    if (tags.indexOf("rather_not_say") >= 0) tags = ["rather_not_say"];
+    p.clothingTags = tags;
+    p.ratherNotSay = tags[0] === "rather_not_say";
+    p.hasStockings = tags.indexOf("stockings") >= 0;
+    applyDeclaredWardrobe(p);
+  }
+  function applyDeclaredWardrobe(p) {
+    if (!gameState.memory.wardrobeAbsent) gameState.memory.wardrobeAbsent = {};
+    if (!gameState.memory.wardrobePresent) gameState.memory.wardrobePresent = {};
+    var tags = p.clothingTags || [];
+    var present = [];
+    if (p.hasStockings) present.push("stockings");
+    gameState.memory.wardrobePresent[p.name] = present;
+    if (!tags.length || p.ratherNotSay) { gameState.memory.wardrobeAbsent[p.name] = []; return; }
+    var worn = {};
+    tags.forEach(function(t) { (DRESS_TAG_ITEMS[t] || []).forEach(function(it) { worn[it] = true; }); });
+    gameState.memory.wardrobeAbsent[p.name] = DECLARABLE.filter(function(it) { return !worn[it]; });
+  }
+  function grantStockings(name) {
+    var p = getPlayerByName(name);
+    if (!p) return;
+    p.hasStockings = true;
+    p.stockingsPretend = false;
+    if (!gameState.memory.wardrobePresent) gameState.memory.wardrobePresent = {};
+    var list = gameState.memory.wardrobePresent[name] || (gameState.memory.wardrobePresent[name] = []);
+    if (list.indexOf("stockings") < 0) list.push("stockings");
+  }
+  function stockingsOn(name) {
+    var p = getPlayerByName(name);
+    return !!(p && p.hasStockings && removedItems(name).indexOf("stockings") < 0);
+  }
+  function stockingsPossible(name) {
+    var p = getPlayerByName(name);
+    if (!p || p.gender !== "female") return false;
+    return stockingsOn(name) || (!p.stockingsPretend && hasFlag("spare_stockings_available"));
+  }
+  function hasTag(name, tag) { var p = getPlayerByName(name); return !!(p && p.clothingTags && p.clothingTags.indexOf(tag) >= 0); }
+  function removedItems(name) { return (gameState.memory && gameState.memory.clothingRemoved && gameState.memory.clothingRemoved[name]) || []; }
+
+  // Engine hook: may this chain start for this pairing? Returns true, a
+  // replacement target name, or null to veto. Only the stockings arc is gated
+  // today; other chains pass through.
+  var STOCKING_CHAINS = { taboo_stockings: 1, erotic_lingerie: 1 };
+  var STOCKING_RE = /\b(stockings?|tights|pantyhose)\b/i;
+  function themeGatesStockings() { return isActive() && !!activeStory().threads; }
+  // Non-undress stocking prompts ("roll a stocking up her leg", "go put on the
+  // stockings") need a subject who has or can be handed stockings. Undress
+  // ones are already gated by the wardrobe (optional layer must be declared).
+  var PUT_ON_RE = /\b(put (them |it |the stockings |your stockings |on)|roll(ing)? (a |the |one )?stockings? up|smooth (the )?(first |second )?stockings? up|slide (a |the )?stockings? up|go put on)/i;
+  // Taking stockings off needs them ON; putting them on needs them available (on or a spare pair)
+  function stockingSubjectOk(text, name) { return PUT_ON_RE.test(text || "") ? stockingsPossible(name) : stockingsOn(name); }
+  function promptAllowed(prompt, actorName) {
+    if (!themeGatesStockings() || !prompt || !STOCKING_RE.test(prompt.text || "")) return true;
+    if (typeof getPromptUndressInfo === "function" && getPromptUndressInfo(prompt)) return true; // wardrobe gating handles removal
+    var selfOnly = !/\{target\}/.test(prompt.text || "") && prompt.type !== "directed";
+    var candidates = selfOnly ? [actorName] : getOtherPlayerNames(actorName);
+    return candidates.some(function(nm) { return stockingSubjectOk(prompt.text, nm); });
+  }
+  function chainAllowed(chainId, actor, target) {
+    if (!STOCKING_CHAINS[chainId]) return true;
+    if (!themeGatesStockings()) return true; // classic nights keep the old behavior
+    if (target && stockingsPossible(target)) return true;
+    var alt = getOtherPlayerNames(actor).filter(stockingsPossible);
+    return alt.length ? alt[Math.floor(Math.random() * alt.length)] : null;
+  }
 
   function propReady(propId) {
     var n = narrative();
@@ -210,11 +411,14 @@ var OrbStory = (function() {
     fresh.storyId = old.storyId;
     fresh.props = old.props || {};
     fresh.limits = old.limits || {};
+    fresh.flags = old.flags || {};
     gameState.narrative = fresh;
     // Mystery objects come from the setup screen (player.object)
     (gameState.players || []).forEach(function(p) {
       var name = (p.object || "").trim();
       if (name) fresh.objects.push({ owner: p.name, name: name, usedIn: [] });
+      p.stockingsAsked = false;
+      if (p.clothingTags) applyDeclaredWardrobe(p); // the engine's memory wipe dropped the declared shape
     });
   }
 
@@ -230,10 +434,35 @@ var OrbStory = (function() {
 
   // ---------- beat selection ----------
 
+  function needSatisfied(need, who) {
+    if (!need) return true;
+    if (need === "stockings_on") return stockingsOn(who);
+    if (need === "stockings_spare") { var p = getPlayerByName(who); return !!(p && p.gender === "female" && !stockingsOn(who) && !p.stockingsPretend && hasFlag("spare_stockings_available")); }
+    if (need.indexOf("tag:") === 0) return hasTag(who, need.slice(4));
+    return false;
+  }
+  // Candidates for a gated beat's target (females for stocking beats, any other player for tag beats)
+  function gatedTargets(beat, actorName) {
+    return getOtherPlayerNames(actorName).filter(function(nm) {
+      var p = getPlayerByName(nm);
+      if (beat.targetGender && (!p || p.gender !== beat.targetGender)) return false;
+      if (beat.subject === "target" && !needSatisfied(beat.needs, nm)) return false;
+      return true;
+    });
+  }
   function beatAllowed(beat, actorName) {
     var n = narrative();
-    if (beat.story !== n.storyId) return false;
+    var source = (beat.story === n.storyId) || (beat.story === beatsStoryId() && !beat.needs);
+    if (!source) return false;
     if (n.beatsFired[beat.id] != null) return false;
+    if (beat.needs) {
+      var actorP = getPlayerByName(actorName);
+      if (beat.subject === "actor") {
+        if (!needSatisfied(beat.needs, actorName)) return false;
+        if (beat.targetGender && (!actorP || actorP.gender !== beat.targetGender)) return false;
+        if (beat.type === "directed" && !getOtherPlayerNames(actorName).length) return false;
+      } else if (!gatedTargets(beat, actorName).length) return false;
+    }
     if (beat.prop && !propReady(beat.prop)) return false;
     if (beat.limits) {
       for (var i = 0; i < beat.limits.length; i++) {
@@ -291,12 +520,33 @@ var OrbStory = (function() {
     return copy;
   }
 
+  // Lyra asks a woman without stockings exactly once (flirty/suggestive):
+  // pretend, or take the host's spare pair. Passable like everything else.
+  function maybeStockingsOffer(actorName) {
+    var st = activeStory();
+    var th = st && st.threads && st.threads.stockings && st.threads.stockings.askOnce;
+    if (!th) return null;
+    var p = getPlayerByName(actorName);
+    if (!p || p.gender !== "female" || p.hasStockings || p.stockingsAsked) return null;
+    if (th.chapters.indexOf(getCurrentChapter()) < 0) return null;
+    p.stockingsAsked = true;
+    var spare = hasFlag("spare_stockings_available");
+    var options = [];
+    if (spare) options.push({ label: T("story.stockings.handed", th.handed), onPick: function() { grantStockings(actorName); recordMoment("stockings", actorName, null, "handed a pair"); } });
+    options.push({ label: T("story.stockings.pretend", th.pretend), onPick: function() { p.stockingsPretend = true; } });
+    var text = T("story.stockings.ask", th.text).replace(/\{actor\}/g, capitalize(actorName));
+    return { prompt: { id: "SB_OFFER_" + gameState.turnCount, chapter: getCurrentChapter(), role: "interaction", type: "self", promptType: "truth",
+      intensity: 3, text: text, target: "self", _textResolved: true, _storyBeat: true, _options: options }, actor: actorName, target: null };
+  }
+
   function maybePickBeat(actorName) {
     var n = narrative();
     if (!n.storyId) return null;
+    var offer = maybeStockingsOffer(actorName);
+    if (offer) { n.lastBeatTurn = gameState.turnCount; return offer; }
     if (gameState.turnCount - n.lastBeatTurn < BEAT_MIN_GAP) return null;
     var chapter = getCurrentChapter();
-    var candidates = STORY_BEATS.filter(function(b) {
+    var candidates = STORY_BEATS.concat(STORY_THREAD_PROMPTS).filter(function(b) {
       return b.chapter === chapter && beatAllowed(b, actorName);
     });
     if (!candidates.length) return null;
@@ -313,9 +563,16 @@ var OrbStory = (function() {
       if (!obj) return null;
     }
     var prompt = materialize(beat, actorName, obj);
+    if (beat._onDone) prompt._onDone = beat._onDone;
     var target = null;
     if (beat.type === "directed") {
-      target = chooseTarget(actorName, prompt);
+      if (beat.needs) {
+        var gt = gatedTargets(beat, actorName);
+        if (!gt.length) return null;
+        target = gt[Math.floor(Math.random() * gt.length)];
+      } else {
+        target = chooseTarget(actorName, prompt);
+      }
       if (!target) return null;
       // Object beats read best when the owner is a third voice: avoid
       // target === owner when another target exists.
@@ -370,19 +627,28 @@ var OrbStory = (function() {
 
     card.appendChild(el("div", "rules-kicker", esc(T("story.kicker", "Tonight's story"))));
 
-    // Story choice: flagship vs classic night
+    // Story choice: every configured world + the classic night
     var choice = el("div", "story-choice");
-    var worldBtn = el("button", "story-world-btn" + (n.storyId ? " active" : ""),
-      '<span class="story-world-name">' + esc(T("story.banquet.name", story.name)) + '</span>' +
-      '<span class="story-world-tag">' + esc(T("story.banquet.tagline", story.tagline)) + '</span>');
-    worldBtn.type = "button";
+    var worldBtns = {};
+    Object.keys(STORY_WORLDS).forEach(function(id) {
+      var wld = STORY_WORLDS[id];
+      var b = el("button", "story-world-btn" + (n.storyId === id ? " active" : ""),
+        '<span class="story-world-name">' + esc(T("story." + id + ".name", wld.name)) + '</span>' +
+        '<span class="story-world-tag">' + esc(T("story." + id + ".tagline", wld.tagline)) + '</span>');
+      b.type = "button"; b.setAttribute("data-world", id);
+      worldBtns[id] = b;
+      choice.appendChild(b);
+    });
     var classicBtn = el("button", "story-world-btn" + (n.storyId ? "" : " active"),
       '<span class="story-world-name">' + esc(T("story.classic.name", "Classic Night")) + '</span>' +
       '<span class="story-world-tag">' + esc(T("story.classic.tagline", "Pure Truth or Dare · no props, no story")) + '</span>');
-    classicBtn.type = "button";
-    choice.appendChild(worldBtn);
+    classicBtn.type = "button"; classicBtn.setAttribute("data-world", "");
     choice.appendChild(classicBtn);
     card.appendChild(choice);
+    function syncWorldButtons() {
+      Object.keys(worldBtns).forEach(function(id) { worldBtns[id].classList.toggle("active", narrative().storyId === id); });
+      classicBtn.classList.toggle("active", !narrative().storyId);
+    }
 
     var body = el("div", "story-body");
     card.appendChild(body);
@@ -395,19 +661,58 @@ var OrbStory = (function() {
         return;
       }
       var st = activeStory();
-      body.appendChild(el("p", "rules-intro story-intro", "“" + esc(T("story.banquet.intro", st.intro)) + "”"));
+      body.appendChild(el("p", "rules-intro story-intro", "“" + esc(T("story." + st.id + ".intro", st.intro)) + "”"));
 
       var listTitle = el("div", "intro-section-title story-list-title");
       body.appendChild(listTitle);
-      var list = el("div", "story-prop-list");
+      var list = el("div", st.hostChecklist ? "story-checklist" : "story-prop-list");
       body.appendChild(list);
+      var warnEl = el("div", "story-warn");
 
       function paintCount() {
         var c = readyCount();
         listTitle.textContent = T("story.prep_title", "Lyra's preparation list") + " · " + c.ready + "/" + c.total + " " + T("story.ready", "ready");
       }
+      function paintWarn() {
+        if (!st.hostChecklist) return;
+        var missingKey = [];
+        st.hostChecklist.forEach(function(g) { g.items.forEach(function(it) { if (it.key && !checklistChecked(it)) missingKey.push(T("story." + st.id + ".check." + it.id, it.label)); }); });
+        warnEl.textContent = missingKey.length ? T("story.key_missing", "Lyra would rather you had: {items}. She'll manage — but she notices.", { items: missingKey.join(", ") }) : "";
+      }
+      function checklistChecked(it) {
+        var n3 = narrative();
+        if (it.prop) return propReady(it.prop);
+        return !!(n3.flags && n3.flags[it.flag || ("item_" + it.id)]);
+      }
 
-      st.props.forEach(function(p) {
+      if (st.hostChecklist) {
+        // Grouped checkboxes. Items tied to a prop default to "have it" (like
+        // the prop list); the rest start unchecked. Ticks set flags the game reads.
+        st.hostChecklist.forEach(function(group) {
+          var g = el("div", "story-check-group");
+          g.appendChild(el("div", "story-check-group-title", esc(T("story." + st.id + ".group." + group.id, group.title))));
+          var items = el("div", "story-check-items");
+          group.items.forEach(function(it) {
+            var lab = el("label", "story-check-item" + (it.key ? " is-key" : ""));
+            var cb = document.createElement("input");
+            cb.type = "checkbox";
+            cb.checked = checklistChecked(it);
+            cb.setAttribute("data-check", it.id);
+            cb.addEventListener("change", function() {
+              if (it.prop) setProp(it.prop, cb.checked);
+              setFlag(it.flag || ("item_" + it.id), cb.checked);
+              paintCount(); paintWarn(); paintResponse();
+            });
+            lab.appendChild(cb);
+            lab.appendChild(el("span", "", esc(T("story." + st.id + ".check." + it.id, it.label))));
+            items.appendChild(lab);
+          });
+          g.appendChild(items);
+          list.appendChild(g);
+        });
+        body.appendChild(warnEl);
+        paintCount(); paintWarn();
+      } else st.props.forEach(function(p) {
         var row = el("div", "story-prop" + (propReady(p.id) ? " is-ready" : " is-missing"));
         var btn = el("button", "story-prop-toggle", "");
         btn.type = "button";
@@ -420,7 +725,7 @@ var OrbStory = (function() {
           setProp(p.id, !propReady(p.id));
           paintBtn(); paintCount(); paintResponse();
         });
-        var pkey = "story.banquet.prop." + p.id;
+        var pkey = "story." + (st.beatsFrom || st.id) + ".prop." + p.id;
         row.appendChild(el("div", "story-prop-meta",
           '<div class="story-prop-label">' + esc(T(pkey + ".label", p.label)) + '</div>' +
           '<div class="story-prop-hint">' + esc(T(pkey + ".hint", p.hint)) + '</div>'));
@@ -454,23 +759,17 @@ var OrbStory = (function() {
       function paintResponse() {
         var c = readyCount();
         var txt = (c.ready === c.total)
-          ? T("story.banquet.all_ready", st.allReady)
-          : T("story.banquet.some_missing", st.someMissing);
+          ? T("story." + st.id + ".all_ready", st.allReady)
+          : T("story." + st.id + ".some_missing", st.someMissing);
         resp.innerHTML = '<div class="story-response-kicker">' + esc(T("story.response_kicker", "Lyra's response")) + '</div><div class="story-response-text">“' + esc(txt) + '”</div>';
       }
       paintResponse();
     }
 
-    worldBtn.addEventListener("click", function() {
-      selectStory("banquet");
-      worldBtn.classList.add("active"); classicBtn.classList.remove("active");
-      paintBody();
+    Object.keys(worldBtns).forEach(function(id) {
+      worldBtns[id].addEventListener("click", function() { selectStory(id); syncWorldButtons(); paintBody(); });
     });
-    classicBtn.addEventListener("click", function() {
-      selectStory(null);
-      classicBtn.classList.add("active"); worldBtn.classList.remove("active");
-      paintBody();
-    });
+    classicBtn.addEventListener("click", function() { selectStory(null); syncWorldButtons(); paintBody(); });
     paintBody();
 
     var footer = el("div", "story-footer");
@@ -482,6 +781,104 @@ var OrbStory = (function() {
     });
     footer.appendChild(cont);
     card.appendChild(footer);
+  }
+
+  // ---------- arrival: guest check-in + Lyra's private dress question ----------
+  function runArrival(done) {
+    var st = activeStory();
+    var ac = st && st.arrivalCheck;
+    var overlay = document.getElementById("arrivalOverlay");
+    if (!ac || !overlay || !gameState.players.length) { done(); return; }
+    var card = overlay.querySelector(".arrival-card");
+    overlay.classList.remove("is-hidden");
+    var players = gameState.players.slice();
+    var sid = st.id;
+
+    function stepCheckIn() {
+      card.innerHTML = "";
+      card.appendChild(el("div", "rules-kicker", esc(T("story." + sid + ".gate_title", ac.gateTitle))));
+      card.appendChild(el("p", "rules-intro arrival-blurb", esc(T("story." + sid + ".invite", st.invite || ""))));
+      card.appendChild(el("p", "rules-intro arrival-blurb", esc(T("story." + sid + ".gate_line", ac.gateLine))));
+      var grid = el("div", "arrival-guests");
+      var inSet = {};
+      var cont = el("button", "rules-enter-btn", esc(T("story.arrival.continue", "Everyone is in")));
+      cont.type = "button"; cont.disabled = true;
+      players.forEach(function(p) {
+        var b = el("button", "arrival-guest", esc(capitalize(p.name)) + " · " + esc(T("story." + sid + ".im_in", ac.imIn)));
+        b.type = "button"; b.setAttribute("data-guest", p.name);
+        b.addEventListener("click", function() {
+          inSet[p.name] = !inSet[p.name];
+          b.classList.toggle("is-in", !!inSet[p.name]);
+          cont.disabled = !players.every(function(x) { return inSet[x.name]; });
+        });
+        grid.appendChild(b);
+      });
+      card.appendChild(grid);
+      var actions = el("div", "arrival-actions");
+      actions.appendChild(cont);
+      card.appendChild(actions);
+      cont.addEventListener("click", function() { players.forEach(function(p) { p.checkedIn = true; }); stepDress(0); });
+    }
+
+    function stepDress(i) {
+      if (i >= players.length) { finish(); return; }
+      var p = players[i];
+      card.innerHTML = "";
+      card.appendChild(el("div", "rules-kicker", esc(T("story.arrival.private", "A private question"))));
+      card.appendChild(el("div", "arrival-handoff", esc(T("story." + sid + ".handoff", ac.handoff, { name: capitalize(p.name) }))));
+      var me = el("button", "rules-enter-btn", esc(T("story." + sid + ".its_me", ac.itsMe)));
+      me.type = "button";
+      me.setAttribute("data-itsme", p.name);
+      card.appendChild(me);
+      me.addEventListener("click", function() { askDress(i); });
+    }
+
+    function askDress(i) {
+      var p = players[i];
+      card.innerHTML = "";
+      card.appendChild(el("div", "rules-kicker", "Lyra"));
+      card.appendChild(el("p", "arrival-question", "“" + esc(T("story." + sid + ".question", ac.question, { name: capitalize(p.name) })) + "”"));
+      var chips = el("div", "tag-chips");
+      var picked = {};
+      ac.tags.forEach(function(tg) {
+        var c = el("button", "tag-chip" + (tg.exclusive ? " is-private" : ""), esc(T("story." + sid + ".tag." + tg.id, tg.label)));
+        c.type = "button"; c.setAttribute("data-tag", tg.id);
+        c.addEventListener("click", function() {
+          if (tg.exclusive) {
+            var on = !picked[tg.id];
+            picked = {}; if (on) picked[tg.id] = true;
+          } else {
+            ac.tags.forEach(function(x) { if (x.exclusive) delete picked[x.id]; });
+            picked[tg.id] = !picked[tg.id];
+            if (!picked[tg.id]) delete picked[tg.id];
+          }
+          chips.querySelectorAll(".tag-chip").forEach(function(elc) { elc.classList.toggle("active", !!picked[elc.getAttribute("data-tag")]); });
+        });
+        chips.appendChild(c);
+      });
+      card.appendChild(chips);
+      card.appendChild(el("div", "arrival-privacy", esc(T("story." + sid + ".privacy", ac.privacy))));
+      var doneBtn = el("button", "rules-enter-btn", esc(T("story." + sid + ".done", ac.done)));
+      doneBtn.type = "button"; doneBtn.setAttribute("data-dress-done", p.name);
+      var actions = el("div", "arrival-actions"); actions.appendChild(doneBtn); card.appendChild(actions);
+      doneBtn.addEventListener("click", function() {
+        setClothingTags(p.name, Object.keys(picked));
+        card.innerHTML = "";
+        card.appendChild(el("div", "rules-kicker", "Lyra"));
+        card.appendChild(el("p", "arrival-question", "“" + esc(T("story." + sid + ".remember", ac.remember)) + "”"));
+        try { if (typeof LyraVoice !== "undefined" && LyraVoice.isEnabled && LyraVoice.isEnabled()) LyraVoice.playRandom("whisper"); } catch (e) {}
+        var next = el("button", "rules-enter-btn", esc(i + 1 < players.length ? T("story.arrival.next", "Next guest") : T("story.arrival.begin", "Let the night begin")));
+        next.type = "button"; next.setAttribute("data-next", "1");
+        var a2 = el("div", "arrival-actions"); a2.appendChild(next); card.appendChild(a2);
+        next.addEventListener("click", function() { stepDress(i + 1); });
+      });
+    }
+
+    function finish() {
+      overlay.classList.add("is-hidden");
+      done();
+    }
+    stepCheckIn();
   }
 
   function openPrep() {
@@ -591,6 +988,20 @@ var OrbStory = (function() {
     };
   }
 
+  if (typeof chooseTarget === "function") {
+    var _chooseTarget = chooseTarget;
+    chooseTarget = function(actorName, prompt) {
+      var t = _chooseTarget.apply(this, arguments);
+      try {
+        if (themeGatesStockings() && prompt && STOCKING_RE.test(prompt.text || "")) {
+          var ok = getOtherPlayerNames(actorName).filter(function(nm) { return stockingSubjectOk(prompt.text, nm); });
+          if (ok.length && ok.indexOf(t) < 0) return ok[Math.floor(Math.random() * ok.length)];
+        }
+      } catch (e) {}
+      return t;
+    };
+  }
+
   if (typeof recordFeedback === "function") {
     var _recordFeedback = recordFeedback;
     recordFeedback = function(response) {
@@ -605,6 +1016,13 @@ var OrbStory = (function() {
             recordMoment("line", actor, target, p.text);
           }
           narrative().chapterReached = getCurrentChapter();
+        }
+      } catch (e) {}
+      try {
+        var lp = gameState.lastPrompt;
+        if (lp && lp._onDone === "stockings_on" && (response === "done" || response === "answered") && gameState.lastResolvedTarget) {
+          grantStockings(gameState.lastResolvedTarget);
+          recordMoment("stockings", gameState.lastResolvedTarget, null, "put on the host's stockings");
         }
       } catch (e) {}
       return _recordFeedback.apply(this, arguments);
@@ -632,6 +1050,18 @@ var OrbStory = (function() {
     selectStory: selectStory,
     setProp: setProp,
     setLimit: setLimit,
+    setFlag: setFlag,
+    hasFlag: hasFlag,
+    setClothingTags: setClothingTags,
+    grantStockings: grantStockings,
+    stockingsOn: stockingsOn,
+    stockingsPossible: stockingsPossible,
+    needSatisfied: needSatisfied,
+    beatAllowed: beatAllowed,
+    threadPrompts: STORY_THREAD_PROMPTS,
+    chainAllowed: chainAllowed,
+    promptAllowed: promptAllowed,
+    runArrival: runArrival,
     propReady: propReady,
     beginNight: beginNight,
     narrative: narrative,

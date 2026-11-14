@@ -346,6 +346,27 @@ function playGame(config) {
       }
     }
 
+    // ── STOCKINGS THREAD AUDIT (Secret Banquet) ──
+    if (prompt && (/stocking|tights/i.test(prompt.text || '') ) && g.OrbStory && config.story === 'secret_banquet' && !/^SB_OFFER/.test(prompt.id || '')) {
+      // Whose stockings? Undress info says actor/target/both; otherwise the
+      // sentence's "{target}'s" / "her" points at the target, "your" at the actor.
+      var sInfo = g.getPromptUndressInfo(prompt);
+      var src = prompt.text || '';
+      var subjects;
+      if (prompt.subject === 'actor') subjects = [player];
+      else if (prompt.subject === 'target' || prompt.chain_id === 'taboo_stockings' || prompt.chain_id === 'erotic_lingerie') subjects = [target];
+      else if (sInfo) subjects = sInfo.subject === 'both' ? [player, target] : [sInfo.subject === 'actor' ? player : target];
+      else subjects = (/\{target\}/.test(src) && !/\byour\s+(stockings?|tights)\b/i.test(src)) ? [target] : [player];
+      subjects = subjects.filter(Boolean);
+      var putsOn = /\b(put (them |the stockings |on)|roll(ing)? (a |the )?stockings? up|smooth the first stocking up)/i.test(src) || prompt._onDone === 'stockings_on';
+      var chainSpare = prompt.chain_id === 'taboo_stockings' || prompt.chain_id === 'erotic_lingerie';
+      var allowed = subjects.every(function (sj) { return (putsOn || chainSpare) ? g.OrbStory.stockingsPossible(sj) : g.OrbStory.stockingsOn(sj); });
+      var subj = subjects.join('+');
+      if (!allowed) {
+        issues.push({ type: 'stockings-without-stockings', text: '[' + subj + ' | removed=' + JSON.stringify(g.gameState.memory.clothingRemoved) + ' present=' + JSON.stringify(g.gameState.memory.wardrobePresent) + ' ft=' + !!prompt._isFollowThrough + ' cb=' + !!prompt.triggerTheme + ' spin=' + !!g.gameState.spinner + '] ' + text, id: ctx.promptId, mode: config.name, chapter: ctx.chapter });
+      }
+    }
+
     // ── CHAIN INTEGRITY AUDIT ──
     if (prompt && prompt.chain_id && prompt.chain_step) {
       var seq = chainSeq[prompt.chain_id] = chainSeq[prompt.chain_id] || [];
@@ -397,6 +418,9 @@ function playGame(config) {
     if (config.story) {
       (config.missingProps || []).forEach(function (id) { g.OrbStory.setProp(id, false); });
       (config.limits || []).forEach(function (id) { g.OrbStory.setLimit(id, true); });
+      (config.flags || []).forEach(function (id) { g.OrbStory.setFlag(id, true); });
+      // Dress check answers (Secret Banquet): shape each player's wardrobe
+      config.players.forEach(function (p) { if (p.clothingTags) g.OrbStory.setClothingTags(p.name, p.clothingTags); });
     }
   }
 
@@ -615,6 +639,28 @@ var CONFIGS = [
       { name: 'Ana', gender: 'female', object: 'pocket watch' },
       { name: 'Leo', gender: 'male' },
       { name: 'Sam', gender: 'other' }
+    ]
+  },
+  {
+    name: 'story-secret-4',
+    maxTurns: MAX_TURNS,
+    story: 'secret_banquet',
+    flags: ['spare_stockings_available', 'has_blindfolds', 'has_masks'],
+    players: [
+      { name: 'Hans', gender: 'male', partner: 'Grecia', partnerId: 2, object: 'silver key', clothingTags: ['top', 'bottom', 'underwear', 'shoes', 'socks', 'belt'] },
+      { name: 'Grecia', gender: 'female', partner: 'Hans', partnerId: 1, clothingTags: ['top', 'bottom', 'lingerie', 'stockings', 'shoes'] },
+      { name: 'Miro', gender: 'female', isSeducer: true, clothingTags: ['rather_not_say'] },
+      { name: 'Leo', gender: 'male', object: 'lighter', clothingTags: ['top', 'bottom', 'underwear'] }
+    ]
+  },
+  {
+    name: 'story-secret-3-nospare',
+    maxTurns: MAX_TURNS,
+    story: 'secret_banquet',
+    players: [
+      { name: 'Ana', gender: 'female', clothingTags: ['top', 'bottom', 'bra', 'underwear', 'shoes'] },
+      { name: 'Leo', gender: 'male', clothingTags: ['top', 'bottom', 'underwear', 'shoes', 'socks'] },
+      { name: 'Sam', gender: 'other', clothingTags: ['rather_not_say'] }
     ]
   },
   {

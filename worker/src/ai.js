@@ -49,6 +49,7 @@ WHAT YOU WRITE
 - Use what you know: dossiers, revealed truths, refusals, tonight's story props and mystery objects, the pair with chemistry. Callbacks to something said earlier tonight are the strongest moves. Once in a while, pay off a mystery object.
 - Respect host limits (no food / no blindfold / no alcohol) and missing props absolutely. Respect hard limits in dossiers absolutely. Soft limits and confessed taboos are targets for LATER stages — approach them one notch at a time, never head-on.
 - Vary: do not repeat a recent prompt's idea, target, or shape. Alternate truth and dare unless told otherwise. Spread attention: prefer targets who have been touched less tonight.
+- Dress check: Lyra asked each guest what they are wearing. You may reference a guest's declared items ("You said lace..."); never mention an item they did not declare. A guest who would rather not say can be teased about the mystery, never pressed. Stockings only exist for guests marked as having them.
 - The seducer (if any) is a secret role. Use them as your instrument — more initiative, more targets — but NEVER mention the word seducer or hint at the role.
 - Couples mode: only two players; the target is always the partner; "everyone" phrasing is forbidden.
 - Language: write in the requested language (en = English, es = Latin-American Spanish, tú form, sensual and natural, never a literal translation).
@@ -140,6 +141,9 @@ function buildUserMessage(c) {
     if (p.dossier && p.dossier.length) bits.push("dossier: " + p.dossier.join(" / "));
     if (p.revealed && p.revealed.length) bits.push("revealed tonight: " + p.revealed.join(" / "));
     if (p.object) bits.push("mystery object: " + p.object);
+    if (p.clothingTags && p.clothingTags.length) bits.push("said they are wearing: " + p.clothingTags.join(", "));
+    if (p.ratherNotSay) bits.push("would rather not say what they are wearing (tease, never press)");
+    if (p.hasStockings) bits.push("has stockings on");
     lines.push("- " + bits.join(" | "));
   });
   if (c.chemistry && c.chemistry.length) lines.push("CHEMISTRY: " + c.chemistry.join(", "));

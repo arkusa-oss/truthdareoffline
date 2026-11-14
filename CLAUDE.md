@@ -45,7 +45,8 @@ asked to remove more clothing; chains skip contradicting steps.
 - `node es_ui_test.js` headless-renders index.html in jsdom, forces GAME_LANG=es,
   and asserts the setup screen (static data-i18n + dynamic T() strings) is Spanish
   and English switch-back is lossless. Needs jsdom (`npm install --no-save jsdom`).
-- `npm test` runs sim + translation drift-check + Spanish UI test + voice test + AI author test.
+- `npm test` runs sim + translation drift-check + Spanish UI test + voice test + AI author test
+  + Secret Banquet theme test (`story_theme_test.js`).
   Worker route test: `cd worker && npm install && npm test`.
 - Deploy: `./deploy-sync.sh` copies game files into site/play/, then commit+push.
   GitHub Actions tests, Cloudflare Pages auto-deploys from the repo (serves site/).
@@ -61,6 +62,15 @@ asked to remove more clothing; chains skip contradicting steps.
   only), story beats that obey the ladder, finale. Loads after orb-engine.js and
   wraps selectPrompt/recordFeedback/resetGame. Beats carry `chapter` + `prop` +
   `limits`; sim audits them (story-* issue types).
+  Themes: `STORY_WORLDS[id]` is the config (name, tagline, invite, intro,
+  props, chapters, finale, optional `beatsFrom` to reuse another world's beats,
+  `hostChecklist` [{id,title,items:[{id,label,prop?,flag?,key?}]}],
+  `lyraPersona`, `arrivalCheck` {gate copy, dress question, tags[{id,label,
+  wardrobe[]|exclusive}]}, `threads`). Thread prompts live in
+  `STORY_THREAD_PROMPTS` with `needs` (stockings_on | stockings_spare |
+  tag:<id>) + `subject` + `targetGender`. Adding a theme = one new entry +
+  (optional) thread prompts + `story.<id>.*` keys in translations_es.js. No
+  logic changes. Tests: `node story_theme_test.js`.
 - orb-voice.js: pre-recorded MP3 voice system (LyraVoice)
 - orb-music.js: YouTube IFrame API background music with 4 genre themes
 - ai_orb.js: Lyra's Mind — AI Author. Sends the night's context to the Worker

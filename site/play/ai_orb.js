@@ -99,7 +99,10 @@
         nightsPlayed: rec ? (rec.nightsPlayed || 0) : 0,
         dossier: dossierFor(p.name),
         revealed: revealed,
-        object: p.object || null
+        object: p.object || null,
+        clothingTags: (p.clothingTags && p.clothingTags.length) ? p.clothingTags.slice() : null,
+        ratherNotSay: !!p.ratherNotSay,
+        hasStockings: !!p.hasStockings
       };
     });
     var chem = [];

@@ -679,6 +679,23 @@ function renderResponseOptions(prompt) {
 function showFeedbackPanel(prompt) {
   if (!feedbackPanelEl || !prompt) return;
   setLegacyFeedbackButtonsHidden(true);
+  // Prompts with their own answers (theme offers) render their buttons; a
+  // PASS button is always added so every prompt stays passable.
+  if (prompt._options && prompt._options.length) {
+    clearFeedbackButtons();
+    var wrap = getFeedbackPanelButtonsWrap();
+    if (wrap) {
+      prompt._options.forEach(function(opt) {
+        wrap.appendChild(createFeedbackButton(opt.label, "done", function() {
+          try { if (opt.onPick) opt.onPick(); } catch (e) {}
+          recordFeedback(opt.response || "done");
+        }));
+      });
+      wrap.appendChild(createFeedbackButton(T("btn.pass", "PASS"), "pass", function() { recordFeedback("pass"); }));
+      feedbackPanelEl.classList.remove("is-hidden");
+    }
+    return;
+  }
   renderResponseOptions(prompt);
 }
 
@@ -1160,9 +1177,9 @@ function getPromptUndressInfo(prompt) {
   var t = prompt.text.toLowerCase();
   // Must describe an act of undressing...
   // "take off your shirt" and the split form "take the top off your back" both count
-  if (!/\b(undress|strip|take off|takes off|peel off|slip out of|remove)\b|\btakes?\s+(?:the|your|their|\{target\}'s)\s+(?:top|shirt|blouse|bra|pants|trousers|dress|skirt|underwear|shoes?|socks?)\s+off\b/.test(t)) return null;
+  if (!/\b(undress|strip|take off|takes off|peel off|slip out of|remove)\b|\broll\b[^.]{0,40}\b(stockings?|tights)\b[^.]{0,20}\b(down|off)\b|\b(stockings?|tights)\b[^.]{0,80}\b(off|down)\b|\btakes?\s+(?:the|your|their|\{target\}'s)\s+(?:top|shirt|blouse|bra|pants|trousers|dress|skirt|underwear|shoes?|socks?)\s+off\b/.test(t)) return null;
   // ...and reference a garment / nudity (so "remove the blindfold" doesn't match).
-  if (!/\b(undress|strip|naked|nude|layer|clothes|clothing|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|underthings|piece|garment|shoes?|socks?|belt|jewelry|bracelet)\b/.test(t)) return null;
+  if (!/\b(undress|strip|naked|nude|layer|clothes|clothing|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|underthings|piece|garment|shoes?|socks?|stockings?|tights|belt|jewelry|bracelet)\b/.test(t)) return null;
   // Who gets undressed? "{actor}, undress {target}" / "make {target} strip" -> the target.
   // "you and {target} each remove..." -> both. Otherwise the actor.
   var subject = "actor";
@@ -1170,8 +1187,10 @@ function getPromptUndressInfo(prompt) {
     subject = "both";
   } else if (/\b(piece|item|article|layer)\s+of\s+(your|my)\b|\b(remove|take off|strip|peel off)\b[^.]{0,25}\byour\s+(own\s+)?(clothing|clothes|shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|shoes?|socks?|belt|jewelry)\b/.test(t)) {
     subject = "actor"; // "let {target} remove one piece of YOUR clothing" — the actor loses the layer
-  } else if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)|\b(remove|take off|strip|peel off)\b[^.]{0,30}\{target\}'s/.test(t)) {
+  } else if (/(undress|strip)\s+\{target\}|\{target\}[^.]{0,30}(strip|undress|take off|remove)|(make|have)\s+\{target\}[^.]{0,20}(strip|undress|take off|remove)|\b(remove|take off|strip|peel off|roll|slide|unhook)\b[^.]{0,30}\{target\}'s|\{target\}'s\s+(?:shirt|top|blouse|bra|pants|trousers|dress|skirt|shorts|underwear|shoes?|socks?|stockings?|tights|belt|jewelry)\b/.test(t)) {
     subject = "target";
+  } else if (/\{target\}/.test(t) && /\b(stockings?|tights)\b/.test(t) && !/\byour\s+(stockings?|tights)\b/.test(t)) {
+    subject = "target"; // "kneel in front of {target} ... peel the stocking down": the stockings are theirs
   }
   // Does it reach full nudity?
   var makesFull = /\b(fully|completely|all the way|naked|nude|final layer|last layer|every (last )?(piece|layer)|nothing left)\b/.test(t);
@@ -1211,6 +1230,7 @@ var WARDROBE = [
   { item: "belt",      en: "belt",                        es: "cinturón",            esPlural: false, floor: 4 },
   { item: "top",       en: "top",                         es: "camiseta",            esPlural: false, floor: 5 },
   { item: "pants",     en: "pants/skirt",                 es: "pantalón/falda",      esPlural: false, floor: 5 },
+  { item: "stockings", en: "stockings",                   es: "medias",              esPlural: true,  floor: 5, requires: "shoes", optional: true },
   { item: "bra",       en: "bra",                         es: "sostén",              esPlural: false, floor: 6, gender: "female", requires: "top" },
   { item: "underwear", en: "underwear",                   es: "ropa interior",       esPlural: false, floor: 6, requires: "pants", final: true }
 ];
@@ -1218,6 +1238,7 @@ var WARDROBE = [
 var GARMENT_WORDS = [
   { re: /\b(underwear|panties|boxers|briefs|thong|knickers)\b/, item: "underwear" },
   { re: /\bbra\b/, item: "bra" },
+  { re: /\b(stockings?|tights|pantyhose)\b/, item: "stockings" },
   { re: /\b(pants|trousers|skirt|shorts|jeans|dress)\b/, item: "pants" },
   { re: /\b(shirt|top|blouse|t-shirt|sweater|hoodie)\b/, item: "top" },
   { re: /\bbelt\b/, item: "belt" },
@@ -1240,12 +1261,22 @@ function isFullyUndressed(name) {
   if (gameState.memory && gameState.memory.fullyUndressed && gameState.memory.fullyUndressed[name]) return true;
   return removedItems(name).indexOf("underwear") >= 0;
 }
+// Declared wardrobe (dress check, orb-story.js): items a player said they are
+// NOT wearing never get asked for; optional items (stockings) only exist when
+// declared or handed over by the host.
+function wardrobeDeclared(name) {
+  var m = gameState.memory || {};
+  return { absent: (m.wardrobeAbsent && m.wardrobeAbsent[name]) || [], present: (m.wardrobePresent && m.wardrobePresent[name]) || [] };
+}
 function wardrobeFor(name) {
   var p = getPlayerByName(name);
   var gender = p ? p.gender : "other";
   var removed = removedItems(name);
+  var decl = wardrobeDeclared(name);
   return WARDROBE.filter(function(w) {
     if (w.gender && w.gender !== gender) return false;
+    if (w.optional && decl.present.indexOf(w.item) < 0) return false;
+    if (decl.absent.indexOf(w.item) >= 0) return false;
     if (removed.indexOf(w.item) >= 0) return false;
     if (w.requires && removed.indexOf(w.requires) < 0) return false;
     return true;
@@ -1289,6 +1320,8 @@ function undressBlockedFor(prompt, name, info) {
     if (!entry) return false;
     if (removedItems(name).indexOf(garment) >= 0) return true;
     if (entry.gender) { var pl = getPlayerByName(name); if (pl && pl.gender !== entry.gender) return true; }
+    if (entry.optional && wardrobeDeclared(name).present.indexOf(entry.item) < 0) return true; // stockings only if declared / handed over
+    if (wardrobeDeclared(name).absent.indexOf(entry.item) >= 0) return true; // declared not worn tonight
     if (entry.floor > chapterNumber()) return true; // ladder: too early for this garment
     if (entry.requires && removedItems(name).indexOf(entry.requires) < 0) return true; // layer order: bra after top, socks after shoes
     return false;
@@ -1321,6 +1354,8 @@ function undressSubjects(prompt, actorName, targetName, info) {
 // (or the escalation ladder). Actor-subject: check the actor. Target-subject:
 // couples know the partner; group mode needs at least one valid candidate.
 function clothingContradiction(prompt, actorName) {
+  // Theme veto (orb-story.js): e.g. stockings prompts need someone who has — or can be handed — stockings
+  if (typeof OrbStory !== "undefined" && OrbStory.promptAllowed && !OrbStory.promptAllowed(prompt, actorName)) return true;
   var info = getPromptUndressInfo(prompt);
   if (!info) return false;
   if (info.subject === "actor" || info.subject === "both") {
@@ -1717,6 +1752,13 @@ function maybeStartAvailableChain(chapter, role, actor, target) {
     }
   }
 
+  // Theme hook: a story world may veto a chain for this pairing (e.g. the
+  // stockings arc needs a target who is wearing — or can be handed — stockings)
+  if (starter && typeof OrbStory !== "undefined" && OrbStory.chainAllowed) {
+    var allowedTarget = OrbStory.chainAllowed(starter.chain_id, actor, target);
+    if (!allowedTarget) return null;
+    if (typeof allowedTarget === "string") target = allowedTarget;
+  }
   if (starter) {
     startChain(starter.chain_id, actor, target);
   }
@@ -3813,7 +3855,7 @@ function resetGame() {
   gameState.momentum = 0;
   gameState.recentRefusals = 0;
   gameState.pairAffinity = {};
-  gameState.memory = { attraction: {}, preferredKiss: {}, massageTarget: {}, lastSelectedByPlayer: {}, firstImpression: {}, clothingRemoved: {}, spinnerHistory: {} };
+  gameState.memory = { attraction: {}, preferredKiss: {}, massageTarget: {}, lastSelectedByPlayer: {}, firstImpression: {}, clothingRemoved: {}, spinnerHistory: {}, wardrobeAbsent: {}, wardrobePresent: {} };
   gameState.spinner = null;
   gameState.lastPrompt = null;
   gameState.promptHistory = [];
