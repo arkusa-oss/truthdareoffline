@@ -14,6 +14,11 @@ An adult Truth or Dare party game with 7 escalating stages: personal → playful
 - Prompts should escalate naturally through stages (intensity 1-10)
 - The orb (Lyra) speaks in a mysterious, sultry, all-knowing tone
 - Jealousy, desire, vulnerability are features, not bugs
+- Prompts are read aloud at a party: keep them under ~25 words, one or two
+  short sentences, one action. Long, layered sentences play badly (host
+  feedback, Nov 2026). Name the garment in undress prompts (the wardrobe
+  system substitutes "one piece of clothing" at serve time, but specific beats
+  generic).
 
 ## Escalation Ladder (enforced — every prompt's physical action has a floor stage)
 Stages 1-2 are LIGHT: humor and profiling, temperature rises monotonically after.

@@ -710,7 +710,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 4.5,
-    "text": "{actor} — you are still becoming someone. A version of yourself that isn't finished yet. Describe who that person is. Then sit with the question Lyra is already asking: does it scare you that {target} might not love them?",
+    "text": "{actor}, you're still becoming someone. Describe that unfinished version of you. Does it scare you that {target} might not love them?",
     "target": "other"
   },
   {
@@ -730,7 +730,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 5.5,
-    "text": "{actor} — there is something honest inside you that you have never said to {target}. Not because it isn't true. Because you doubted {target} could hold it. Lyra doesn't believe that's the only reason. What is it?",
+    "text": "{actor}, there's something true you've never told {target}, because you doubted they could hold it. Lyra doubts that's the only reason. What is it?",
     "target": "other"
   },
   {
@@ -1500,7 +1500,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 5,
-    "text": "{actor}, take your time. Start at the top and move down — every part of {target} you find beautiful, every detail you notice, every place your eyes go when they're not looking. Tell them all of it.",
+    "text": "{actor}, top to bottom: every part of {target} you find beautiful, every place your eyes go when they're not looking. Tell them all of it.",
     "target": "other"
   },
   {
@@ -2020,7 +2020,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 4.5,
-    "text": "{actor}, turn to face {target}. Press the back of your hand to their shoulder and draw it down — slow — all the way to their wrist. Keep your eyes on theirs. Every inch. Don't look away.",
+    "text": "{actor}, face {target}. Draw the back of your hand from their shoulder to their wrist, slow. Eyes on theirs the whole way.",
     "target": "other"
   },
   {
@@ -2220,7 +2220,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 5,
-    "text": "{actor}, put your lips close enough to {target}'s ear that they feel the heat of what you're about to say. Then name the one thing they do that stops you completely — the move, the look, the word.",
+    "text": "{actor}, lips close enough to {target}'s ear to feel the heat. Name the one thing they do that stops you completely.",
     "target": "other"
   },
   {
@@ -2350,7 +2350,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 5,
-    "text": "{actor}, your body wants something from {target} that you haven't found the words for yet — a sensation, a closeness, a kind of contact that doesn't have a name. Reach for the words. Get as close as you can.",
+    "text": "{actor}, your body wants something from {target} you haven't found words for yet. Reach for the words. Get as close as you can.",
     "target": "self"
   },
   {
@@ -2420,7 +2420,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 6,
-    "text": "{actor}, lie beside {target}. One hand. Start at the nape of the neck and go — spine, ribs, the dip of the waist, the curve of the hip, the length of the leg. Slow. All the way.",
+    "text": "{actor}, lie beside {target}. One hand, from the nape down: spine, ribs, waist, hip, the length of the leg. Slow. All the way.",
     "target": "other"
   },
   {
@@ -2480,7 +2480,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 6,
-    "text": "{actor}, kiss {target} now — not soft, not urgent. Somewhere in between. The kind of kiss that carries weight, that says: I know exactly what I want and it is you. Let your mouth mean it.",
+    "text": "{actor}, kiss {target}: not soft, not urgent, in between. The kind that says I know exactly what I want and it's you.",
     "target": "other"
   },
   {
@@ -2960,7 +2960,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 6,
-    "text": "{actor}, while {target} touches you, narrate it. Tell them what they're doing to you — not in performance, but in real time. Let your voice crack where it wants to. Let them hear all of it.",
+    "text": "{actor}, while {target} touches you, narrate it in real time. Let your voice crack where it wants to. Let them hear all of it.",
     "target": "other"
   },
   {
@@ -3590,7 +3590,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 6.5,
-    "text": "{actor}, cup {target}'s face in your hands. Now use just your thumb — slow, unhurried — across their forehead, down the ridge of their cheekbone, along the line of their jaw. Watch their eyes fall shut.",
+    "text": "{actor}, cup {target}'s face. Just your thumb, slow: across the forehead, down the cheekbone, along the jaw. Watch their eyes close.",
     "target": "other"
   },
   {
@@ -3740,7 +3740,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7,
-    "text": "{actor}, sit behind {target}. Wrap your arms fully around them. Let them lean back into you — all of their weight, all of yours. Feel their chest rise. Feel it fall. Two minutes of just this.",
+    "text": "{actor}, sit behind {target} and wrap your arms around them. Let them lean all their weight into you. Two minutes of just this.",
     "target": "other"
   },
   {
@@ -3880,7 +3880,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, take {target}'s hands between yours. Hold those hands there, warming each one, for a full minute. Then guide {target}'s hands — slowly — to {target_his} own face. Let {target_him} feel what you feel when you touch them.",
+    "text": "{actor}, warm {target}'s hands between yours for a full minute. Then guide those hands slowly to {target_his} own face. Let {target_him} feel it.",
     "target": "other"
   },
   {
@@ -3960,7 +3960,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, place both hands somewhere on {target}'s body. Before you move, ask quietly: \"Can you feel me here?\" Wait for their answer — really wait — then move on. Do this until they stop wanting you to.",
+    "text": "{actor}, both hands on {target}. Before you move, ask: \"Can you feel me here?\" Wait for the answer. Move on. Repeat until they stop wanting you to.",
     "target": "other"
   },
   {
@@ -4020,7 +4020,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, your lips find the inside of {target}'s arm — soft skin, blue vein, barely there. While your mouth works, your hand circles their back. Two sensations at once. Watch what {target}'s breath does. Watch it carefully.",
+    "text": "{actor}, lips on the inside of {target}'s arm. Your hand circling their back at the same time. Watch what their breath does.",
     "target": "other"
   },
   {
@@ -4050,7 +4050,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, undress {target} one piece at a time. Between each — stop. Name what their body does to you. What it makes you feel. What it makes you want. Speak it out loud. Then remove the next.",
+    "text": "{actor}, undress {target} one piece at a time. Between each, stop and say out loud what their body does to you. Then the next.",
     "target": "other"
   },
   {
@@ -4110,7 +4110,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, begin at {target}'s lower back. Both hands, slow glide upward. Then back down. Again — and this time, press your lips to their skin on the way. Add a kiss every pass. Let it build.",
+    "text": "{actor}, both hands at {target}'s lower back, slow glide up, back down. Again, and this time kiss the skin on every pass. Let it build.",
     "target": "other"
   },
   {
@@ -4130,7 +4130,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, circle {target} where they stand. Slow. They feel your movement before your touch. Find the places no one remembers — inner wrist, the ridge of a collarbone, the soft space between two ribs. Each one deserves your full attention.",
+    "text": "{actor}, circle {target} slowly. Find the forgotten places: inner wrist, collarbone, the space between two ribs. Give each your full attention.",
     "target": "other"
   },
   {
@@ -4140,7 +4140,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, pull {target} into a deep kiss and guide their hands over your body. Show them. No guessing, no hinting — show them exactly where you want to be touched. Breathe together. Let that be the answer.",
+    "text": "{actor}, kiss {target} deep and guide their hands over your body. No hints. Show them exactly where you want to be touched.",
     "target": "other"
   },
   {
@@ -4250,7 +4250,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 7.5,
-    "text": "{actor}, place {target} exactly where you want them. Lean in close — close enough that they feel your breath — and say it: \"I'm going to touch you exactly how I decide.\" Then wait. Don't move. Let that land.",
+    "text": "{actor}, place {target} where you want them. Lean in close and say: \"I'm going to touch you exactly how I decide.\" Then wait.",
     "target": "other"
   },
   {
@@ -4360,7 +4360,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, drag your nails down {target}'s back. Slow. Firm enough to feel it, firm enough to leave a trace. Then lean close and ask, quiet: \"do you like that?\" Wait for their answer. All of it.",
+    "text": "{actor}, drag your nails down {target}'s back, firm enough to leave a trace. Then ask quietly: \"Do you like that?\" Wait for all of the answer.",
     "target": "other"
   },
   {
@@ -4420,7 +4420,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, {target}'s neck and collarbone, and nothing else. Mouth only — teeth, lips, tongue, in whatever order you choose. All of your attention, right there. Let them feel what it's like to be the only thing you're thinking about.",
+    "text": "{actor}, {target}'s neck and collarbone, nothing else. Mouth only: teeth, lips, tongue. Make them the only thing you're thinking about.",
     "target": "other"
   },
   {
@@ -4480,7 +4480,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, your mouth on {target}'s and your hands sliding down their sides at the same time. Both sensations running together — don't let one stop when the other starts. Make them feel you everywhere at once.",
+    "text": "{actor}, your mouth on {target}'s and your hands sliding down their sides, at the same time. Make them feel you everywhere at once.",
     "target": "other"
   },
   {
@@ -4510,7 +4510,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, put your mouth against {target}'s ear and let filth fall from your lips — slow, deliberate, chosen. Your hands stay soft the whole time. Tender palms. Cruel words. Watch the shiver where those two things collide.",
+    "text": "{actor}, mouth at {target}'s ear, let the filth fall slowly. Your hands stay soft the whole time. Tender palms, cruel words. Watch the shiver.",
     "target": "other"
   },
   {
@@ -4530,7 +4530,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, lay {target} face-down. Climb over them. Let your weight settle onto their back — every pound of you pressing them into the surface. Pin their wrists flat. Lower your mouth to the back of their neck and stay there.",
+    "text": "{actor}, lay {target} face-down and settle your full weight on their back. Pin their wrists. Mouth on the back of their neck. Stay.",
     "target": "other"
   },
   {
@@ -4540,7 +4540,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, drag one hand across {target}'s chest like you have all the time left in the world. Slower than slow. Let them feel the ridge of every knuckle, the heat of your palm, the unbearable pause before you move again.",
+    "text": "{actor}, drag one hand across {target}'s chest, slower than slow. Every knuckle, the heat of your palm, the pause before you move again.",
     "target": "other"
   },
   {
@@ -4560,7 +4560,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, lay {target} flat and lower yourself onto them — chest on chest, hip on hip, full contact. Now move. Shift your weight until they understand, without a single word, exactly who holds the tempo here.",
+    "text": "{actor}, lay {target} flat and lower yourself onto them, chest to chest, hip to hip. Now move. Show them, without words, who holds the tempo.",
     "target": "other"
   },
   {
@@ -4600,7 +4600,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, {target} keeps every stitch of clothing on. That's the game. Kiss them through the fabric — neck, chest, wherever the hunger takes you. Let them feel exactly how much you want what's underneath without uncovering a single inch.",
+    "text": "{actor}, {target} keeps every stitch on. Kiss them through the fabric, neck, chest, wherever the hunger goes. Don't uncover an inch.",
     "target": "other"
   },
   {
@@ -4630,7 +4630,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8,
-    "text": "{actor}, press something cold against {target}'s ribs — hold it there long enough that they gasp. Then replace it immediately with your warm breath on their neck. Cold skin, hot air. Do it again. Make them anticipate the switch before it comes.",
+    "text": "{actor}, press something cold against {target}'s ribs until they gasp. Then your warm breath on their neck. Again. Make them wait for the switch.",
     "target": "other"
   },
   {
@@ -4650,7 +4650,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, take {target}'s hand and guide it — place it exactly where you want it, at the pressure you want it. Watch their face. Then take that same touch and return it to them, exactly. A confession in motion.",
+    "text": "{actor}, guide {target}'s hand exactly where you want it, at the pressure you want. Watch their face. Then give that same touch back.",
     "target": "other"
   },
   {
@@ -4730,7 +4730,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, lay {target} on their back and watch their face as you move inside them. That face is your instrument. Speed up when it tightens, slow when it opens. Give them exactly what their expression is asking for.",
+    "text": "{actor}, lay {target} on their back and watch their face as you move inside them. Speed up when it tightens, slow when it opens.",
     "target": "other"
   },
   {
@@ -4760,7 +4760,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, climb on top of {target} and take the pace. Set the depth, set the rhythm, own it completely. Use their body like it was made for yours. Let them watch you take exactly what you want.",
+    "text": "{actor}, climb on top of {target} and take the pace. Depth, rhythm, all yours. Let them watch you take exactly what you want.",
     "target": "other"
   },
   {
@@ -4770,7 +4770,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, link your body's rhythm to your breath. Push on the inhale. Draw back on the exhale. Find the pattern and hold it. Pull {target}'s breathing into yours until you can't tell whose lungs are whose.",
+    "text": "{actor}, move with your breath: push on the inhale, draw back on the exhale. Pull {target}'s breathing into yours until you can't tell whose is whose.",
     "target": "other"
   },
   {
@@ -4800,7 +4800,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, take your pleasure from {target}'s body and let them watch every second of it. Don't perform it — let it be real. Show them what they do to you. Don't let their eyes leave your face.",
+    "text": "{actor}, take your pleasure from {target}'s body and let them watch every second. Don't perform. Don't let their eyes leave your face.",
     "target": "other"
   },
   {
@@ -4860,7 +4860,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, begin slowly and track {target}'s breath like a map. When it sharpens — when it catches in their throat — shift the angle, change the tempo. Read every breath like a command and push them past the point of holding back.",
+    "text": "{actor}, go slow and listen to {target}'s breath. When it catches, change the angle and the tempo. Push them past holding back.",
     "target": "other"
   },
   {
@@ -4910,7 +4910,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, reduce yourself to a tease — barely moving, barely giving. Make {target} feel the absence of what they want. Wait. When they ask for more, make them say exactly what more means. Then, and only then.",
+    "text": "{actor}, barely move, barely give. Make {target} feel the absence. When they ask for more, make them say exactly what more means.",
     "target": "other"
   },
   {
@@ -4940,7 +4940,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9.5,
-    "text": "{actor}, push {target} toward the edge — read them until they're right at the threshold — then pull back. When they steady, build again. Hold them there, trembling between ruin and release, until Lyra says otherwise.",
+    "text": "{actor}, bring {target} to the threshold, then pull back. When they steady, build again. Keep them trembling there until Lyra says otherwise.",
     "target": "other"
   },
   {
@@ -5040,7 +5040,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 8.5,
-    "text": "{actor}, lean close to {target} and ask: what do you want most that you've never let yourself ask for? Not a hint. Not a joke. The real answer. I already know it — make them say it.",
+    "text": "{actor}, ask {target}: what do you want most that you've never let yourself ask for? No jokes. Lyra already knows. Make them say it.",
     "target": "other"
   },
   {
@@ -5100,7 +5100,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, start slow. Hands first, then mouth, then your full weight. Build something in {target} they haven't felt before — and don't give it to them all at once. Make them surrender the last piece themselves.",
+    "text": "{actor}, hands first, then mouth, then your full weight. Build something new in {target}, slowly. Make them surrender the last piece themselves.",
     "target": "other"
   },
   {
@@ -5290,7 +5290,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9.5,
-    "text": "{actor}, take {target} from behind. One hand tangled in their hair. The other — let them guide it to where they need it most. Whisper something low in their ear. Don't stop until the music does.",
+    "text": "{actor}, take {target} from behind. One hand in their hair; let them guide the other where they need it. Whisper low. Don't stop until the music does.",
     "target": "other"
   },
   {
@@ -5340,7 +5340,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9.5,
-    "text": "{actor}, finish inside {target} — hard, deep, nothing held back. Let them feel every pulse, every wave. Give them all of it. This is what it looks like when you don't protect them from your need.",
+    "text": "{actor}, finish inside {target}, hard, deep, nothing held back. Let them feel every pulse. This is you not protecting them from your need.",
     "target": "other"
   },
   {
@@ -5360,7 +5360,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9.5,
-    "text": "{actor}, lay back and bring {target} on top of you. Watch their face as they move — every shift, every tell. Steer the pace with your hands on their hips. You're still in charge. They just don't have to know it yet.",
+    "text": "{actor}, lie back and pull {target} on top. Watch their face. Set the pace with your hands on their hips. You're still in charge.",
     "target": "other"
   },
   {
@@ -6910,7 +6910,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 8.5,
-    "text": "{actor}, admit it — there is a line you've been standing at, watching {target} from the safe side. You want to cross it. You want {target_her} to take your hand and pull you over. What is that line?",
+    "text": "{actor}, there's a line you've been watching {target} from behind. You want {target_her} to pull you across it. What's the line?",
     "target": "other"
   },
   {
@@ -6990,7 +6990,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 10,
-    "text": "{actor}, take {target} to the very edge — the moment just before breaking — and keep them there. Every time they reach for release, pull back. Hold the edge. Wait for the surrender to come from deep inside them.",
+    "text": "{actor}, take {target} to the edge and keep them there. Every time they reach for release, pull back. Wait for the surrender.",
     "target": "other"
   },
   {
@@ -7000,7 +7000,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "truth",
     "intensity": 10,
-    "text": "{actor}, the fantasy you fear most to speak — the one that feels too raw, too much, too revealing — say it now. {target} is not going anywhere. {target_she} is already here, already listening. Let it out.",
+    "text": "{actor}, the fantasy you most fear saying out loud, the one that feels too raw. Say it now. {target} is already listening.",
     "target": "other"
   },
   {
@@ -7890,7 +7890,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, {target} wants something. You already know what it is. Make them say it anyway — out loud, plainly, with enough heat that you know they mean it. They don't get a single thing until they do.",
+    "text": "{actor}, {target} wants something and you know what. Make them say it anyway, plainly, with heat. Nothing until they do.",
     "target": "other"
   },
   {
@@ -7910,7 +7910,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 8.5,
-    "text": "{actor}, you know exactly where {target}'s edge is. Walk them right up to it — close enough that they feel the drop — without letting them tip over. Keep them there. Hold them in that wanting. Don't relent.",
+    "text": "{actor}, you know where {target}'s edge is. Walk them right up to it, close enough to feel the drop. Hold them there. Don't relent.",
     "target": "other"
   },
   {
@@ -7940,7 +7940,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, give {target} a word — one word, their anchor. Then begin. Take them somewhere real with your hands, your voice, your weight — and stop just before they need to use it. Let them breathe. Start again.",
+    "text": "{actor}, give {target} one word, their anchor. Then begin: hands, voice, weight. Stop just before they need it. Breathe. Start again.",
     "target": "other"
   },
   {
@@ -7950,7 +7950,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, tell {target} to count. Out loud. From one. You set the pace of what they're counting. If the count breaks — if they lose the number, if the voice goes — they start from the beginning. You decide when it ends.",
+    "text": "{actor}, make {target} count out loud from one while you set the pace. If the count breaks, they start over. You decide when it ends.",
     "target": "other"
   },
   {
@@ -7980,7 +7980,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9,
-    "text": "{actor}, lay a hand on {target} and feel their breath. Now slow it — slower than they think they can go. Let your touch be the only thing keeping them calm. Then, when you have them still, take them somewhere else entirely.",
+    "text": "{actor}, one hand on {target}. Slow their breathing, slower than they think they can. Once they're still, take them somewhere else entirely.",
     "target": "other"
   },
   {
@@ -8000,7 +8000,7 @@ const CSV_COUPLES_PROMPTS = [
     "type": "directed",
     "promptType": "dare",
     "intensity": 9.5,
-    "text": "{actor}, {target} wants to undress you. Let them earn it — piece by piece, each one a price to be paid. You set the terms. {target} meets them. Nothing comes easy tonight unless you decide it does.",
+    "text": "{actor}, {target} wants to undress you. Make them earn it, piece by piece. You set the price for each one. Nothing comes easy tonight.",
     "target": "other"
   },
   {
