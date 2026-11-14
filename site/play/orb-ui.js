@@ -230,9 +230,9 @@ if (startGameBtn) {
     }
     // Initialize background music (reads the toggle state internally)
     OrbMusic.init("personal");
-    // Start prefetching the first AI prompt while the opening toast shows
+    // Lyra starts writing the first prompt while the opening toast shows
     if (typeof window.OrbAI !== "undefined" && window.OrbAI.prefetch) {
-      window.OrbAI.prefetch();
+      try { window.OrbAI.prefetch(); } catch (e) {}
     }
     // Show opening toast
     showToast(TOAST_OPENING.title, TOAST_OPENING.message, null, "toast.opening");

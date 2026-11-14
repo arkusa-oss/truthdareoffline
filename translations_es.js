@@ -3190,6 +3190,16 @@ var TRANSLATIONS_ES = {
     "btn.spin": "GIRA ({n})",
     "undress.which": "{chooser} — ¿cuál se quitó?",
 
+    // Lyra's Mind (AI author)
+    "ai.thinking": "Lyra está pensando…",
+    "ai.toggle": "Lyra escribe sus propios retos (IA)",
+    "ai.code_ph": "El código de Lyra (si te dieron uno)",
+    "ai.off": "Apagado — Lyra juega con su colección.",
+    "ai.on": "Encendido — Lyra escribe cada reto para quienes están en la sala. Requiere internet.",
+    "ai.bad_code": "Ese código no es suyo. Esta noche Lyra juega con su colección.",
+    "ai.cap": "Lyra ya escribió suficiente por hoy. Su colección toma el relevo.",
+    "ai.unavailable": "La mente de Lyra aún no está conectada.",
+
     // Judges
     "vote.continue": "Continuar",
     "vote.continue_n": "Continuar (faltan {n})",

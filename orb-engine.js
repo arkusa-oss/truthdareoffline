@@ -692,7 +692,9 @@ function hideFeedbackPanel() {
 // PLAYER / TARGET ROTATION
 // =========================
 
-function chooseNextPlayer() {
+// dryRun: return who would be picked without touching rotation state (used by
+// the AI Author to prefetch the next prompt while the current one plays).
+function chooseNextPlayer(dryRun) {
   var players = gameState.players;
   if (!players.length) return null;
 
@@ -747,6 +749,7 @@ function chooseNextPlayer() {
 
   // Random selection from weighted pool
   var selectedPlayer = randomFrom(weighted);
+  if (dryRun) return selectedPlayer.name;
   var selectedIndex = players.indexOf(selectedPlayer);
   gameState.currentPlayerIndex = selectedIndex;
   gameState.currentPlayer = selectedPlayer.name;
@@ -1287,6 +1290,7 @@ function undressBlockedFor(prompt, name, info) {
     if (removedItems(name).indexOf(garment) >= 0) return true;
     if (entry.gender) { var pl = getPlayerByName(name); if (pl && pl.gender !== entry.gender) return true; }
     if (entry.floor > chapterNumber()) return true; // ladder: too early for this garment
+    if (entry.requires && removedItems(name).indexOf(entry.requires) < 0) return true; // layer order: bra after top, socks after shoes
     return false;
   }
   if (info.makesFull) return false;
@@ -3722,170 +3726,31 @@ function nextTurn() {
   }
 
   // =========================
-  // AI DIRECTOR: ask the AI what should happen, then execute with curated prompts
+  // AI AUTHOR: Lyra writes the prompt (ai_orb.js); the engine validates it.
+  // Chains, follow-throughs and bridges were handled above; story beats keep
+  // their place; anything Lyra can't deliver falls back to the curated pool.
   // =========================
-
-  function executeDirective(directive, player) {
-    var chapter = getCurrentChapter();
-    var role = getCurrentRole();
-    var action = (directive && directive.action) || "normal";
-
-    // Handle Orb voice — show it before the prompt
-    var orbVoiceText = (directive && directive.orbVoice) ? directive.orbVoice : null;
-
-    // --- SPINNER directive ---
-    if (action === "spinner" && chapter !== "playful" && chapter !== "personal") {
-      var spinnerPrompt = maybePickSpinner(chapter);
-      if (spinnerPrompt) {
-        var spinTarget = chooseTarget(player, spinnerPrompt);
-        gameState.lastSpinnerTurn = gameState.turnCount;
-        if (orbVoiceText) spinnerPrompt.orb_voice = orbVoiceText;
-        return { prompt: spinnerPrompt, actor: player, target: spinTarget };
-      }
-    }
-
-    // --- START CHAIN directive ---
-    if (action === "start_chain" && directive.chainId) {
-      // Validate chain is for current stage
-      var chainStarters = getPromptPool().filter(function(p) {
-        return p.chain_id === directive.chainId && p.chain_step === 1 &&
-          !wasRecentlyUsedPrompt(p.id) && gameState.recentChains.indexOf(p.chain_id) < 0;
-      });
-      if (chainStarters.length) {
-        var starter = chainStarters[0];
-        if (starter.chapter === chapter) {
-          var cTarget = chooseTarget(player, starter);
-          // Gender check for chains like erotic_lingerie
-          if (starter.target_gender) {
-            var genderTargets = getOtherPlayerNames(player).filter(function(name) {
-              var p = getPlayerByName(name);
-              return p && p.gender === starter.target_gender;
-            });
-            if (genderTargets.length) cTarget = randomFrom(genderTargets);
-            else cTarget = null;
-          }
-          if (cTarget) {
-            startChain(starter.chain_id, player, cTarget);
-            if (orbVoiceText) starter.orb_voice = orbVoiceText;
-            return { prompt: starter, actor: player, target: cTarget };
-          }
-        }
-      }
-    }
-
-    // --- TARGET PAIR directive ---
-    if (action === "target_pair" && directive.pair) {
-      var pairNames = directive.pair.split("+");
-      if (pairNames.length === 2) {
-        // Use the pair — first name is actor, second is target (or swap if first isn't current player)
-        var pActor = pairNames[0].trim();
-        var pTarget = pairNames[1].trim();
-        if (pActor !== player) { pTarget = pActor; pActor = player; }
-        // Validate target exists
-        var validTarget = getPlayerByName(pTarget);
-        if (validTarget && pTarget !== player) {
-          var sel = selectPrompt(player);
-          if (sel) {
-            sel.target = pTarget;
-            if (orbVoiceText) sel.prompt.orb_voice = orbVoiceText;
-            return sel;
-          }
-        }
-      }
-    }
-
-    // --- BOOST directive: pick a prompt with higher intensity ---
-    if (action === "boost") {
-      var skipGrp = isCouplesMode();
-      var pool = getPromptPool().filter(function(p) {
-        return p.chapter === chapter && !p.chain_id && !wasRecentlyUsedPrompt(p.id) &&
-          promptMatchesGender(p, player) && p.intensity >= 6 &&
-          !(skipGrp && p.type === "group");
-      });
-      if (pool.length) {
-        var boosted = themeAwareRandom(pool);
-        var bTarget = chooseTarget(player, boosted);
-        if (orbVoiceText) boosted.orb_voice = orbVoiceText;
-        return { prompt: boosted, actor: player, target: bTarget };
-      }
-    }
-
-    // --- COOLDOWN directive: pick a lighter prompt ---
-    if (action === "cooldown") {
-      var skipGrp2 = isCouplesMode();
-      var coolPool = getPromptPool().filter(function(p) {
-        return p.chapter === chapter && !p.chain_id && !wasRecentlyUsedPrompt(p.id) &&
-          p.promptType === "truth" && p.intensity <= 5 &&
-          !(skipGrp2 && p.type === "group");
-      });
-      if (coolPool.length) {
-        var cooled = themeAwareRandom(coolPool);
-        var cdTarget = chooseTarget(player, cooled);
-        if (orbVoiceText) cooled.orb_voice = orbVoiceText;
-        return { prompt: cooled, actor: player, target: cdTarget };
-      }
-    }
-
-    // --- FORCE TYPE directive ---
-    if (action === "normal" && directive && directive.forceType) {
-      var skipGrp3 = isCouplesMode();
-      var ftPool = getPromptPool().filter(function(p) {
-        return p.chapter === chapter && p.role === role && !p.chain_id &&
-          !wasRecentlyUsedPrompt(p.id) && promptMatchesGender(p, player) &&
-          p.promptType === directive.forceType &&
-          !(skipGrp3 && p.type === "group");
-      });
-      if (ftPool.length) {
-        var forced = themeAwareRandom(ftPool);
-        var ftTarget = chooseTarget(player, forced);
-        if (orbVoiceText) forced.orb_voice = orbVoiceText;
-        return { prompt: forced, actor: player, target: ftTarget };
-      }
-    }
-
-    // --- NORMAL (default): standard prompt selection, but attach orbVoice if present ---
-    var normalSel = selectPrompt(player);
-    if (normalSel && orbVoiceText) {
-      normalSel.prompt.orb_voice = orbVoiceText;
-    }
-    return normalSel;
-  }
-
-  // AI Director enabled: get directive then execute
-  if (typeof window.OrbAI !== "undefined" && window.OrbAI.isEnabled()) {
-    // Chains first — always handled by offline engine
-    var chapter = getCurrentChapter();
-    var role = getCurrentRole();
-    var chainTarget = chooseTarget(player);
-    var chainResult2 = maybeStartAvailableChain(chapter, role, player, chainTarget);
-    if (chainResult2 && chainResult2.prompt) {
-      proceedWithSelected({ prompt: chainResult2.prompt, actor: player, target: chainResult2.target || chainTarget });
-      // Prefetch next directive while chain prompt plays
-      if (window.OrbAI.prefetch) window.OrbAI.prefetch();
+  if (typeof window.OrbAI !== "undefined" && window.OrbAI.isEnabled() && !gameState.followThroughQueue && !gameState.postChainBridge) {
+    var aiBeat = null;
+    try { if (typeof OrbStory !== "undefined" && OrbStory.isActive()) aiBeat = OrbStory.maybePickBeat(player); } catch (e) { aiBeat = null; }
+    if (aiBeat) {
+      proceedWithSelected(aiBeat);
+      try { window.OrbAI.prefetch(); } catch (e) {}
       return;
     }
-
-    // Check for prefetched directive (instant, no delay)
-    if (window.OrbAI.hasPrefetched && window.OrbAI.hasPrefetched()) {
-      var directive = window.OrbAI.consumePrefetched();
-      var result = executeDirective(directive, player);
-      proceedWithSelected(result);
-      if (window.OrbAI.prefetch) window.OrbAI.prefetch();
-      return;
-    }
-
-    // No prefetch — ask the AI Director (may add slight delay on some turns)
     gameState.currentPlayer = player;
-    window.OrbAI.getDirective(function(directive) {
+    window.OrbAI.takePrompt(player, function(aiSel) {
       try {
-        var result = executeDirective(directive, player);
-        proceedWithSelected(result);
-        if (window.OrbAI.prefetch) window.OrbAI.prefetch();
+        if (aiSel && aiSel.prompt) {
+          proceedWithSelected(aiSel);
+        } else {
+          proceedWithSelected(selectPrompt(player));
+        }
       } catch (e) {
-        console.error("[Orb Director] Error executing directive:", e);
-        var fallback = selectPrompt(player);
-        proceedWithSelected(fallback);
+        console.error("[Orb AI] prompt flow failed, using curated pool:", e);
+        proceedWithSelected(selectPrompt(player));
       }
+      try { window.OrbAI.prefetch(); } catch (e2) {}
     });
     return;
   }

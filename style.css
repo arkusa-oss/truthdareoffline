@@ -2756,3 +2756,26 @@ body { overflow-y: auto; }
   .story-choice { grid-template-columns: 1fr; }
   .story-prop { flex-wrap: wrap; }
 }
+
+/* ============================================================
+   LYRA'S MIND — AI author settings, thinking state, voice overlay
+   ============================================================ */
+.ai-settings { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.ai-code-row { margin-top: 8px; }
+.ai-code-row input {
+  width: 100%; border-radius: 14px; border: 1px solid rgba(180, 210, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06); color: white; padding: 10px 14px;
+  font-family: "Rajdhani", "Inter", sans-serif; font-size: 1rem; outline: none;
+}
+.prompt-text.is-thinking { animation: lyraThinking 1.4s ease-in-out infinite; }
+@keyframes lyraThinking { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.75; } }
+.orb-voice-overlay {
+  position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+  background: rgba(4, 3, 14, 0.86); z-index: 9999; cursor: pointer; opacity: 0; transition: opacity 0.5s ease;
+}
+.orb-voice-text {
+  max-width: 600px; padding: 40px; text-align: center;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.6rem; font-style: italic;
+  color: rgba(240, 225, 255, 0.95); line-height: 1.6; letter-spacing: 0.03em;
+  text-shadow: 0 0 30px rgba(170, 120, 255, 0.5);
+}

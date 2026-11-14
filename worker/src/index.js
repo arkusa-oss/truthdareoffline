@@ -9,19 +9,22 @@
 //   GET   /            same as /stats
 // Optional gate: set secret STATS_TOKEN, then /stats requires ?token=<value>.
 
-const STAGES = ["personal", "playful", "flirty", "suggestive", "intimate", "erotic", "taboo"];
+//   POST  /ai/turn   AI Author: Lyra writes the next prompt (see src/ai.js)
 
-const CORS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type"
-};
+import { handleAiTurn, CORS } from "./ai.js";
+
+const STAGES = ["personal", "playful", "flirty", "suggestive", "intimate", "erotic", "taboo"];
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
+
+    if (url.pathname === "/ai/turn") {
+      if (request.method !== "POST") return new Response("method not allowed", { status: 405, headers: CORS });
+      return handleAiTurn(request, env);
+    }
 
     if (request.method === "POST") {
       try {

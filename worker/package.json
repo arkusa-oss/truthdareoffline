@@ -1,0 +1,17 @@
+{
+  "name": "lyra-stats-worker",
+  "private": true,
+  "type": "module",
+  "description": "Lyra's Orb — stats collector + AI Author proxy (Cloudflare Worker)",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "test": "node test_ai.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.162.0"
+  }
+}

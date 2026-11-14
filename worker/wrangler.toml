@@ -1,6 +1,7 @@
 name = "lyra-stats"
 main = "src/index.js"
 compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
 
 # D1 database binding. After `wrangler d1 create lyra-stats`, paste the printed
 # database_id below (replace REPLACE_AFTER_CREATE).
@@ -8,3 +9,11 @@ compatibility_date = "2024-11-01"
 binding = "DB"
 database_name = "lyra-stats"
 database_id = "eb8e3c2f-1b64-47b4-bed9-6eab2c966dd0"
+
+# AI Author (src/ai.js). Secrets are set with `npx wrangler secret put <NAME>`:
+#   ANTHROPIC_API_KEY  (required)   AI_ACCESS_CODE (optional private-beta gate)
+[vars]
+AI_MODEL = "claude-opus-5-5"
+AI_EFFORT = "low"
+AI_SESSION_CAP = "160"
+AI_DAILY_CAP = "1500"

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./style.css?v=31" />
+  <link rel="stylesheet" href="./style.css?v=32" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -35,6 +35,10 @@
   <!-- Feedback form: paste your Google Form (or any) URL to show a "Feedback"
        link in-game. Empty = link stays hidden. -->
   <script>window.ORB_FEEDBACK_URL = "https://docs.google.com/forms/d/e/1FAIpQLSedlk620EzajLAdHndd6WNCY-TLbtZyhI5zwMsQkJZ7BBu8xg/viewform";</script>
+
+  <!-- Lyra's Mind (AI Author): the Worker route that writes prompts (see worker/README.md).
+       Empty = feature hidden; the curated pool plays as before. -->
+  <script>window.ORB_AI_ENDPOINT = "https://lyra-stats.ark-usa.workers.dev/ai/turn";</script>
 </head>
 <body class="stage-personal">
   <div class="app-shell">
@@ -442,7 +446,6 @@
   <script src="./translations_es.js"></script>
   <script src="./atmosphere.js"></script>
   <script src="./orb-voice.js"></script>
-  <script src="./ai_orb.js"></script>
   <!-- engine split into modules; loaded in dependency order -->
   <script src="./orb-data.js"></script>
   <script src="./orb-templates.js"></script>
@@ -450,6 +453,7 @@
   <script src="./orb-memory.js"></script>
   <script src="./orb-engine.js"></script>
   <script src="./orb-story.js"></script>
+  <script src="./ai_orb.js"></script>
   <script src="./orb-analytics.js"></script>
   <script src="./orb-music.js"></script>
   <script src="./orb-ui.js"></script>

@@ -12,6 +12,7 @@
 //   - firstImpression: string (who they noticed first, if recorded)
 //   - preferredKiss: string (who they chose to kiss)
 //   - attraction: { otherName: score }
+//   - notes: [{ note, turn, at }] — dossier lines written by the AI author
 //   - nightsPlayed: number
 //   - lastPlayed: ISO timestamp
 //
@@ -118,6 +119,8 @@ var LyraMemory = (function() {
         existing.attraction[other] = data.attraction[other];
       });
     }
+    // Dossier notes (AI author): [{ note, turn, at }] — what Lyra learned, kept short
+    if (Array.isArray(data.notes)) existing.notes = data.notes.slice(-20);
     if (typeof data.incrementNights !== "undefined" && data.incrementNights) {
       existing.nightsPlayed = (existing.nightsPlayed || 0) + 1;
     }
@@ -232,6 +235,10 @@ var LyraMemory = (function() {
       else if (jeal === "not_jealous") lines.push("You are not easily jealous.");
       var kiss = gameState.memory && gameState.memory.preferredKiss && gameState.memory.preferredKiss[name];
       if (kiss) lines.push("You chose " + kiss + ".");
+      var rec = loadPlayer(name);
+      if (rec && rec.notes && rec.notes.length) {
+        rec.notes.slice(-3).forEach(function(n) { lines.push("Lyra noted: " + (n.note || n) + "."); });
+      }
       if (!lines.length) lines.push("Lyra is still learning about you.");
       out.push({ player: name, lines: lines });
     });
